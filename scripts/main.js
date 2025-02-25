@@ -17,10 +17,48 @@ document.addEventListener("DOMContentLoaded", () => {
         ? '<i class="fas fa-moon"></i>'
         : '<i class="fas fa-sun"></i>';
   });
+  // 커서 효과
+  const cursor = document.createElement("div");
+  cursor.className = "custom-cursor";
+  document.body.appendChild(cursor);
+
+  const trails = [];
+  for (let i = 0; i < 5; i++) {
+    const trail = document.createElement("div");
+    trail.className = "cursor-trail";
+    document.body.appendChild(trail);
+    trails.push({ el: trail, x: 0, y: 0 });
+  }
+
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = `${e.clientX - 10}px`;
+    cursor.style.top = `${e.clientY - 10}px`;
+
+    trails.forEach((trail, index) => {
+      setTimeout(() => {
+        trail.el.style.left = `${e.clientX - 4}px`;
+        trail.el.style.top = `${e.clientY - 4}px`;
+      }, index * 50);
+    });
+  });
 
   // Mobile Menu
   const hamburger = document.querySelector(".hamburger");
   const nav = document.querySelector(".nav");
+  // 네비게이션 메뉴 항목 선택
+  const navLinks = document.querySelectorAll(".nav a");
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      // 기존의 active 클래스를 모두 제거
+      navLinks.forEach((nav) => nav.classList.remove("active"));
+
+      // 클릭된 항목에 active 클래스 추가
+      e.target.classList.add("active");
+    });
+  });
 
   hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("active");
@@ -98,13 +136,23 @@ document.addEventListener("DOMContentLoaded", () => {
         <p><i class="fas fa-phone"></i> 010-7723-4412</p>
         <p><i class="fas fa-envelope"></i> mark77234@example.com</p>
         <div class="social-links">
-          <a href="https://www.instagram.com/mark77234/" target="_blank">
+          <a href="https://www.instagram.com/bong_chanii/" target="_blank">
             <i class="fab fa-instagram"></i>
           </a>
           <a href="https://mark7723.tistory.com/" target="_blank">
             <i class="fas fa-blog"></i>
           </a>
         </div>
+      </div>
+    `);
+  });
+  document.getElementById("homeBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // 홈 콘텐츠 업데이트
+    loadContent(`
+      <div class="posts-grid">
+        ${posts.map(createPostCard).join("")}
       </div>
     `);
   });

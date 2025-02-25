@@ -27,11 +27,33 @@
 }
 
 body {
+  cursor: none;
   font-family: "Inter", sans-serif;
   background-color: var(--background);
   color: var(--text);
   line-height: 1.6;
   transition: var(--transition);
+}
+
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  transition: transform 0.3s, opacity 0.3s;
+  mix-blend-mode: difference;
+}
+
+.cursor-trail {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0.5;
 }
 
 .container {
@@ -135,11 +157,16 @@ body {
 }
 
 .profile-card {
-  background: var(--surface);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  backdrop-filter: blur(12px);
   padding: 2rem;
   border-radius: var(--border-radius);
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
 .profile-image {
@@ -181,7 +208,8 @@ body {
 }
 
 .post-card {
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
   border-radius: var(--border-radius);
   padding: 1.5rem;
   transition: var(--transition);

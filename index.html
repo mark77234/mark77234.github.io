@@ -17,6 +17,62 @@
     <link rel="stylesheet" href="styles/styles.css" />
   </head>
   <body>
+    <!-- body 시작 부분에 추가 -->
+    <canvas id="particle-canvas"></canvas>
+
+    <script>
+      // particles.js
+      const canvas = document.getElementById("particle-canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 2 + 1;
+          this.speedX = Math.random() * 3 - 1.5;
+          this.speedY = Math.random() * 3 - 1.5;
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          if (this.x > canvas.width) this.x = 0;
+          if (this.x < 0) this.x = canvas.width;
+          if (this.y > canvas.height) this.y = 0;
+          if (this.y < 0) this.y = canvas.height;
+        }
+
+        draw() {
+          ctx.fillStyle = `rgba(124,58,237,${this.size / 3})`;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function init() {
+        for (let i = 0; i < 100; i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((particle) => {
+          particle.update();
+          particle.draw();
+        });
+        requestAnimationFrame(animate);
+      }
+
+      init();
+      animate();
+    </script>
     <!-- Floating Theme Toggle -->
     <button class="theme-toggle">
       <i class="fas fa-moon"></i>
@@ -29,7 +85,7 @@
         </h1>
         <nav class="nav">
           <ul>
-            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#" id="homeBtn">Home</a></li>
             <li><a href="#" id="aboutBtn">About</a></li>
             <li><a href="#" id="contactBtn">Contact</a></li>
           </ul>
@@ -47,7 +103,7 @@
           <p>iOS & Web Developer</p>
           <div class="social-links">
             <a
-              href="https://www.instagram.com/mark77234/"
+              href="https://www.instagram.com/bong_chanii/"
               target="_blank"
               class="social-icon"
             >
@@ -58,11 +114,70 @@
               target="_blank"
               class="social-icon"
             >
-              <i class="fas fa-blog"></i>
+              <i class="fas fa-t"></i>
             </a>
           </div>
         </div>
       </aside>
+      <!-- 사이드바 하단에 추가 -->
+      <div class="mini-game">
+        <div id="game-character">🚀</div>
+      </div>
+
+      <style>
+        .mini-game {
+          position: relative;
+          height: 200px;
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: var(--border-radius);
+          margin-top: 2rem;
+          overflow: hidden;
+        }
+
+        #game-character {
+          position: absolute;
+          font-size: 2rem;
+          transition: all 0.1s ease;
+          filter: drop-shadow(0 0 8px var(--primary));
+        }
+      </style>
+
+      <script>
+        const character = document.getElementById("game-character");
+        let posX = 50,
+          posY = 50;
+        let speed = 10; // 이동 속도 조절
+        let moving = { up: false, down: false, left: false, right: false };
+
+        // 키가 눌렸을 때 이동 상태 변경
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowUp") moving.up = true;
+          if (e.key === "ArrowDown") moving.down = true;
+          if (e.key === "ArrowLeft") moving.left = true;
+          if (e.key === "ArrowRight") moving.right = true;
+        });
+
+        // 키가 떼어졌을 때 이동 상태 변경
+        document.addEventListener("keyup", (e) => {
+          if (e.key === "ArrowUp") moving.up = false;
+          if (e.key === "ArrowDown") moving.down = false;
+          if (e.key === "ArrowLeft") moving.left = false;
+          if (e.key === "ArrowRight") moving.right = false;
+        });
+
+        // 캐릭터 이동 함수
+        function moveCharacter() {
+          if (moving.up) posY = Math.max(0, posY - speed);
+          if (moving.down) posY = Math.min(180, posY + speed);
+          if (moving.left) posX = Math.max(0, posX - speed);
+          if (moving.right) posX = Math.min(280, posX + speed);
+
+          character.style.transform = `translate(${posX}px, ${posY}px)`;
+        }
+
+        // 일정 간격으로 캐릭터를 부드럽게 이동시키기
+        setInterval(moveCharacter, 16); // 약 60fps로 부드럽게 움직임
+      </script>
 
       <main class="content">
         <section id="posts" class="posts-grid"></section>
