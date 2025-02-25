@@ -1,2 +1,2 @@
-### 사이트
+### 링크
 https://mark77234.github.io/
