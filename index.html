@@ -4,86 +4,99 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>mark77234's Blog</title>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles/styles.css" />
   </head>
   <body>
     <!-- 스크롤 진행률 표시기 -->
-    <div class="scroll-progress"></div>
+    <div class="scroll-progress" aria-hidden="true"></div>
 
-    <!-- 파티클 배경 -->
+    <!-- 파티클 배경 캔버스 -->
     <canvas id="particle-canvas"></canvas>
 
     <!-- 테마 토글 버튼 -->
-    <button class="theme-toggle">
+    <button class="theme-toggle" aria-label="Toggle theme">
       <i class="fas fa-moon"></i>
     </button>
 
-    <!-- 헤더 -->
+    <!-- 헤더 섹션 -->
     <header class="header">
       <div class="container">
         <h1 class="logo">
-          <a href="index.html"> mark77234's Blog </a>
+          <a href="index.html">mark77234's Blog</a>
         </h1>
+
+        <!-- 주 네비게이션 -->
         <nav class="nav">
           <ul>
-            <li><a href="#" id="homeBtn">Home</a></li>
-            <li><a href="#" id="aboutBtn">About</a></li>
-            <li><a href="#" id="contactBtn">Contact</a></li>
+            <li><a href="#" data-page="home">Home</a></li>
+            <li><a href="#" data-page="about">About</a></li>
+            <li><a href="#" data-page="contact">Contact</a></li>
           </ul>
         </nav>
-        <button class="hamburger">
+
+        <!-- 모바일 햄버거 메뉴 -->
+        <button class="hamburger" aria-label="Toggle navigation">
           <div class="bar"></div>
         </button>
       </div>
     </header>
 
-    <!-- 메인 컨텐츠 -->
+    <!-- 메인 컨텐츠 영역 -->
     <div class="container blog-layout">
       <!-- 사이드바 -->
       <aside class="sidebar">
-        <div class="profile-card">
+        <article class="profile-card">
           <h2>mark77234</h2>
           <p>iOS & Web Developer</p>
+
+          <!-- 소셜 링크 -->
           <div class="social-links">
             <a
               href="https://www.instagram.com/bong_chanii/"
               target="_blank"
-              class="social-icon"
+              rel="noopener"
             >
               <i class="fab fa-instagram"></i>
             </a>
             <a
               href="https://mark7723.tistory.com/"
               target="_blank"
-              class="social-icon"
+              rel="noopener"
             >
               <i class="fas fa-t"></i>
             </a>
           </div>
+
           <!-- 태그 클라우드 -->
           <div class="tag-cloud"></div>
-        </div>
+        </article>
       </aside>
 
-      <!-- 미니게임 -->
-      <div class="mini-game">
+      <!-- 미니게임 섹션 -->
+      <section class="mini-game" aria-label="Mini game">
         <div id="game-container">
-          <div id="dino"></div>
-          <div id="obstacle"></div>
+          <div id="dino" role="img" aria-label="Dinosaur character"></div>
+          <div id="obstacle" role="img" aria-label="Game obstacle"></div>
           <div id="score">Score: 0</div>
           <button id="start-btn">게임 시작</button>
         </div>
-      </div>
+      </section>
 
       <!-- 메인 콘텐츠 -->
       <main class="content">
@@ -92,6 +105,6 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="scripts/main.js"></script>
+    <script src="scripts/main.js" type="module"></script>
   </body>
 </html>
