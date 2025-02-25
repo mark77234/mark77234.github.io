@@ -1,32 +1,73 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>byeonchan</title>
-    <link rel="stylesheet" href="styles/style.css" />
+    <title>mark77234's Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles/styles.css" />
   </head>
   <body>
+    <!-- Floating Theme Toggle -->
+    <button class="theme-toggle">
+      <i class="fas fa-moon"></i>
+    </button>
+
     <header class="header">
-      <h1>byeonchan</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">홈</a></li>
-          <li><a href="about.html">소개</a></li>
-        </ul>
-      </nav>
+      <div class="container">
+        <h1 class="logo">
+          <a href="index.html"> mark77234's Blog </a>
+        </h1>
+        <nav class="nav">
+          <ul>
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#" id="aboutBtn">About</a></li>
+            <li><a href="#" id="contactBtn">Contact</a></li>
+          </ul>
+        </nav>
+        <button class="hamburger">
+          <div class="bar"></div>
+        </button>
+      </div>
     </header>
 
-    <main class="content">
-      <!-- 블로그 포스트 목록 영역 -->
-      <section id="posts">
-        <!-- JS를 통해 동적으로 포스트 목록 추가 -->
-      </section>
-    </main>
+    <div class="container blog-layout">
+      <aside class="sidebar">
+        <div class="profile-card">
+          <h2>mark77234</h2>
+          <p>iOS & Web Developer</p>
+          <div class="social-links">
+            <a
+              href="https://www.instagram.com/mark77234/"
+              target="_blank"
+              class="social-icon"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a
+              href="https://mark7723.tistory.com/"
+              target="_blank"
+              class="social-icon"
+            >
+              <i class="fas fa-blog"></i>
+            </a>
+          </div>
+        </div>
+      </aside>
 
-    <footer class="footer">
-      <p>&copy; 2025 귀멸의 칼날 블로그</p>
-    </footer>
+      <main class="content">
+        <section id="posts" class="posts-grid"></section>
+      </main>
+    </div>
 
     <script src="scripts/main.js"></script>
   </body>
