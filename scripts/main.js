@@ -69,20 +69,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const postsSection = document.querySelector(".posts-grid");
   const posts = [
     {
-      title: "첫 번째 포스트",
+      title: "App Projects",
       link: "posts/post1.html",
       date: "2025-02-21",
-      excerpt:
-        "이것은 첫 번째 포스트의 요약 내용입니다. 최신 웹 개발 기술에 대해 알아봅니다.",
-      tags: ["Web", "JavaScript"],
+      excerpt: "앱 개발 경험을 작성할 예정입니다.",
+      tags: ["Kotlin", "Flutter", "Swift"],
     },
     {
-      title: "두 번째 포스트",
+      title: "Web Projects",
       link: "posts/post2.html",
       date: "2025-02-20",
-      excerpt:
-        "iOS 개발에 관한 두 번째 포스트의 내용 요약입니다. SwiftUI 활용법을 다룹니다.",
-      tags: ["iOS", "SwiftUI"],
+      excerpt: "웹 개발 경험을 작성할 예정입니다.",
+      tags: ["Javascript", "HTML", "CSS"],
     },
   ];
 

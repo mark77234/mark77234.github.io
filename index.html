@@ -15,13 +15,46 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="styles/styles.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* 배경이 덮어쓰지 않도록 */
+      }
+
+      #particle-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* 배경으로 설정 */
+      }
+
+      .mini-game {
+        position: relative;
+        height: 200px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: var(--border-radius);
+        margin-top: 2rem;
+        overflow: hidden;
+        z-index: 1; /* 미니게임 요소는 다른 요소들 위에 표시 */
+      }
+
+      #game-character {
+        position: absolute;
+        font-size: 2rem;
+        transition: all 0.1s ease;
+        filter: drop-shadow(0 0 8px var(--primary));
+      }
+    </style>
   </head>
   <body>
-    <!-- body 시작 부분에 추가 -->
+    <!-- particles.js 배경 캔버스 -->
     <canvas id="particle-canvas"></canvas>
 
     <script>
-      // particles.js
+      // particles.js 설정
       const canvas = document.getElementById("particle-canvas");
       const ctx = canvas.getContext("2d");
       canvas.width = window.innerWidth;
@@ -73,7 +106,8 @@
       init();
       animate();
     </script>
-    <!-- Floating Theme Toggle -->
+
+    <!-- 테마 토글 버튼 -->
     <button class="theme-toggle">
       <i class="fas fa-moon"></i>
     </button>
@@ -119,28 +153,11 @@
           </div>
         </div>
       </aside>
-      <!-- 사이드바 하단에 추가 -->
+
+      <!-- 미니게임 영역 -->
       <div class="mini-game">
         <div id="game-character">🚀</div>
       </div>
-
-      <style>
-        .mini-game {
-          position: relative;
-          height: 200px;
-          background: rgba(0, 0, 0, 0.3);
-          border-radius: var(--border-radius);
-          margin-top: 2rem;
-          overflow: hidden;
-        }
-
-        #game-character {
-          position: absolute;
-          font-size: 2rem;
-          transition: all 0.1s ease;
-          filter: drop-shadow(0 0 8px var(--primary));
-        }
-      </style>
 
       <script>
         const character = document.getElementById("game-character");
@@ -148,6 +165,18 @@
           posY = 50;
         let speed = 10; // 이동 속도 조절
         let moving = { up: false, down: false, left: false, right: false };
+
+        // 화면 크기 업데이트 함수
+        function updateBounds() {
+          const canvasWidth = window.innerWidth;
+          const canvasHeight = window.innerHeight;
+
+          // x, y 좌표의 제한을 화면 크기에 맞게 동적으로 설정
+          return {
+            maxX: canvasWidth - character.offsetWidth, // 오른쪽 끝
+            maxY: canvasHeight - character.offsetHeight, // 아래쪽 끝
+          };
+        }
 
         // 키가 눌렸을 때 이동 상태 변경
         document.addEventListener("keydown", (e) => {
@@ -167,10 +196,12 @@
 
         // 캐릭터 이동 함수
         function moveCharacter() {
+          const { maxX, maxY } = updateBounds(); // 화면 크기에 맞춰 제한 값 갱신
+
           if (moving.up) posY = Math.max(0, posY - speed);
-          if (moving.down) posY = Math.min(180, posY + speed);
+          if (moving.down) posY = Math.min(maxY, posY + speed);
           if (moving.left) posX = Math.max(0, posX - speed);
-          if (moving.right) posX = Math.min(280, posX + speed);
+          if (moving.right) posX = Math.min(maxX, posX + speed);
 
           character.style.transform = `translate(${posX}px, ${posY}px)`;
         }
