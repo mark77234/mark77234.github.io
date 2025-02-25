@@ -15,103 +15,20 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="styles/styles.css" />
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden; /* 배경이 덮어쓰지 않도록 */
-      }
-
-      #particle-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1; /* 배경으로 설정 */
-      }
-
-      .mini-game {
-        position: relative;
-        height: 200px;
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: var(--border-radius);
-        margin-top: 2rem;
-        overflow: hidden;
-        z-index: 1; /* 미니게임 요소는 다른 요소들 위에 표시 */
-      }
-
-      #game-character {
-        position: absolute;
-        font-size: 2rem;
-        transition: all 0.1s ease;
-        filter: drop-shadow(0 0 8px var(--primary));
-      }
-    </style>
   </head>
   <body>
-    <!-- particles.js 배경 캔버스 -->
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+
+    <!-- 파티클 배경 -->
     <canvas id="particle-canvas"></canvas>
-
-    <script>
-      // particles.js 설정
-      const canvas = document.getElementById("particle-canvas");
-      const ctx = canvas.getContext("2d");
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const particles = [];
-      class Particle {
-        constructor() {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.size = Math.random() * 2 + 1;
-          this.speedX = Math.random() * 3 - 1.5;
-          this.speedY = Math.random() * 3 - 1.5;
-        }
-
-        update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-
-          if (this.x > canvas.width) this.x = 0;
-          if (this.x < 0) this.x = canvas.width;
-          if (this.y > canvas.height) this.y = 0;
-          if (this.y < 0) this.y = canvas.height;
-        }
-
-        draw() {
-          ctx.fillStyle = `rgba(124,58,237,${this.size / 3})`;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      function init() {
-        for (let i = 0; i < 100; i++) {
-          particles.push(new Particle());
-        }
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach((particle) => {
-          particle.update();
-          particle.draw();
-        });
-        requestAnimationFrame(animate);
-      }
-
-      init();
-      animate();
-    </script>
 
     <!-- 테마 토글 버튼 -->
     <button class="theme-toggle">
       <i class="fas fa-moon"></i>
     </button>
 
+    <!-- 헤더 -->
     <header class="header">
       <div class="container">
         <h1 class="logo">
@@ -130,7 +47,9 @@
       </div>
     </header>
 
+    <!-- 메인 컨텐츠 -->
     <div class="container blog-layout">
+      <!-- 사이드바 -->
       <aside class="sidebar">
         <div class="profile-card">
           <h2>mark77234</h2>
@@ -151,70 +70,28 @@
               <i class="fas fa-t"></i>
             </a>
           </div>
+          <!-- 태그 클라우드 -->
+          <div class="tag-cloud"></div>
         </div>
       </aside>
 
-      <!-- 미니게임 영역 -->
+      <!-- 미니게임 -->
       <div class="mini-game">
-        <div id="game-character">🚀</div>
+        <div id="game-container">
+          <div id="dino"></div>
+          <div id="obstacle"></div>
+          <div id="score">Score: 0</div>
+          <button id="start-btn">게임 시작</button>
+        </div>
       </div>
 
-      <script>
-        const character = document.getElementById("game-character");
-        let posX = 50,
-          posY = 50;
-        let speed = 10; // 이동 속도 조절
-        let moving = { up: false, down: false, left: false, right: false };
-
-        // 화면 크기 업데이트 함수
-        function updateBounds() {
-          const canvasWidth = window.innerWidth;
-          const canvasHeight = window.innerHeight;
-
-          // x, y 좌표의 제한을 화면 크기에 맞게 동적으로 설정
-          return {
-            maxX: canvasWidth - character.offsetWidth, // 오른쪽 끝
-            maxY: canvasHeight - character.offsetHeight, // 아래쪽 끝
-          };
-        }
-
-        // 키가 눌렸을 때 이동 상태 변경
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "ArrowUp") moving.up = true;
-          if (e.key === "ArrowDown") moving.down = true;
-          if (e.key === "ArrowLeft") moving.left = true;
-          if (e.key === "ArrowRight") moving.right = true;
-        });
-
-        // 키가 떼어졌을 때 이동 상태 변경
-        document.addEventListener("keyup", (e) => {
-          if (e.key === "ArrowUp") moving.up = false;
-          if (e.key === "ArrowDown") moving.down = false;
-          if (e.key === "ArrowLeft") moving.left = false;
-          if (e.key === "ArrowRight") moving.right = false;
-        });
-
-        // 캐릭터 이동 함수
-        function moveCharacter() {
-          const { maxX, maxY } = updateBounds(); // 화면 크기에 맞춰 제한 값 갱신
-
-          if (moving.up) posY = Math.max(0, posY - speed);
-          if (moving.down) posY = Math.min(maxY, posY + speed);
-          if (moving.left) posX = Math.max(0, posX - speed);
-          if (moving.right) posX = Math.min(maxX, posX + speed);
-
-          character.style.transform = `translate(${posX}px, ${posY}px)`;
-        }
-
-        // 일정 간격으로 캐릭터를 부드럽게 이동시키기
-        setInterval(moveCharacter, 16); // 약 60fps로 부드럽게 움직임
-      </script>
-
+      <!-- 메인 콘텐츠 -->
       <main class="content">
         <section id="posts" class="posts-grid"></section>
       </main>
     </div>
 
+    <!-- JavaScript -->
     <script src="scripts/main.js"></script>
   </body>
 </html>

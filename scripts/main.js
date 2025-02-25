@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ? '<i class="fas fa-moon"></i>'
         : '<i class="fas fa-sun"></i>';
   });
+
   // 커서 효과
   const cursor = document.createElement("div");
   cursor.className = "custom-cursor";
@@ -45,17 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Mobile Menu
   const hamburger = document.querySelector(".hamburger");
   const nav = document.querySelector(".nav");
-  // 네비게이션 메뉴 항목 선택
   const navLinks = document.querySelectorAll(".nav a");
 
   navLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
-
-      // 기존의 active 클래스를 모두 제거
       navLinks.forEach((nav) => nav.classList.remove("active"));
-
-      // 클릭된 항목에 active 클래스 추가
       e.target.classList.add("active");
     });
   });
@@ -144,14 +140,176 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `);
   });
+
   document.getElementById("homeBtn").addEventListener("click", (e) => {
     e.preventDefault();
-
-    // 홈 콘텐츠 업데이트
     loadContent(`
       <div class="posts-grid">
         ${posts.map(createPostCard).join("")}
       </div>
     `);
   });
+
+  // 스크롤 진행률
+  const scrollProgress = document.createElement("div");
+  scrollProgress.className = "scroll-progress";
+  document.body.appendChild(scrollProgress);
+
+  window.addEventListener("scroll", () => {
+    const scrollProgress =
+      (window.scrollY /
+        (document.documentElement.scrollHeight - window.innerHeight)) *
+      100;
+    document.querySelector(
+      ".scroll-progress"
+    ).style.width = `${scrollProgress}%`;
+  });
+
+  // 태그 클라우드
+  const tags = [
+    "Swift",
+    "Kotlin",
+    "JavaScript",
+    "React",
+    "Node.js",
+    "Flutter",
+    "UI/UX",
+    "Git",
+  ];
+  const tagCloud = document.createElement("div");
+  tagCloud.className = "tag-cloud";
+  tags.forEach((tag) => {
+    const span = document.createElement("span");
+    span.className = "tag";
+    span.textContent = `#${tag}`;
+    tagCloud.appendChild(span);
+  });
+  document.querySelector(".profile-card").appendChild(tagCloud);
+
+  // Intersection Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = "translateY(0)";
+      }
+    });
+  });
+
+  document.querySelectorAll(".post-card").forEach((card) => {
+    card.style.opacity = 0;
+    card.style.transform = "translateY(20px)";
+    card.style.transition = "all 0.5s ease";
+    observer.observe(card);
+  });
+
+  // Dino Game
+  class DinoGame {
+    constructor() {
+      this.dino = document.getElementById("dino");
+      this.obstacle = document.getElementById("obstacle");
+      this.scoreElement = document.getElementById("score");
+      this.startBtn = document.getElementById("start-btn");
+      this.score = 0;
+      this.isJumping = false;
+      this.gameActive = false;
+
+      this.init();
+    }
+
+    init() {
+      this.startBtn.addEventListener("click", () => this.startGame());
+      document.addEventListener("keydown", (e) => this.handleKeyPress(e));
+    }
+
+    startGame() {
+      this.gameActive = true;
+      this.score = 0;
+      this.startBtn.style.display = "none";
+      this.obstacle.style.right = "-20px";
+      this.updateScore();
+      this.moveObstacle();
+    }
+
+    handleKeyPress(e) {
+      if (e.code === "Space" && !this.isJumping && this.gameActive) {
+        this.jump();
+      }
+    }
+
+    jump() {
+      if (!this.isJumping) {
+        this.isJumping = true;
+        let position = 0;
+        const jumpInterval = setInterval(() => {
+          if (position >= 150) {
+            clearInterval(jumpInterval);
+            this.fall();
+          } else {
+            position += 5;
+            this.dino.style.bottom = `${position}px`;
+          }
+        }, 10);
+      }
+    }
+
+    fall() {
+      let position = 150;
+      const fallInterval = setInterval(() => {
+        if (position <= 0) {
+          clearInterval(fallInterval);
+          this.isJumping = false;
+        } else {
+          position -= 5;
+          this.dino.style.bottom = `${position}px`;
+        }
+      }, 10);
+    }
+
+    moveObstacle() {
+      let obstaclePosition = -20;
+      const obstacleInterval = setInterval(() => {
+        if (!this.gameActive) {
+          clearInterval(obstacleInterval);
+          return;
+        }
+
+        obstaclePosition += 5;
+        this.obstacle.style.right = `${obstaclePosition}px`;
+
+        if (obstaclePosition > window.innerWidth) {
+          obstaclePosition = -20;
+          this.score++;
+          this.updateScore();
+        }
+
+        if (this.checkCollision()) {
+          this.gameOver();
+        }
+      }, 20);
+    }
+
+    checkCollision() {
+      const dinoRect = this.dino.getBoundingClientRect();
+      const obstacleRect = this.obstacle.getBoundingClientRect();
+      return !(
+        dinoRect.right < obstacleRect.left ||
+        dinoRect.left > obstacleRect.right ||
+        dinoRect.top > obstacleRect.bottom
+      );
+    }
+
+    gameOver() {
+      this.gameActive = false;
+      this.startBtn.style.display = "block";
+      alert(`Game Over! Score: ${this.score}`);
+    }
+
+    updateScore() {
+      this.scoreElement.textContent = `Score: ${this.score}`;
+    }
+  }
+
+  // 게임 초기화
+  new DinoGame();
 });
