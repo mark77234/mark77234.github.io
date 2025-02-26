@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap");
+
 /* CSS 변수 정의 */
 :root {
   --primary: #7c3aed; /* 주요 색상 */
@@ -8,7 +10,7 @@
   --text-secondary: #94a3b8; /* 보조 텍스트 색상 */
   --success: #10b981; /* 성공 색상 */
   --error: #ef4444; /* 오류 색상 */
-  --border-radius: 12px; /* 모서리 둥글기 */
+  --border-radius: 15px; /* 모서리 둥글기 */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 전환 효과 */
 }
 
@@ -86,9 +88,10 @@ body {
   position: relative;
   background: rgba(0, 0, 0, 0.3); /* 반투명 배경 */
   border-radius: var(--border-radius); /* 둥근 모서리 */
-  margin: 2rem 0; /* 여백 */
+  margin: 3% auto; /* 여백 */
   aspect-ratio: 16/9; /* 가로세로 비율 */
   overflow: hidden; /* 내용 넘침 방지 */
+  width: 70%;
 }
 
 /* 반응형 디자인 (모바일) */
@@ -113,17 +116,19 @@ body {
   display: flex;
   justify-content: space-between; /* 좌우 정렬 */
   align-items: center; /* 수직 정렬 */
-  padding: 1rem 0; /* 상하 패딩 */
+  padding: 1.5%;
 }
 
 /* 로고 스타일 */
 .logo a {
+  font-family: "Fira Code", monospace;
+  font-size: 1.5rem;
+  margin-left: 20px; /* 왼쪽 여백 추가 */
+  white-space: nowrap; /* 줄바꿈 방지 */
   color: var(--text); /* 텍스트 색상 */
   text-decoration: none; /* 밑줄 제거 */
   display: flex;
   align-items: center; /* 수직 정렬 */
-  gap: 0.5rem; /* 간격 */
-  font-weight: 700; /* 굵은 글씨 */
 }
 
 /* 네비게이션 메뉴 */
@@ -137,6 +142,7 @@ body {
 .nav a {
   color: var(--text-secondary); /* 보조 텍스트 색상 */
   text-decoration: none; /* 밑줄 제거 */
+  font-family: "Fira Code", monospace;
   font-weight: 500; /* 중간 굵기 */
   position: relative; /* 상대 위치 */
   padding: 0.5rem; /* 패딩 */
@@ -192,7 +198,9 @@ body {
 
 /* 사이드바 스타일 */
 .sidebar {
-  width: 300px; /* 고정 너비 */
+  padding: 5%;
+  width: 70%; /* 고정 너비 */
+  margin: 3% auto;
 }
 
 /* 프로필 카드 */
@@ -217,15 +225,15 @@ body {
   margin-top: 1.5rem; /* 상단 여백 */
 }
 
-/* 소셜 아이콘 */
-.social-icon {
-  font-size: 1.5rem; /* 아이콘 크기 */
+.social-links a {
+  font-size: 2rem; /* 아이콘 크기 */
   color: var(--text-secondary); /* 보조 텍스트 색상 */
   transition: var(--transition); /* 전환 효과 */
 }
 
-/* 소셜 아이콘 호버 효과 */
-.social-icon:hover {
+/* 개별 아이콘에 호버 효과 적용 */
+.social-links a:hover {
+  scale: 1.2;
   color: var(--primary); /* 주요 색상 */
 }
 
@@ -235,6 +243,7 @@ body {
   flex-wrap: wrap; /* 여러 줄로 표시 */
   gap: 0.5rem; /* 간격 */
   margin-top: 2rem; /* 상단 여백 */
+  justify-content: center;
 }
 
 /* 태그 스타일 */
@@ -250,16 +259,6 @@ body {
 .tag:hover {
   transform: scale(1.1); /* 약간 확대 */
   background: var(--primary); /* 주요 색상 */
-}
-
-/* 미니게임 컨테이너 */
-.mini-game {
-  position: relative;
-  height: 300px; /* 고정 높이 */
-  background: rgba(0, 0, 0, 0.3); /* 반투명 배경 */
-  border-radius: var(--border-radius); /* 둥근 모서리 */
-  margin-top: 2rem; /* 상단 여백 */
-  overflow: hidden; /* 내용 넘침 방지 */
 }
 
 /* 게임 컨테이너 */
@@ -303,10 +302,11 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); /* 중앙 정렬 */
-  padding: 0.5rem 1rem; /* 내부 여백 */
-  background: var(--primary); /* 주요 색상 */
+  font-family: "Inter", sans-serif; /* 기본 폰트 */
+  padding: 2%;
+  background: var(--success); /* 주요 색상 */
   border: none; /* 테두리 제거 */
-  border-radius: 5px; /* 둥근 모서리 */
+  border-radius: 20px; /* 둥근 모서리 */
   color: white; /* 텍스트 색상 */
   cursor: pointer; /* 포인터 커서 */
 }
@@ -319,24 +319,28 @@ body {
     minmax(300px, 1fr)
   ); /* 반응형 그리드 */
   gap: 2rem; /* 간격 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  max-width: 1200px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 전체 그리드 중앙 정렬 */
 }
 
 /* 포스트 카드 */
 .post-card {
-  background: rgba(255, 255, 255, 0.05); /* 반투명 배경 */
-  box-shadow: 0 0 15px rgba(124, 58, 237, 0.3); /* 그림자 효과 */
+  background: rgba(255, 255, 255, 0.05);
   border-radius: var(--border-radius); /* 둥근 모서리 */
-  padding: 1.5rem; /* 내부 여백 */
+  padding: 10%; /* 내부 여백 */
+  margin: 0 auto;
+  flex-grow: 1;
   transition: var(--transition); /* 전환 효과 */
-  cursor: pointer; /* 포인터 커서 */
-  position: relative; /* 상대 위치 */
-  overflow: hidden; /* 내용 넘침 방지 */
+  letter-spacing: 0.05rem; /* 글자 간격(자간) 추가 */
+  line-height: 2; /* 줄 간격(행간) 추가 */
 }
 
 /* 포스트 카드 호버 효과 */
 .post-card:hover {
   transform: translateY(-5px); /* 약간 위로 이동 */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  background: rgba(255, 255, 255, 0.05);
 }
 
 /* 포스트 카드 상단 선 애니메이션 */
@@ -346,7 +350,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px; /* 선 두께 */
+  height: 5px; /* 선 두께 */
   background: var(--primary); /* 주요 색상 */
   transform: scaleX(0); /* 초기 너비 */
   transition: var(--transition); /* 전환 효과 */
@@ -362,6 +366,18 @@ body {
   color: var(--text-secondary); /* 보조 텍스트 색상 */
   font-size: 0.9rem; /* 글자 크기 */
   margin-top: 0.5rem; /* 상단 여백 */
+}
+
+.content-card {
+  max-width: 600px; /* 적절한 최대 너비 설정 */
+  margin: 0 auto; /* 가로 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  padding: 5%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.05rem; /* 글자 간격(자간) 추가 */
+  line-height: 2; /* 줄 간격(행간) 추가 */
 }
 
 /* 반응형 디자인 (모바일) */

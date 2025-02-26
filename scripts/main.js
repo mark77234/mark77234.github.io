@@ -127,6 +127,12 @@ class ContentLoader {
         excerpt: "웹 개발 경험을 작성할 예정입니다.",
         tags: ["JavaScript", "HTML", "CSS"],
       },
+      {
+        title: "Other Studyies",
+        date: "2025-02-22",
+        excerpt: "다른 작업들",
+        tags: ["OPIC", "Thinking", "깜깜한미래"],
+      },
     ];
     this.init();
   }
@@ -200,11 +206,11 @@ class ContentLoader {
             <p>안녕하세요! iOS와 웹 개발을 사랑하는 개발자 mark77234입니다.</p>
             <div class="skills">
               <h3>기술 스택</h3>
-              <div class="skill-tags">
+              <div class="skill-tags" >
                 <span class="tag">Swift</span>
+                <span class="tag">Kotlin</span>
+                <span class="tag">Flutter</span>
                 <span class="tag">JavaScript</span>
-                <span class="tag">React</span>
-                <span class="tag">Node.js</span>
               </div>
             </div>
           </section>
@@ -216,13 +222,13 @@ class ContentLoader {
             <h2>📱 Contact</h2>
             <div class="contact-info">
               <p><i class="fas fa-phone"></i> 010-7723-4412</p>
-              <p><i class="fas fa-envelope"></i> mark77234@example.com</p>
+              <p><i class="fas fa-envelope"></i> mark77234@naver.com</p>
               <div class="social-links">
                 <a href="https://www.instagram.com/bong_chanii/" target="_blank">
                   <i class="fab fa-instagram"></i>
                 </a>
                 <a href="https://mark7723.tistory.com/" target="_blank">
-                  <i class="fas fa-blog"></i>
+                  <i class="fas fa-t"></i>
                 </a>
               </div>
             </div>
@@ -256,52 +262,9 @@ function initScrollProgress() {
  * 태그 클라우드 초기화 함수
  */
 function initTagCloud() {
-  const tags = [
-    "Swift",
-    "Kotlin",
-    "JavaScript",
-    "React",
-    "Node.js",
-    "Flutter",
-    "UI/UX",
-    "Git",
-  ];
+  const tags = ["Swift", "Kotlin", "Flutter", "JavaScript", "UI/UX", "Git"];
   const tagCloud = document.querySelector(".tag-cloud");
   tagCloud.innerHTML = tags
     .map((tag) => `<span class="tag">#${tag}</span>`)
     .join("");
-}
-
-/**
- * Intersection Observer 초기화 함수
- */
-function initIntersectionObserver() {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  document.querySelectorAll(".post-card").forEach((card) => {
-    observer.observe(card);
-  });
-}
-
-/**
- * 커서 효과 초기화 함수
- */
-function initCursorEffect() {
-  const cursor = document.createElement("div");
-  cursor.className = "custom-cursor";
-  document.body.appendChild(cursor);
-
-  document.addEventListener("mousemove", (e) => {
-    cursor.style.left = `${e.clientX}px`;
-    cursor.style.top = `${e.clientY}px`;
-  });
 }

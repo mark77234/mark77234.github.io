@@ -23,12 +23,6 @@
     <link rel="stylesheet" href="styles/styles.css" />
   </head>
   <body>
-    <!-- 스크롤 진행률 표시기 -->
-    <div class="scroll-progress" aria-hidden="true"></div>
-
-    <!-- 파티클 배경 캔버스 -->
-    <canvas id="particle-canvas"></canvas>
-
     <!-- 테마 토글 버튼 -->
     <button class="theme-toggle" aria-label="Toggle theme">
       <i class="fas fa-moon"></i>
@@ -38,7 +32,7 @@
     <header class="header">
       <div class="container">
         <h1 class="logo">
-          <a href="index.html">mark77234's Blog</a>
+          <a href="index.html">Byeonchan.log</a>
         </h1>
 
         <!-- 주 네비게이션 -->
@@ -63,7 +57,7 @@
       <aside class="sidebar">
         <article class="profile-card">
           <h2>mark77234</h2>
-          <p>iOS & Web Developer</p>
+          <p>App & Web Developer</p>
 
           <!-- 소셜 링크 -->
           <div class="social-links">
@@ -88,20 +82,21 @@
         </article>
       </aside>
 
+      <!-- 메인 콘텐츠 -->
+      <main class="content">
+        <section id="posts" class="posts-grid"></section>
+      </main>
+
       <!-- 미니게임 섹션 -->
       <section class="mini-game" aria-label="Mini game">
         <div id="game-container">
           <div id="dino" role="img" aria-label="Dinosaur character"></div>
           <div id="obstacle" role="img" aria-label="Game obstacle"></div>
           <div id="score">Score: 0</div>
-          <button id="start-btn">게임 시작</button>
+          <button id="start-btn">Play?</button>
         </div>
       </section>
-
-      <!-- 메인 콘텐츠 -->
-      <main class="content">
-        <section id="posts" class="posts-grid"></section>
-      </main>
+      <br /><br /><br /><br />
     </div>
 
     <!-- JavaScript -->

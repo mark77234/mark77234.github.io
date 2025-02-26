@@ -25,7 +25,8 @@ export class DinoGame {
   init() {
     this.resetGameState();
     this.startBtn.addEventListener("click", () => this.startGame());
-    document.addEventListener("keydown", (e) => this.handleInput(e));
+    document.addEventListener("click", () => this.handleJump());
+    document.addEventListener("touchstart", () => this.handleJump()); // 모바일 대응
   }
 
   /**
@@ -60,6 +61,12 @@ export class DinoGame {
   handleInput(e) {
     if (e.code === "Space" && !this.isJumping && this.gameActive) {
       this.jump(); // 스페이스바를 누르면 점프
+    }
+  }
+
+  handleJump() {
+    if (!this.isJumping && this.gameActive) {
+      this.jump();
     }
   }
 
