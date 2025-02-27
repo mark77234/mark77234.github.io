@@ -1,0 +1,168 @@
+<!-- space-shooter.html -->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Shooter</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      #gameContainer {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        background: #000;
+      }
+      .player {
+        position: absolute;
+        color: #3498db;
+        font-size: 40px;
+        transition: transform 0.1s;
+      }
+      .bullet {
+        position: absolute;
+        width: 5px;
+        height: 15px;
+        background: #f1c40f;
+      }
+      .enemy {
+        position: absolute;
+        color: #e74c3c;
+        font-size: 30px;
+      }
+      #score {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        color: white;
+        font-family: monospace;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gameContainer">
+      <div id="score">Score: 0</div>
+      <div class="player">🚀</div>
+    </div>
+    <script>
+      class SpaceShooter {
+        constructor() {
+          this.container = document.getElementById("gameContainer");
+          this.player = document.querySelector(".player");
+          this.bullets = [];
+          this.enemies = [];
+          this.score = 0;
+          this.playerX = window.innerWidth / 2;
+          this.moveSpeed = 8;
+          this.bulletSpeed = 12;
+          this.enemySpawnRate = 60;
+
+          this.initControls();
+          this.gameLoop();
+        }
+
+        initControls() {
+          document.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+            this.playerX = e.touches[0].clientX - 20;
+          });
+
+          document.addEventListener("click", (e) => {
+            this.shoot(e.clientX);
+          });
+
+          document.addEventListener("touchstart", (e) => {
+            this.shoot(e.touches[0].clientX);
+          });
+        }
+
+        shoot(x) {
+          const bullet = document.createElement("div");
+          bullet.className = "bullet";
+          bullet.style.left = x + "px";
+          bullet.style.bottom = "100px";
+          this.container.appendChild(bullet);
+          this.bullets.push(bullet);
+        }
+
+        gameLoop() {
+          // 플레이어 이동
+          this.player.style.left = this.playerX + "px";
+
+          // 총알 이동
+          this.bullets.forEach((bullet, index) => {
+            const currentBottom = parseFloat(bullet.style.bottom) || 0;
+            bullet.style.bottom = currentBottom + this.bulletSpeed + "px";
+
+            if (currentBottom > window.innerHeight) {
+              bullet.remove();
+              this.bullets.splice(index, 1);
+            }
+          });
+
+          // 적 생성
+          if (Math.random() < 0.02) {
+            const enemy = document.createElement("div");
+            enemy.className = "enemy";
+            enemy.textContent = "👾";
+            enemy.style.left = Math.random() * (window.innerWidth - 50) + "px";
+            enemy.style.top = "-50px";
+            this.container.appendChild(enemy);
+            this.enemies.push(enemy);
+          }
+
+          // 적 이동 및 충돌 검사
+          this.enemies.forEach((enemy, eIndex) => {
+            const currentTop = parseFloat(enemy.style.top) || 0;
+            enemy.style.top = currentTop + 3 + "px";
+
+            // 플레이어와 충돌
+            const playerRect = this.player.getBoundingClientRect();
+            const enemyRect = enemy.getBoundingClientRect();
+            if (this.checkCollision(playerRect, enemyRect)) {
+              alert(`Game Over! Score: ${this.score}`);
+              location.reload();
+            }
+
+            // 총알 충돌 검사
+            this.bullets.forEach((bullet, bIndex) => {
+              const bulletRect = bullet.getBoundingClientRect();
+              if (this.checkCollision(bulletRect, enemyRect)) {
+                enemy.remove();
+                bullet.remove();
+                this.enemies.splice(eIndex, 1);
+                this.bullets.splice(bIndex, 1);
+                this.score += 100;
+                document.getElementById(
+                  "score"
+                ).textContent = `Score: ${this.score}`;
+              }
+            });
+
+            if (currentTop > window.innerHeight) {
+              enemy.remove();
+              this.enemies.splice(eIndex, 1);
+            }
+          });
+
+          requestAnimationFrame(() => this.gameLoop());
+        }
+
+        checkCollision(rect1, rect2) {
+          return !(
+            rect1.right < rect2.left ||
+            rect1.left > rect2.right ||
+            rect1.bottom < rect2.top ||
+            rect1.top > rect2.bottom
+          );
+        }
+      }
+
+      new SpaceShooter();
+    </script>
+  </body>
+</html>

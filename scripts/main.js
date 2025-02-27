@@ -1,5 +1,4 @@
 // 모듈 임포트
-import { SpaceShooterGame } from "./game.js";
 
 // DOM 로드 이벤트 리스너
 document.addEventListener("DOMContentLoaded", initApp);
@@ -16,9 +15,6 @@ function initApp() {
 
   // 콘텐츠 로더 초기화
   const contentLoader = new ContentLoader();
-
-  // 게임 인스턴스 생성
-  const dinoGame = new SpaceShooterGame();
 
   // 부가 기능 초기화
   initScrollProgress();
@@ -116,22 +112,25 @@ class ContentLoader {
   constructor() {
     this.posts = [
       {
-        title: "App Projects",
-        date: "2025-02-21",
-        excerpt: "앱 개발 경험을 작성할 예정입니다.",
-        tags: ["Kotlin", "Flutter", "Swift"],
+        title: "Cyber Jump",
+        date: "2024-03-01",
+        excerpt: "끝없는 장애물 점프 게임",
+        tags: ["Arcade", "Infinite Runner", "2D"],
+        link: "posts/game1.html",
       },
       {
-        title: "Web Projects",
-        date: "2025-02-20",
-        excerpt: "웹 개발 경험을 작성할 예정입니다.",
-        tags: ["JavaScript", "HTML", "CSS"],
+        title: "Gravity Puzzle",
+        date: "2024-03-05",
+        excerpt: "중력 조작 퍼즐 게임",
+        tags: ["Puzzle", "Physics", "Brain Teaser"],
+        link: "posts/game2.html",
       },
       {
-        title: "Other Studyies",
-        date: "2025-02-22",
-        excerpt: "다른 작업들",
-        tags: ["OPIC", "Thinking", "깜깜한미래"],
+        title: "Space Shooter",
+        date: "2024-03-10",
+        excerpt: "우주 전투 슈팅 게임",
+        tags: ["Shooter", "Space", "Action"],
+        link: "posts/game3.html",
       },
     ];
     this.init();
@@ -143,6 +142,18 @@ class ContentLoader {
   init() {
     this.renderPosts();
     this.setupContentLinks();
+    this.setupGameLinks(); // 추가된 부분
+  }
+
+  setupGameLinks() {
+    document.querySelectorAll(".post-card").forEach((card) => {
+      card.addEventListener("click", (e) => {
+        const link = card.dataset.link;
+        if (link) {
+          window.location.href = link;
+        }
+      });
+    });
   }
 
   /**
@@ -162,7 +173,7 @@ class ContentLoader {
    */
   createPostHTML(post) {
     return `
-      <article class="post-card">
+      <article class="post-card" data-link="${post.link}">
         <h3>${post.title}</h3>
         <time datetime="${post.date}">${post.date}</time>
         <p>${post.excerpt}</p>

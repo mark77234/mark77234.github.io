@@ -1,0 +1,164 @@
+<!-- cyber-jump.html -->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cyber Jump</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      #gameCanvas {
+        background: #1a1a1a;
+      }
+      .game-ui {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        color: #00ff9d;
+        font-family: "Courier New", monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-ui">
+      <div>Score: <span id="score">0</span></div>
+      <div>High Score: <span id="highScore">0</span></div>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+      class CyberJump {
+        constructor() {
+          this.canvas = document.getElementById("gameCanvas");
+          this.ctx = this.canvas.getContext("2d");
+          this.resize();
+          window.addEventListener("resize", () => this.resize());
+
+          this.player = {
+            x: 100,
+            y: this.canvas.height - 50,
+            width: 40,
+            height: 40,
+            isJumping: false,
+            velocity: 0,
+          };
+
+          this.obstacles = [];
+          this.score = 0;
+          this.highScore = 0;
+          this.gameSpeed = 5;
+          this.gravity = 0.5;
+          this.isGameOver = false;
+
+          this.initControls();
+          this.gameLoop();
+        }
+
+        resize() {
+          this.canvas.width = window.innerWidth;
+          this.canvas.height = window.innerHeight;
+        }
+
+        initControls() {
+          document.addEventListener("click", () => this.jump());
+          document.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            this.jump();
+          });
+        }
+
+        jump() {
+          if (!this.player.isJumping && !this.isGameOver) {
+            this.player.velocity = -15;
+            this.player.isJumping = true;
+          }
+        }
+
+        gameLoop() {
+          this.ctx.fillStyle = "#1a1a1a";
+          this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+          // 플레이어 이동
+          this.player.velocity += this.gravity;
+          this.player.y += this.player.velocity;
+
+          if (this.player.y >= this.canvas.height - this.player.height) {
+            this.player.y = this.canvas.height - this.player.height;
+            this.player.isJumping = false;
+            this.player.velocity = 0;
+          }
+
+          // 장애물 생성
+          if (Math.random() < 0.02) {
+            this.obstacles.push({
+              x: this.canvas.width,
+              width: 30,
+              height: 50 + Math.random() * 100,
+            });
+          }
+
+          // 장애물 이동 및 충돌 검사
+          this.obstacles.forEach((obs, index) => {
+            obs.x -= this.gameSpeed;
+            this.ctx.fillStyle = "#ff006e";
+            this.ctx.fillRect(
+              obs.x,
+              this.canvas.height - obs.height,
+              obs.width,
+              obs.height
+            );
+
+            // 충돌 검사
+            if (
+              this.player.x < obs.x + obs.width &&
+              this.player.x + this.player.width > obs.x &&
+              this.player.y + this.player.height >
+                this.canvas.height - obs.height
+            ) {
+              this.isGameOver = true;
+            }
+
+            if (obs.x + obs.width < 0) {
+              this.obstacles.splice(index, 1);
+              this.score++;
+              document.getElementById("score").textContent = this.score;
+              this.gameSpeed += 0.01;
+            }
+          });
+
+          // 플레이어 그리기
+          this.ctx.fillStyle = "#00f3ff";
+          this.ctx.beginPath();
+          this.ctx.roundRect(
+            this.player.x,
+            this.player.y,
+            this.player.width,
+            this.player.height,
+            10
+          );
+          this.ctx.fill();
+
+          if (this.isGameOver) {
+            this.ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.fillStyle = "white";
+            this.ctx.font = "48px monospace";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText(
+              "GAME OVER",
+              this.canvas.width / 2,
+              this.canvas.height / 2
+            );
+            return;
+          }
+
+          requestAnimationFrame(() => this.gameLoop());
+        }
+      }
+
+      new CyberJump();
+    </script>
+  </body>
+</html>

@@ -29,6 +29,10 @@
   box-sizing: border-box; /* 박스 모델 설정 */
 }
 
+main {
+  margin: 5%;
+}
+
 html {
   scroll-behavior: smooth; /* 부드러운 스크롤 */
 }
@@ -399,6 +403,21 @@ body {
   transform: translateY(-5px); /* 약간 위로 이동 */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
   background: rgba(255, 255, 255, 0.05);
+}
+
+.post-card::after {
+  content: "Play →";
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  color: var(--primary);
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.post-card:hover::after {
+  opacity: 1;
 }
 
 /* 포스트 카드 상단 선 애니메이션 */
