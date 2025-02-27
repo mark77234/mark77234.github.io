@@ -5,9 +5,6 @@ export class ThemeManager {
     this.init();
   }
 
-  /**
-   * 테마 초기화 메서드
-   */
   init() {
     document.documentElement.setAttribute("data-theme", this.currentTheme);
     this.updateToggleIcon(this.currentTheme);
