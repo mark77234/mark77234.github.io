@@ -1,0 +1,25 @@
+/* 모든 요소에 스타일 적용 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* html 문서 전체 적용 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* body 부분 스타일 적용 */
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+  transition: var(--transition);
+}
+
+.log-layout {
+  margin-inline: 5%;
+  margin-bottom: 15%;
+}

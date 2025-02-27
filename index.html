@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>mark77234's Blog</title>
+    <title>Byeonchan.log</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,29 +12,24 @@
       rel="stylesheet"
     />
 
-    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <!-- 테마 토글 버튼 -->
     <button class="theme-toggle" aria-label="Toggle theme">
       <i class="fas fa-moon"></i>
     </button>
 
-    <!-- 헤더 섹션 -->
     <header class="header">
       <div class="container">
         <h1 class="logo">
           <a href="index.html">Byeonchan.log</a>
         </h1>
 
-        <!-- 주 네비게이션 -->
         <nav class="nav">
           <ul>
             <li><a href="#" data-page="home">Home</a></li>
@@ -44,22 +38,18 @@
           </ul>
         </nav>
 
-        <!-- 모바일 햄버거 메뉴 -->
         <button class="hamburger" aria-label="Toggle navigation">
           <div class="bar"></div>
         </button>
       </div>
     </header>
 
-    <!-- 메인 컨텐츠 영역 -->
-    <div class="container blog-layout">
-      <!-- 사이드바 -->
-      <aside class="sidebar">
-        <article class="profile-card">
-          <h2>mark77234</h2>
-          <p>App & Web Developer</p>
+    <div class="log-layout">
+      <aside class="intro">
+        <section class="profile-card">
+          <h2>이병찬</h2>
+          <p>App Developer</p>
 
-          <!-- 소셜 링크 -->
           <div class="social-links">
             <a
               href="https://www.instagram.com/bong_chanii/"
@@ -75,19 +65,24 @@
             >
               <i class="fas fa-t"></i>
             </a>
+            <a
+              href="https://github.com/mark77234"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fab fa-github"></i>
+            </a>
           </div>
 
-          <!-- 태그 클라우드 -->
           <div class="tag-cloud"></div>
-        </article>
+        </section>
       </aside>
 
-      <!-- 메인 콘텐츠 -->
       <main class="content">
         <section id="posts" class="posts-grid"></section>
       </main>
+    </div>
 
-    <!-- JavaScript -->
-    <script src="scripts/main.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
   </body>
 </html>

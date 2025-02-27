@@ -1,0 +1,72 @@
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(20vw, 1fr));
+  gap: 2rem;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.post-card {
+  background: var(--card);
+  border-radius: var(--border-radius);
+  padding: 10%;
+  margin: 5%;
+  transition: var(--transition);
+  letter-spacing: 0.05rem;
+  line-height: 2;
+}
+
+.post-card p,
+.post-card span {
+  margin: 0.2rem;
+  transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.post-card span:hover {
+  background-color: gray;
+  color: black;
+  text-shadow: var(--shadow);
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+  background: var(--selected);
+}
+
+.post-card::after {
+  content: "한판 때리기";
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  color: var(--text);
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.post-card:hover::after {
+  opacity: 1;
+}
+
+.post-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transition: var(--transition);
+}
+
+.post-card:hover::before {
+  transform: scaleX(0.9);
+}
+
+.post-date {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}

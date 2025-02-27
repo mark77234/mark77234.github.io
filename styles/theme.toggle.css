@@ -1,0 +1,17 @@
+.theme-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  color: white;
+  border: none;
+  transition: var(--transition);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}

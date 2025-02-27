@@ -1,0 +1,12 @@
+.intro {
+  padding: 5%;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.profile-card {
+  background: var(--card);
+  padding: 5%;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
