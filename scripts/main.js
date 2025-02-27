@@ -19,8 +19,6 @@ function initApp() {
   // 부가 기능 초기화
   initScrollProgress();
   initTagCloud();
-  initIntersectionObserver();
-  initCursorEffect();
 }
 
 /**
@@ -143,6 +141,10 @@ class ContentLoader {
     this.renderPosts();
     this.setupContentLinks();
     this.setupGameLinks(); // 추가된 부분
+    this.loadContent({
+      preventDefault: () => {},
+      target: { dataset: { page: "home" } },
+    });
   }
 
   setupGameLinks() {
@@ -203,47 +205,41 @@ class ContentLoader {
     const mainContent = document.querySelector(".content");
 
     switch (page) {
-      case "home":
-        mainContent.innerHTML = `
-          <div class="posts-grid">
-            ${this.posts.map((post) => this.createPostHTML(post)).join("")}
-          </div>
-        `;
-        break;
-      case "about":
+      case "posts":
         mainContent.innerHTML = `
           <section class="content-card">
-            <h2>👋 About Me</h2>
-            <p>안녕하세요! iOS와 웹 개발을 사랑하는 개발자 mark77234입니다.</p>
+            <h2>Byeongchan Blog</h2>
+            <p>⚠️ 블로그 개발 진행중입니다 ⚠️</p>
             <div class="skills">
-              <h3>기술 스택</h3>
+              <h3>블로그 개발 진행 상황</h3>
               <div class="skill-tags" >
-                <span class="tag">Swift</span>
-                <span class="tag">Kotlin</span>
-                <span class="tag">Flutter</span>
-                <span class="tag">JavaScript</span>
+                <span class="tag">앱 개발</span>
+                <span class="tag">웹 개발</span>
+                <span class="tag">그 외</span>
               </div>
             </div>
           </section>
         `;
         break;
-      case "contact":
+      case "home":
         mainContent.innerHTML = `
           <section class="content-card">
             <h2>📱 Contact</h2>
             <div class="contact-info">
               <p><i class="fas fa-phone"></i> 010-7723-4412</p>
               <p><i class="fas fa-envelope"></i> mark77234@naver.com</p>
-              <div class="social-links">
-                <a href="https://www.instagram.com/bong_chanii/" target="_blank">
-                  <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://mark7723.tistory.com/" target="_blank">
-                  <i class="fas fa-t"></i>
-                </a>
-              </div>
+              <br>
+              <p>병찬로그에 오신걸 환영합니다.</p>
+              <p>현재 블로그와 게임 항목을 개발 및 코드 리팩토링 중 입니다 !</p>
             </div>
           </section>
+        `;
+        break;
+      case "games":
+        mainContent.innerHTML = `
+          <div class="posts-grid">
+            ${this.posts.map((post) => this.createPostHTML(post)).join("")}
+          </div>
         `;
         break;
       default:

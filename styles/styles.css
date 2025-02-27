@@ -30,7 +30,7 @@
 }
 
 main {
-  margin: 5%;
+  margin: 3%;
 }
 
 html {
@@ -242,7 +242,7 @@ body {
 .sidebar {
   padding: 5%;
   width: 70%; /* 고정 너비 */
-  margin: 3% auto;
+  margin: 0 auto;
 }
 
 /* 프로필 카드 */
