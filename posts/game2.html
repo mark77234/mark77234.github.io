@@ -1,11 +1,11 @@
-<!-- gravity-puzzle.html -->
 <!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gravity Puzzle</title>
+    <title>Gravity Puzzle v2</title>
     <style>
+      /* 기존 스타일 유지 */
       body {
         margin: 0;
         display: flex;
@@ -29,6 +29,7 @@
         border-radius: 50%;
         position: absolute;
         cursor: pointer;
+        transition: transform 0.1s;
       }
       .goal {
         width: 40px;
@@ -49,20 +50,20 @@
           this.goals = [];
           this.currentRotation = 0;
           this.isDragging = false;
+          this.gravityForce = 0.8; // 중력 가속도 증가
+          this.friction = 0.95; // 마찰 계수 추가
           this.init();
         }
 
         init() {
           this.createLevel(1);
           this.initControls();
+          this.gameLoop(); // 게임 루프 추가
         }
 
         createLevel(level) {
-          // 레벨에 따른 오브젝트 생성
           this.balls = [this.createBall(100, 100, "#e74c3c")];
           this.goals = [this.createGoal(260, 500)];
-
-          // 회전 이벤트 리스너
           this.container.style.transform = `rotate(${this.currentRotation}deg)`;
         }
 
@@ -89,47 +90,109 @@
           let startY = 0;
           let startRotation = 0;
 
-          document.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            startY = e.touches[0].clientY;
-            startRotation = this.currentRotation;
-            this.isDragging = true;
-          });
+          // 터치 이벤트
+          document.addEventListener("touchstart", (e) =>
+            this.handleStart(e.touches[0].clientY)
+          );
+          document.addEventListener("touchmove", (e) =>
+            this.handleMove(e.touches[0].clientY)
+          );
+          document.addEventListener("touchend", () => this.handleEnd());
 
-          document.addEventListener("touchmove", (e) => {
-            if (!this.isDragging) return;
-            const deltaY = e.touches[0].clientY - startY;
-            this.currentRotation = startRotation + deltaY * 0.5;
-            this.container.style.transform = `rotate(${this.currentRotation}deg)`;
+          // 마우스 이벤트
+          document.addEventListener("mousedown", (e) =>
+            this.handleStart(e.clientY)
+          );
+          document.addEventListener("mousemove", (e) =>
+            this.handleMove(e.clientY)
+          );
+          document.addEventListener("mouseup", () => this.handleEnd());
+        }
+
+        handleStart(clientY) {
+          this.isDragging = true;
+          this.startY = clientY;
+          this.startRotation = this.currentRotation;
+        }
+
+        handleMove(clientY) {
+          if (!this.isDragging) return;
+          const deltaY = clientY - this.startY;
+          this.currentRotation = this.startRotation + deltaY * 0.5;
+          this.container.style.transform = `rotate(${this.currentRotation}deg)`;
+        }
+
+        handleEnd() {
+          this.isDragging = false;
+          this.checkWinCondition();
+        }
+
+        gameLoop() {
+          if (!this.isDragging) {
             this.applyPhysics();
-          });
-
-          document.addEventListener("touchend", () => {
-            this.isDragging = false;
-            this.checkWinCondition();
-          });
+          }
+          requestAnimationFrame(() => this.gameLoop());
         }
 
         applyPhysics() {
-          const gravity = 0.5;
+          const radians = this.currentRotation * (Math.PI / 180);
+          const gravityX = Math.sin(radians) * this.gravityForce;
+          const gravityY = Math.cos(radians) * this.gravityForce;
+
           this.balls.forEach((ball) => {
+            // 현재 속도 가져오기
+            let velX = parseFloat(ball.dataset.velX) || 0;
             let velY = parseFloat(ball.dataset.velY) || 0;
-            velY += gravity;
+
+            // 중력 적용
+            velX += gravityX;
+            velY += gravityY;
+
+            // 마찰 적용
+            velX *= this.friction;
+            velY *= this.friction;
+
+            // 위치 업데이트
+            const currentX = parseFloat(ball.style.left) || 0;
             const currentY = parseFloat(ball.style.top) || 0;
-            ball.style.top = Math.min(currentY + velY, 610) + "px";
+
+            // 충돌 검사 및 반응
+            let newX = currentX + velX;
+            let newY = currentY + velY;
+
+            // 컨테이너 경계 검사
+            newX = Math.max(0, Math.min(newX, this.container.offsetWidth - 30));
+            newY = Math.max(
+              0,
+              Math.min(newY, this.container.offsetHeight - 30)
+            );
+
+            // 위치 적용
+            ball.style.left = newX + "px";
+            ball.style.top = newY + "px";
+
+            // 속도 저장
+            ball.dataset.velX = velX;
             ball.dataset.velY = velY;
           });
         }
 
         checkWinCondition() {
-          const ballRect = this.balls[0].getBoundingClientRect();
-          const goalRect = this.goals[0].getBoundingClientRect();
+          const ball = this.balls[0];
+          const goal = this.goals[0];
 
-          if (
-            Math.abs(ballRect.left - goalRect.left) < 20 &&
-            Math.abs(ballRect.top - goalRect.top) < 20
-          ) {
+          const ballRect = ball.getBoundingClientRect();
+          const goalRect = goal.getBoundingClientRect();
+
+          const distance = Math.sqrt(
+            Math.pow(ballRect.left - goalRect.left, 2) +
+              Math.pow(ballRect.top - goalRect.top, 2)
+          );
+
+          if (distance < 30) {
             alert("Level Clear!");
+            ball.dataset.velX = 0;
+            ball.dataset.velY = 0;
           }
         }
       }
