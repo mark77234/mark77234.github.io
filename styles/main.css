@@ -6,6 +6,7 @@
 @import url("intro.css");
 @import url("post-grid.css");
 @import url("utilities/responsive.css");
+@import url("hero.css");
 
 .social-links {
   display: flex;
@@ -47,84 +48,4 @@
   background: gray;
   color: white;
   text-shadow: var(--shadow);
-}
-
-#game-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: linear-gradient(to bottom, #000428, #004e92);
-}
-
-#ship {
-  position: absolute;
-  transition: transform 0.3s ease;
-  font-size: 2em;
-}
-
-.star {
-  position: absolute;
-  color: gold;
-  font-size: 1.5em;
-  transition: all 0.5s ease;
-}
-
-.asteroid {
-  position: absolute;
-  font-size: 1.8em;
-  filter: drop-shadow(0 0 5px red);
-}
-
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: gold;
-  border-radius: 50%;
-  animation: sparkle 0.5s linear;
-}
-
-@keyframes sparkle {
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: scale(3);
-    opacity: 0;
-  }
-}
-
-#score {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 1.2rem;
-}
-
-#start-btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: "Inter", sans-serif;
-  padding: 2%;
-  background: var(--success);
-  border: none;
-  border-radius: 20px;
-  color: white;
-  cursor: pointer;
-}
-
-.content-card {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 5%;
-  background: var(--card);
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  letter-spacing: 0.05rem;
-  line-height: 2;
 }
