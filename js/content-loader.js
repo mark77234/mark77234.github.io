@@ -2,20 +2,20 @@ export class ContentLoader {
   constructor() {
     this.posts = [
       {
-        title: "Cyber Jump",
-        excerpt: "끝없는 장애물 점프 게임",
+        title: "Cyber Jump(TEST)",
+        excerpt: "끝없는 장애물 점프 게임 (게임 변경 예정)",
         tags: ["Arcade", "Infinite Runner", "2D"],
         link: "games/game1.html",
       },
       {
-        title: "Gravity Puzzle",
-        excerpt: "중력 조작 퍼즐 게임",
+        title: "Gravity Puzzle(TEST)",
+        excerpt: "중력 조작 퍼즐 게임(게임 변경 예정)",
         tags: ["Puzzle", "Physics", "Brain Teaser"],
         link: "games/game2.html",
       },
       {
-        title: "Space Shooter",
-        excerpt: "우주 전투 슈팅 게임",
+        title: "Space Shooter(TEST)",
+        excerpt: "우주 전투 슈팅 게임(게임 변경 예정)",
         tags: ["Shooter", "Space", "Action"],
         link: "games/game3.html",
       },
@@ -160,15 +160,17 @@ export class ContentLoader {
         break;
       case "posts":
         mainContent.innerHTML = `
-            <section class="content-card">
-              <h2>Byeongchan Blog</h2>
-              <p>⚠️ 블로그 개발 진행중입니다 ⚠️</p>
+           <section class="content-card">
+              <h2>🚧 공사중입니다 🚧</h2>
+              <br>
+              <p>⚠️ 블로그 개발이 아직 "대기중"입니다. ⚠️</p>
               <div class="skills">
-                <h3>블로그 개발 진행 상황</h3>
-                <div class="skill-tags" >
-                  <span class="tag">앱 개발</span>
-                  <span class="tag">웹 개발</span>
-                  <span class="tag">그 외</span>
+                <div class="skill-item">
+                  <h3>진행률 <span class="progress">1%</span></h3>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 1%;"></div>
+                  </div>
+                  <p>다른 페이지 작업 중입니다. . . </p>
                 </div>
               </div>
             </section>

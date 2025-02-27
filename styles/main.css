@@ -7,6 +7,7 @@
 @import url("post-grid.css");
 @import url("utilities/responsive.css");
 @import url("hero.css");
+@import url("posts.css");
 
 .social-links {
   display: flex;

@@ -1,0 +1,28 @@
+.content-card {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.skills {
+  margin-top: 1rem;
+}
+
+.skill-item {
+  margin-bottom: 1.5rem;
+}
+
+.progress-bar {
+  background: var(--background);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  height: 1rem;
+  margin: 0.5rem 0;
+}
+
+.progress-fill {
+  background: var(--primary);
+  height: 100%;
+}
