@@ -86,12 +86,50 @@ body {
 /* 미니게임 컨테이너 */
 .mini-game {
   position: relative;
-  background: rgba(0, 0, 0, 0.3); /* 반투명 배경 */
+  background: rgba(0, 0, 0, 0.7); /* 더 어두운 반투명 배경 */
   border-radius: var(--border-radius); /* 둥근 모서리 */
-  margin: 3% auto; /* 여백 */
-  aspect-ratio: 16/9; /* 가로세로 비율 */
-  overflow: hidden; /* 내용 넘침 방지 */
-  width: 70%;
+  overflow: hidden; /* 내부 요소가 둥근 모서리를 벗어나지 않도록 */
+  margin: 3% auto; /* 여백 및 중앙 정렬 */
+  aspect-ratio: 16 / 9; /* 가로세로 비율 */
+  width: 80vw; /* 뷰포트 너비 기준 */
+  max-width: 800px; /* 최대 너비 제한 */
+  height: auto; /* 비율 유지 */
+  display: flex;
+  justify-content: center; /* 가로 정렬 */
+  align-items: center; /* 세로 정렬 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* 그라운드 효과 */
+  background-image: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.3)
+  ); /* 깊이를 더하는 그라디언트 배경 */
+  border: 5px solid #ff6347; /* 게임 느낌의 테두리 색 */
+  animation: pulse 1.5s infinite ease-in-out; /* 게임적인 애니메이션 */
+}
+
+/* 애니메이션 효과 */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05); /* 살짝 커지며 강렬한 느낌 */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 게임 내 요소를 위한 스타일 (예: 점수판, UI 요소 등) */
+.mini-game .score-board {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 2rem;
+  font-family: "Press Start 2P", cursive; /* 복고풍 게임 글꼴 */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 /* 반응형 디자인 (모바일) */
@@ -261,31 +299,51 @@ body {
   background: var(--primary); /* 주요 색상 */
 }
 
-/* 게임 컨테이너 */
 #game-container {
   position: relative;
+  width: 100%;
   height: 100%;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #000428, #004e92);
 }
 
-/* 공룡 캐릭터 */
-#dino {
+#ship {
   position: absolute;
-  bottom: 0;
-  left: 50px;
-  width: 40px;
-  height: 60px;
-  background: #fff; /* 배경 색상 */
-  transition: bottom 0.3s; /* 전환 효과 */
+  transition: transform 0.3s ease;
+  font-size: 2em;
 }
 
-/* 장애물 */
-#obstacle {
+.star {
   position: absolute;
-  bottom: 0;
-  right: -20px;
-  width: 20px;
-  height: 40px;
-  background: var(--error); /* 오류 색상 */
+  color: gold;
+  font-size: 1.5em;
+  transition: all 0.5s ease;
+}
+
+.asteroid {
+  position: absolute;
+  font-size: 1.8em;
+  filter: drop-shadow(0 0 5px red);
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: gold;
+  border-radius: 50%;
+  animation: sparkle 0.5s linear;
+}
+
+@keyframes sparkle {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
 }
 
 /* 점수 표시 */
@@ -358,7 +416,7 @@ body {
 
 /* 포스트 카드 호버 시 선 확장 */
 .post-card:hover::before {
-  transform: scaleX(1); /* 너비 확장 */
+  transform: scaleX(0.9); /* 너비 확장 */
 }
 
 /* 포스트 날짜 */

@@ -1,5 +1,5 @@
 // 모듈 임포트
-import { DinoGame } from "./game.js";
+import { SpaceShooterGame } from "./game.js";
 
 // DOM 로드 이벤트 리스너
 document.addEventListener("DOMContentLoaded", initApp);
@@ -18,7 +18,7 @@ function initApp() {
   const contentLoader = new ContentLoader();
 
   // 게임 인스턴스 생성
-  const dinoGame = new DinoGame();
+  const dinoGame = new SpaceShooterGame();
 
   // 부가 기능 초기화
   initScrollProgress();
