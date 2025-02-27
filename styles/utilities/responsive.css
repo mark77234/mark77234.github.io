@@ -1,33 +1,31 @@
 @media (max-width: 768px) {
-  /* 공통 그리드 레이아웃 조정 */
   .log-layout {
     margin-inline: 5%;
-    margin-bottom: 15%;
+    margin-top: 20%;
+    margin-bottom: 20%;
   }
 
-  /* 인트로 섹션 최적화 */
   .intro {
     width: 100%;
     margin-bottom: 2rem;
-    padding: 0 3%; /* 내용 가독성 향상 */
+    padding: 0 3%;
   }
   .post-card {
     padding-bottom: 15%;
   }
 
-  /* 모바일 네비게이션 개선 */
   .nav {
     position: fixed;
     top: 70px;
     right: -100%;
     background: var(--surface);
-    width: 85%; /* 좀 더 자연스러운 너비 */
+    width: 85%;
     height: calc(100vh - 70px);
     padding: 2rem;
     transition: var(--transition);
-    z-index: 1000; /* 다른 요소 위에 표시 */
-    overflow-y: auto; /* 긴 메뉴 스크롤 가능 */
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2); /* 깊이감 추가 */
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
   }
 
   .nav.active {
@@ -36,33 +34,31 @@
 
   .nav ul {
     flex-direction: column;
-    gap: 1.8rem; /* 터치 친화적 간격 */
+    gap: 1.8rem;
   }
 
   .nav a {
-    font-size: 1.1rem; /* 가독성 향상 */
-    padding: 0.8rem; /* 터치 영역 확대 */
+    font-size: 1.1rem;
+    padding: 0.8rem;
   }
 
-  /* 햄버거 메뉴 애니메이션 개선 */
   .hamburger {
     display: block;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 1rem; /* 터치 영역 확대 */
-    z-index: 1100; /* 메뉴 위에 표시 */
+    padding: 1rem;
+    z-index: 1100;
   }
 
   .hamburger .bar {
-    width: 30px; /* 약간 크게 조정 */
-    height: 3px; /* 두께 증가 */
+    width: 30px;
+    height: 3px;
     background: var(--text);
     margin: 6px 0;
     transition: var(--transition);
   }
 
-  /* 개선된 햄버거-엑스 변환 애니메이션 */
   .hamburger.active .bar:nth-child(1) {
     transform: translateY(9px) rotate(45deg);
   }
@@ -76,19 +72,16 @@
     transform: translateY(-9px) rotate(-45deg);
   }
 
-  /* 모바일 콘텐츠 최적화 */
   .content-card {
-    padding: 1.5rem; /* 내용 여백 조정 */
-    margin: 0 5%; /* 측면 여백 통일 */
+    padding: 1.5rem;
+    margin: 0 5%;
   }
 
-  /* 터치 친화적 태그 크기 조정 */
   .tag {
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
   }
 
-  /* 모바일 메뉴 배경 오버레이 */
   .nav-overlay {
     position: fixed;
     top: 70px;

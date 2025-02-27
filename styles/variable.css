@@ -21,11 +21,3 @@
   --selected: rgba(255, 255, 255, 0.05);
   --tag: rgba(255, 255, 255, 0.1);
 }
-
-/* 라이트 테마로 변경 시 색상 변경 */
-[data-theme="light"] {
-  --background: #f9f4ef;
-  --surface: #fff8f2;
-  --text: #333333;
-  --text-secondary: #666666;
-}

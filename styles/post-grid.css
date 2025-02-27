@@ -50,7 +50,7 @@
 
 .post-card span:hover {
   background-color: gray;
-  color: black;
+  color: white;
   text-shadow: var(--shadow);
 }
 

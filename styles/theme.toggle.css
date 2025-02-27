@@ -15,3 +15,25 @@
   transform: translateY(-5px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
+
+[data-theme="light"] {
+  /* 기본 색상 체계 */
+  --primary: #4a5568; /* 차분한 청회색 (기존 토프 대체) */
+  --secondary: #4299e1; /* 친숙한 블루 (기존 오렌지 대체) */
+  --background: #f7fafc; /* 아주 밝은 하늘색 계열 배경 */
+  --surface: #ffffff; /* 헤더 바 배경 (순백 유지) */
+
+  /* 텍스트 계열 */
+  --text: #2d3748; /* 부드러운 검정-청회색 혼합 */
+  --text-secondary: #718096; /* 중간 청회색 */
+
+  /* 카드 관련 */
+  --card: #ffffff; /* 카드 배경 (순백 유지) */
+  --selected: #ebf8ff; /* 선택시 미묘한 블루 틴트 */
+  --tag: #ebf8ff; /* 민트그린 계열 태그 */
+
+  /* 기타 스타일 */
+  --border-radius: 8px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow: 0 2px 15px rgba(160, 174, 192, 0.15); /* 차분한 블루 계열 그림자 */
+}
