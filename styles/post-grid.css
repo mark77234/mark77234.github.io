@@ -14,22 +14,23 @@
   position: relative;
   background: var(--card);
   border-radius: var(--border-radius);
-  padding: 1.5rem;
+  padding: 10%;
+  margin: 5%;
   transition: var(--transition);
   letter-spacing: 0.05rem;
   line-height: 1.6;
-  min-height: auto; /* Allow height to adjust with content */
-  overflow: visible; /* Allow content to flow out if necessary */
+  min-height: auto;
+  overflow: visible;
   box-sizing: border-box;
   break-inside: avoid;
   display: flex;
-  flex-direction: column; /* Ensure children stack vertically */
+  flex-direction: column;
 }
 
 .post-card .tags {
-  margin-top: auto; /* Push tags to the bottom if necessary */
-  flex-wrap: wrap; /* Allow tags to wrap to the next line */
-  gap: 0.5rem; /* Add spacing between tags */
+  margin-top: auto;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .post-card p,
