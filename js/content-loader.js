@@ -91,6 +91,10 @@ export class ContentLoader {
                   <i class="fas fa-eye"></i>
                   실시간 업데이트 되는 블로그 둘러보기
                 </button>
+                <button class="neon-box">
+                  <i class="fab fa-chrome"></i>
+                  크롬 접속 권장
+                </button>
               </div>
             </div>
           </section>
