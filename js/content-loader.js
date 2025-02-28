@@ -24,7 +24,7 @@ export class ContentLoader {
   }
 
   init() {
-    this.renderPosts();
+    this.renderSubs();
     this.setupContentLinks();
     this.setupGameLinks();
     this.loadContent({
@@ -44,8 +44,8 @@ export class ContentLoader {
     });
   }
 
-  renderPosts() {
-    const postsGrid = document.querySelector(".posts-grid");
+  renderSubs() {
+    const postsGrid = document.querySelector(".subs-grid");
     postsGrid.innerHTML = this.posts
       .map((post) => this.createPostHTML(post))
       .join("");
@@ -66,19 +66,12 @@ export class ContentLoader {
       `;
   }
 
-  /**
-   * 콘텐츠 링크 설정 메서드
-   */
   setupContentLinks() {
     document.querySelectorAll("[data-page]").forEach((link) => {
       link.addEventListener("click", (e) => this.loadContent(e));
     });
   }
 
-  /**
-   * 콘텐츠 로딩 메서드
-   * @param {Event} e - 클릭 이벤트 객체
-   */
   loadContent(e) {
     e.preventDefault();
     const page = e.target.dataset.page;
@@ -90,7 +83,7 @@ export class ContentLoader {
           <section class="hero-section">
             <div class="hero-content">
               <h1>병찬로그에 오신 것을 환영합니다!</h1>
-              <p class="hero-subtitle">실시간으로 업데이트되는 이병찬의 놀이터입니다.</p>
+              <p class="hero-subtitle">실시간으로 업데이트되는 공간입니다.</p>
               <div class="cta-buttons">
                 <button class="cta-button" data-page="games">
                   <i class="fas fa-gamepad"></i>
@@ -179,7 +172,7 @@ export class ContentLoader {
 
       case "games":
         mainContent.innerHTML = `
-            <div class="posts-grid">
+            <div class="subs-grid">
               ${this.posts.map((post) => this.createPostHTML(post)).join("")}
             </div>
           `;
