@@ -14,7 +14,7 @@ export class ContentLoader {
         link: "games/game2.html",
       },
       {
-        title: "Avoid (BETA)",
+        title: "Avoid 2D(BETA)",
         excerpt: "날라오는 총알들을 피하는 게임",
         tags: ["Avoid", "Bullet", "Survive"],
         link: "games/game3.html",
