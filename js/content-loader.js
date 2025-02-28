@@ -2,9 +2,9 @@ export class ContentLoader {
   constructor() {
     this.games = [
       {
-        title: "Cyber Jump(TEST)",
-        excerpt: "끝없는 장애물 점프 게임 (게임 변경 예정)",
-        tags: ["Arcade", "Infinite Runner", "2D"],
+        title: "NEON JUMP 3D(개발중)",
+        excerpt: "장애물들을 피하면서 점수를 획득하라",
+        tags: ["3D", "Neon", "Jump"],
         link: "games/game1.html",
       },
       {
@@ -15,7 +15,7 @@ export class ContentLoader {
       },
       {
         title: "AVOID! (BETA)",
-        excerpt: "날라오는 총알들을 피하는 게임",
+        excerpt: "날라오는 총알들을 피하라",
         tags: ["Avoid", "Bullet", "Survive"],
         link: "games/game3.html",
       },

@@ -1,164 +1,295 @@
-<!-- cyber-jump.html -->
 <!DOCTYPE html>
-<html lang="ko">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cyber Jump</title>
+    <title>Neon Jump 3D</title>
     <style>
       body {
         margin: 0;
         overflow: hidden;
       }
-      #gameCanvas {
-        background: #1a1a1a;
-      }
-      .game-ui {
+      #score {
         position: fixed;
         top: 20px;
         left: 20px;
-        color: #00ff9d;
-        font-family: "Courier New", monospace;
+        color: #fff;
+        font-family: Arial;
+        font-size: 24px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        z-index: 100;
+      }
+      #startScreen {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        text-align: center;
+        font-family: Arial;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       }
     </style>
   </head>
   <body>
-    <div class="game-ui">
-      <div>Score: <span id="score">0</span></div>
-      <div>High Score: <span id="highScore">0</span></div>
+    <div id="score">SCORE: 0</div>
+    <div id="startScreen">
+      <h1>NEON JUMP</h1>
+      <p>Press SPACE to start<br />Use SPACE to jump</p>
     </div>
-    <canvas id="gameCanvas"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
     <script>
-      class CyberJump {
-        constructor() {
-          this.canvas = document.getElementById("gameCanvas");
-          this.ctx = this.canvas.getContext("2d");
-          this.resize();
-          window.addEventListener("resize", () => this.resize());
+      let scene, camera, renderer, player;
+      let obstacles = [];
+      let collectibles = [];
+      let score = 0;
+      let isJumping = false;
+      let gameStarted = false;
+      let speed = 0.1;
 
-          this.player = {
-            x: 100,
-            y: this.canvas.height - 50,
-            width: 40,
-            height: 40,
-            isJumping: false,
-            velocity: 0,
-          };
+      // Initialize
+      function init() {
+        // Scene setup
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x111111);
 
-          this.obstacles = [];
-          this.score = 0;
-          this.highScore = 0;
-          this.gameSpeed = 5;
-          this.gravity = 0.5;
-          this.isGameOver = false;
+        // Camera
+        camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+        );
+        camera.position.set(0, 3, 8);
+        camera.lookAt(0, 0, 0);
 
-          this.initControls();
-          this.gameLoop();
+        // Renderer
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0x00ff88, 0.8);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+
+        // Player
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const material = new THREE.MeshPhongMaterial({
+          color: 0x00ff88,
+          emissive: 0x004422,
+          shininess: 100,
+        });
+        player = new THREE.Mesh(geometry, material);
+        player.position.y = 0.5;
+        scene.add(player);
+
+        // Ground
+        const groundGeometry = new THREE.PlaneGeometry(20, 100);
+        const groundMaterial = new THREE.MeshPhongMaterial({
+          color: 0x222222,
+          side: THREE.DoubleSide,
+        });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = Math.PI / 2;
+        ground.position.z = -50;
+        scene.add(ground);
+
+        // Particles
+        const particleGeometry = new THREE.BufferGeometry();
+        const particleCount = 1000;
+        const posArray = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount * 3; i++) {
+          posArray[i] = (Math.random() - 0.5) * 50;
         }
 
-        resize() {
-          this.canvas.width = window.innerWidth;
-          this.canvas.height = window.innerHeight;
-        }
+        particleGeometry.setAttribute(
+          "position",
+          new THREE.BufferAttribute(posArray, 3)
+        );
+        const particleMaterial = new THREE.PointsMaterial({
+          size: 0.1,
+          color: 0x00ff88,
+          transparent: true,
+          opacity: 0.5,
+        });
+        const particles = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particles);
 
-        initControls() {
-          document.addEventListener("click", () => this.jump());
-          document.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            this.jump();
-          });
-        }
+        // Event listeners
+        document.addEventListener("keydown", onKeyDown);
+        window.addEventListener("resize", onWindowResize);
+      }
 
-        jump() {
-          if (!this.player.isJumping && !this.isGameOver) {
-            this.player.velocity = -15;
-            this.player.isJumping = true;
-          }
-        }
-
-        gameLoop() {
-          this.ctx.fillStyle = "#1a1a1a";
-          this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-          // 플레이어 이동
-          this.player.velocity += this.gravity;
-          this.player.y += this.player.velocity;
-
-          if (this.player.y >= this.canvas.height - this.player.height) {
-            this.player.y = this.canvas.height - this.player.height;
-            this.player.isJumping = false;
-            this.player.velocity = 0;
-          }
-
-          // 장애물 생성
-          if (Math.random() < 0.02) {
-            this.obstacles.push({
-              x: this.canvas.width,
-              width: 30,
-              height: 50 + Math.random() * 100,
-            });
-          }
-
-          // 장애물 이동 및 충돌 검사
-          this.obstacles.forEach((obs, index) => {
-            obs.x -= this.gameSpeed;
-            this.ctx.fillStyle = "#ff006e";
-            this.ctx.fillRect(
-              obs.x,
-              this.canvas.height - obs.height,
-              obs.width,
-              obs.height
-            );
-
-            // 충돌 검사
-            if (
-              this.player.x < obs.x + obs.width &&
-              this.player.x + this.player.width > obs.x &&
-              this.player.y + this.player.height >
-                this.canvas.height - obs.height
-            ) {
-              this.isGameOver = true;
-            }
-
-            if (obs.x + obs.width < 0) {
-              this.obstacles.splice(index, 1);
-              this.score++;
-              document.getElementById("score").textContent = this.score;
-              this.gameSpeed += 0.01;
-            }
-          });
-
-          // 플레이어 그리기
-          this.ctx.fillStyle = "#00f3ff";
-          this.ctx.beginPath();
-          this.ctx.roundRect(
-            this.player.x,
-            this.player.y,
-            this.player.width,
-            this.player.height,
-            10
-          );
-          this.ctx.fill();
-
-          if (this.isGameOver) {
-            this.ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-            this.ctx.fillStyle = "white";
-            this.ctx.font = "48px monospace";
-            this.ctx.textAlign = "center";
-            this.ctx.fillText(
-              "GAME OVER",
-              this.canvas.width / 2,
-              this.canvas.height / 2
-            );
+      function onKeyDown(e) {
+        if (e.code === "Space") {
+          if (!gameStarted) {
+            startGame();
             return;
           }
-
-          requestAnimationFrame(() => this.gameLoop());
+          if (!isJumping) {
+            jump();
+          }
+        } else if (e.code === "ArrowLeft") {
+          moveLeft();
+        } else if (e.code === "ArrowRight") {
+          moveRight();
         }
       }
 
-      new CyberJump();
+      function jump() {
+        isJumping = true;
+        gsap.to(player.position, {
+          y: 2,
+          duration: 0.3,
+          ease: "power1.out",
+          onComplete: () => {
+            gsap.to(player.position, {
+              y: 0.5,
+              duration: 0.3,
+              ease: "power1.in",
+              onComplete: () => {
+                isJumping = false;
+              },
+            });
+          },
+        });
+      }
+
+      function moveLeft() {
+        // 예: 왼쪽으로 2단위 이동 (필요시 경계값 체크 추가 가능)
+        gsap.to(player.position, {
+          x: player.position.x - 2,
+          duration: 0.3,
+          ease: "power1.out",
+        });
+      }
+
+      function moveRight() {
+        // 예: 오른쪽으로 2단위 이동
+        gsap.to(player.position, {
+          x: player.position.x + 2,
+          duration: 0.3,
+          ease: "power1.out",
+        });
+      }
+
+      // 이벤트 리스너 등록 예시
+      document.addEventListener("keydown", onKeyDown);
+
+      function startGame() {
+        document.getElementById("startScreen").style.display = "none";
+        gameStarted = true;
+        gameLoop();
+        spawnObstacle();
+        spawnCollectible();
+      }
+
+      function spawnObstacle() {
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const material = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+        const obstacle = new THREE.Mesh(geometry, material);
+        obstacle.position.set((Math.random() - 0.5) * 8, 0.5, -50);
+        scene.add(obstacle);
+        obstacles.push(obstacle);
+      }
+
+      function spawnCollectible() {
+        const geometry = new THREE.IcosahedronGeometry(0.5);
+        const material = new THREE.MeshPhongMaterial({
+          color: 0x00ffff,
+          emissive: 0x004444,
+        });
+        const collectible = new THREE.Mesh(geometry, material);
+        collectible.position.set((Math.random() - 0.5) * 8, 1.5, -50);
+        scene.add(collectible);
+        collectibles.push(collectible);
+      }
+
+      function checkCollision() {
+        obstacles.forEach((obstacle, index) => {
+          if (
+            Math.abs(player.position.x - obstacle.position.x) < 0.8 &&
+            Math.abs(player.position.z - obstacle.position.z) < 0.8
+          ) {
+            gameOver();
+          }
+        });
+
+        collectibles.forEach((collectible, index) => {
+          if (
+            Math.abs(player.position.x - collectible.position.x) < 0.8 &&
+            Math.abs(player.position.z - collectible.position.z) < 0.8
+          ) {
+            scene.remove(collectible);
+            collectibles.splice(index, 1);
+            score += 100;
+            document.getElementById("score").textContent = `SCORE: ${score}`;
+          }
+        });
+      }
+
+      function gameOver() {
+        gameStarted = false;
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+                <h1>GAME OVER</h1>
+                <p>Score: ${score}</p>
+                <p>Press SPACE to restart</p>
+            `;
+        obstacles.forEach((obstacle) => scene.remove(obstacle));
+        collectibles.forEach((collectible) => scene.remove(collectible));
+        obstacles = [];
+        collectibles = [];
+        score = 0;
+        speed = 0.1;
+      }
+
+      function gameLoop() {
+        if (!gameStarted) return;
+
+        // Update objects
+        obstacles.forEach((obstacle, index) => {
+          obstacle.position.z += speed;
+          if (obstacle.position.z > 10) {
+            scene.remove(obstacle);
+            obstacles.splice(index, 1);
+          }
+        });
+
+        collectibles.forEach((collectible, index) => {
+          collectible.position.z += speed;
+          collectible.rotation.y += 0.1;
+          if (collectible.position.z > 10) {
+            scene.remove(collectible);
+            collectibles.splice(index, 1);
+          }
+        });
+
+        // Spawn new objects
+        if (Math.random() < 0.02) spawnObstacle();
+        if (Math.random() < 0.01) spawnCollectible();
+
+        // Increase difficulty
+        speed += 0.0001;
+
+        checkCollision();
+        renderer.render(scene, camera);
+        requestAnimationFrame(gameLoop);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      // Start the game
+      init();
     </script>
   </body>
 </html>
