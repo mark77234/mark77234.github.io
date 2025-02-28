@@ -1,0 +1,45 @@
+.neon-box {
+  position: relative;
+  padding: 1.2rem 2.5rem;
+
+  border-radius: 1rem;
+  background: var(--button);
+  border: var(--button-border);
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  transform: translateZ(0);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
+}
+
+.neon-box:hover {
+  transform: perspective(1000px) translateZ(20px) rotateX(5deg) rotateY(-5deg)
+    scale(1.05);
+
+  background: var(--neon);
+  background-size: 4px 4px;
+
+  text-shadow: var(--neon-text-shadow);
+  box-shadow: var(--neon-box-shadow);
+}
+
+@keyframes rotateShine {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (hover: none) {
+  .neon-box:hover {
+    transform: scale(0.98);
+    box-shadow: var(--neon-box-shadow);
+  }
+}

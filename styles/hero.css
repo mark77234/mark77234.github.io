@@ -1,7 +1,7 @@
 /* Hero Section */
 .hero-section {
   background: var(--card);
-  color: white;
+  color: var(--text);
   padding: 4rem 2rem;
   border-radius: var(--border-radius);
   margin-bottom: 2rem;
@@ -23,11 +23,11 @@
 }
 
 .cta-button {
-  background: rgba(255, 255, 255, 0.15);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: var(--button);
+  border: var(--button-border);
   padding: 1rem 2rem;
   border-radius: 50px;
-  color: white;
+  color: var(--text);
   cursor: pointer;
   transition: var(--transition);
   display: flex;
@@ -37,7 +37,7 @@
 }
 
 .cta-button:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--button-hover);
   transform: translateY(-2px);
 }
 

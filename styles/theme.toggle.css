@@ -36,4 +36,7 @@
   --border-radius: 8px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow: 0 2px 15px rgba(160, 174, 192, 0.15); /* 차분한 블루 계열 그림자 */
+
+  --button: rgba(0, 0, 0, 0.1); /* 버튼 배경을 부드러운 검정 계열로 변경 */
+  --border: 2px solid rgba(0, 0, 0, 0.2); /* 다소 연한 테두리 */
 }

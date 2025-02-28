@@ -14,7 +14,7 @@ export class ContentLoader {
         link: "games/game2.html",
       },
       {
-        title: "Avoid 2D(BETA)",
+        title: "AVOID! (BETA)",
         excerpt: "날라오는 총알들을 피하는 게임",
         tags: ["Avoid", "Bullet", "Survive"],
         link: "games/game3.html",
@@ -83,11 +83,11 @@ export class ContentLoader {
               <h1>병찬로그에 오신 것을 환영합니다!</h1>
               <p class="hero-subtitle">실시간으로 업데이트되는 공간입니다.</p>
               <div class="cta-buttons">
-                <button class="cta-button" data-page="games">
+                <button class="neon-box" data-page="games">
                   <i class="fas fa-gamepad"></i>
                   게임 즐기기
                 </button>
-                <button class="cta-button" data-page="posts">
+                <button class="neon-box" data-page="posts">
                   <i class="fas fa-eye"></i>
                   실시간 업데이트 되는 블로그 둘러보기
                 </button>
@@ -96,25 +96,25 @@ export class ContentLoader {
           </section>
   
           <section class="features-grid">
-            <article class="feature-card">
+            <article class="neon-card">
               <div class="feature-icon" style="background: ${getComputedStyle(
                 document.documentElement
               ).getPropertyValue("--primary")}">
-                <i class="fas fa-code"></i>
+                <i class="fas fa-code" ></i>
               </div>
               <h3>최신 개발 트렌드</h3>
               <p>웹/앱 개발의 최신 기술과 팁을 공유합니다</p>
             </article>
   
-            <article class="feature-card">
+            <article class="neon-card">
               <div class="feature-icon" style="background: var(--secondary)">
-                <i class="fas fa-puzzle-piece"></i>
+                <i class="fas fa-gamepad"></i>
               </div>
               <h3>인터랙티브 게임</h3>
               <p>직접 제작한 재미있는 웹 게임들을 만나보세요</p>
             </article>
   
-            <article class="feature-card">
+            <article class="neon-card">
               <div class="feature-icon" style="background: var(--success)">
                 <i class="fas fa-rocket"></i>
               </div>
