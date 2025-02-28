@@ -14,9 +14,9 @@ export class ContentLoader {
         link: "games/game2.html",
       },
       {
-        title: "Space Shooter(TEST)",
-        excerpt: "우주 전투 슈팅 게임(게임 변경 예정)",
-        tags: ["Shooter", "Space", "Action"],
+        title: "Avoid (BETA)",
+        excerpt: "날라오는 총알들을 피하는 게임",
+        tags: ["Avoid", "Bullet", "Survive"],
         link: "games/game3.html",
       },
     ];
