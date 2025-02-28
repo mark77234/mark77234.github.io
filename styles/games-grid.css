@@ -10,7 +10,7 @@
   box-sizing: border-box;
 }
 
-.post-card {
+.game-card {
   position: relative;
   background: var(--card);
   border-radius: var(--border-radius);
@@ -27,40 +27,40 @@
   flex-direction: column;
 }
 
-.post-card .tags {
+.game-card .tags {
   margin-top: auto;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.post-card p,
-.post-card span {
+.game-card p,
+.game-card span {
   margin: 0.2rem;
   transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-.post-card .tags span {
+.game-card .tags span {
   padding: 0.3rem 0.6rem;
   border-radius: 1rem;
   font-size: 0.8rem;
   display: inline-block;
 }
 
-.post-card span:hover {
+.game-card span:hover {
   background-color: gray;
-  color: white;
+  color: black;
   text-shadow: var(--shadow);
 }
 
-.post-card:hover {
+.game-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow);
   background: var(--selected);
 }
 
-.post-card::after {
+.game-card::after {
   content: "한판 때리기";
   position: absolute;
   bottom: 15px;
@@ -71,11 +71,11 @@
   transition: opacity 0.3s ease;
 }
 
-.post-card:hover::after {
+.game-card:hover::after {
   opacity: 1;
 }
 
-.post-card::before {
+.game-card::before {
   content: "";
   position: absolute;
   top: 0;
@@ -87,7 +87,7 @@
   transition: var(--transition);
 }
 
-.post-card:hover::before {
+.game-card:hover::before {
   transform: scaleX(0.9);
 }
 
@@ -100,13 +100,13 @@
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-  .posts-grid {
+  .subs-grid {
     grid-template-columns: 1fr; /* Single column on mobile */
     gap: 1rem;
     padding: 0.5rem;
   }
 
-  .post-card {
+  .game-card {
     min-height: auto;
     padding: 1rem;
   }

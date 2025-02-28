@@ -44,9 +44,7 @@
 }
 
 .tag:hover {
-  /* transform: scale(1.1);
-  background: var(--primary); */
   background: gray;
-  color: white;
+  color: black;
   text-shadow: var(--shadow);
 }

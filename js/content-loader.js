@@ -34,7 +34,7 @@ export class ContentLoader {
   }
 
   setupGameLinks() {
-    document.querySelectorAll(".post-card").forEach((card) => {
+    document.querySelectorAll(".game-card").forEach((card) => {
       card.addEventListener("click", (e) => {
         const link = card.dataset.link;
         if (link) {
@@ -47,20 +47,18 @@ export class ContentLoader {
   renderSubs() {
     const postsGrid = document.querySelector(".subs-grid");
     postsGrid.innerHTML = this.posts
-      .map((post) => this.createPostHTML(post))
+      .map((post) => this.createSubHTML(post))
       .join("");
   }
 
-  createPostHTML(post) {
+  createSubHTML(sub) {
     return `
-        <article class="post-card" data-link="${post.link}">
-          <h3>${post.title}</h3>
+        <article class="game-card" data-link="${sub.link}">
+          <h3>${sub.title}</h3>
           <br>
-          <p>${post.excerpt}</p>
+          <p>${sub.excerpt}</p>
           <div class="tags">
-            ${post.tags
-              .map((tag) => `<span class="tag">${tag}</span>`)
-              .join("")}
+            ${sub.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
           </div>
         </article>
       `;
@@ -173,7 +171,7 @@ export class ContentLoader {
       case "games":
         mainContent.innerHTML = `
             <div class="subs-grid">
-              ${this.posts.map((post) => this.createPostHTML(post)).join("")}
+              ${this.posts.map((post) => this.createSubHTML(post)).join("")}
             </div>
           `;
         this.setupGameLinks();
