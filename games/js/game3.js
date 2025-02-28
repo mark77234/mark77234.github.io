@@ -4,24 +4,22 @@ class MainScene extends Phaser.Scene {
     this.player;
     this.cursorKeys;
     this.gameState = 0;
-    this.second = 0; // 초기화를 위해 constructor로 이동
+    this.second = 0;
   }
 
   preload() {
-    // 플레이어 텍스처 생성
     let playerGraphics = this.make
       .graphics()
-      .fillStyle(0x00ff00)
-      .fillCircle(10, 10, 10);
-    playerGraphics.generateTexture("player", 20, 20);
+      .fillStyle(0x82aaff)
+      .fillCircle(15, 15, 15);
+    playerGraphics.generateTexture("player", 30, 30);
     playerGraphics.destroy();
 
-    // 총알 텍스처 생성
     let bulletGraphics = this.make
       .graphics()
-      .fillStyle(0xff0000)
-      .fillCircle(5, 5, 5);
-    bulletGraphics.generateTexture("bullet", 10, 10);
+      .fillStyle(0xf85149)
+      .fillCircle(10, 10, 10);
+    bulletGraphics.generateTexture("bullet", 20, 20);
     bulletGraphics.destroy();
   }
 
@@ -30,16 +28,15 @@ class MainScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
     this.cursorKeys = this.input.keyboard.createCursorKeys();
 
-    // 총알 그룹 생성
     this.bullets = this.physics.add.group();
 
-    // 타이머 설정
-    this.textSecond = this.add.text(10, 10, "Time : 0s", {
-      font: "25px Arial",
-      fill: "#FFFFFF",
+    this.textSecond = this.add.text(10, 10, "점수: 0점", {
+      font: "20px 'Press Start 2P'",
+      fill: "#FFD700",
+      stroke: "#000",
+      strokeThickness: 3,
     });
 
-    // 총알 생성 이벤트
     this.spawnTimer = this.time.addEvent({
       delay: 500,
       callback: this.spawnBullet,
@@ -48,16 +45,15 @@ class MainScene extends Phaser.Scene {
       paused: true,
     });
 
-    // UI 요소들
     this.textReady = this.add
-      .text(250, 300, "Press space to Start", {
+      .text(250, 300, "스페이스바를 눌러 시작", {
         font: "25px Arial",
         fill: "#FFFFFF",
       })
       .setOrigin(0.5);
 
     this.textGameOver = this.add
-      .text(250, 250, "Game Over", {
+      .text(250, 250, "사망했습니다", {
         font: "25px Arial",
         fill: "#FFFFFF",
       })
@@ -65,14 +61,13 @@ class MainScene extends Phaser.Scene {
       .setVisible(false);
 
     this.textRestart = this.add
-      .text(250, 300, "Press Space to Restart", {
+      .text(250, 300, "스페이스바를 눌러 다시 시작", {
         font: "25px Arial",
         fill: "#FFFFFF",
       })
       .setOrigin(0.5)
       .setVisible(false);
 
-    // 충돌 감지 설정
     this.physics.add.overlap(
       this.player,
       this.bullets,
@@ -84,10 +79,10 @@ class MainScene extends Phaser.Scene {
 
   spawnBullet() {
     const edges = [
-      { x: Phaser.Math.Between(0, 500), y: 0 }, // 상단
-      { x: 500, y: Phaser.Math.Between(0, 500) }, // 우측
-      { x: Phaser.Math.Between(0, 500), y: 500 }, // 하단
-      { x: 0, y: Phaser.Math.Between(0, 500) }, // 좌측
+      { x: Phaser.Math.Between(0, 500), y: 0 },
+      { x: 500, y: Phaser.Math.Between(0, 500) },
+      { x: Phaser.Math.Between(0, 500), y: 500 },
+      { x: 0, y: Phaser.Math.Between(0, 500) },
     ];
 
     const { x, y } = Phaser.Math.RND.pick(edges);
@@ -104,7 +99,7 @@ class MainScene extends Phaser.Scene {
     this.textRestart.setVisible(true);
     this.spawnTimer.paused = true;
     this.bullets.clear(true, true);
-    this.timerEvent.paused = true; // 타이머 중지
+    this.timerEvent.paused = true;
   }
 
   update() {
@@ -116,12 +111,11 @@ class MainScene extends Phaser.Scene {
         this.textReady.setVisible(false);
         this.spawnTimer.paused = false;
 
-        // 타이머 이벤트 생성 (1초마다 시간 업데이트)
         this.timerEvent = this.time.addEvent({
           delay: 1000,
           callback: () => {
             this.second++;
-            this.textSecond.setText(`Time: ${this.second}s`);
+            this.textSecond.setText(`점수: ${this.second}점`);
           },
           callbackScope: this,
           loop: true,
@@ -132,15 +126,15 @@ class MainScene extends Phaser.Scene {
 
     if (this.gameState === 2) {
       if (this.cursorKeys.space.isDown) {
-        this.second = 0; // 시간 초기화
-        this.gameState = 0; // 게임 상태 초기화
+        this.second = 0;
+        this.gameState = 0;
         this.textGameOver.setVisible(false);
         this.textRestart.setVisible(false);
         this.textReady.setVisible(true);
-        this.bullets.clear(true, true); // 총알 초기화
-        this.player.setPosition(250, 250); // 플레이어 위치 초기화
-        this.spawnTimer.paused = true; // 총알 생성 중지
-        this.timerEvent.paused = true; // 타이머 중지
+        this.bullets.clear(true, true);
+        this.player.setPosition(250, 250);
+        this.spawnTimer.paused = true;
+        this.timerEvent.paused = true;
       }
       return;
     }
