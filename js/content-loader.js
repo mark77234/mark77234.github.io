@@ -1,6 +1,6 @@
 export class ContentLoader {
   constructor() {
-    this.posts = [
+    this.games = [
       {
         title: "Cyber Jump(TEST)",
         excerpt: "끝없는 장애물 점프 게임 (게임 변경 예정)",
@@ -46,7 +46,7 @@ export class ContentLoader {
 
   renderSubs() {
     const postsGrid = document.querySelector(".subs-grid");
-    postsGrid.innerHTML = this.posts
+    postsGrid.innerHTML = this.games
       .map((post) => this.createSubHTML(post))
       .join("");
   }
@@ -171,7 +171,7 @@ export class ContentLoader {
       case "games":
         mainContent.innerHTML = `
             <div class="subs-grid">
-              ${this.posts.map((post) => this.createSubHTML(post)).join("")}
+              ${this.games.map((post) => this.createSubHTML(post)).join("")}
             </div>
           `;
         this.setupGameLinks();
