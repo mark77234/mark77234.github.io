@@ -1,0 +1,88 @@
+/* Mobile Hamburger Menu */
+.hamburger {
+  display: none; /* 기본적으로 숨김 */
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    --size: 48px;
+    --bar-width: 28px;
+    --bar-height: 2px;
+    --color: var(--text);
+    --transition: all 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+
+    /* 초기화 */
+    all: unset;
+
+    /* 레이아웃 */
+    display: grid;
+    place-items: center;
+    width: var(--size);
+    height: var(--size);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    z-index: 1100;
+  }
+
+  /* 막대 애니메이션 개선 */
+  .hamburger .bar {
+    width: var(--bar-width);
+    height: var(--bar-height);
+    background: var(--color);
+    border-radius: 4px;
+    transition: var(--transition);
+    transform-origin: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* 호버 효과 최적화 */
+  @media (hover: hover) {
+    .hamburger:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+
+    .hamburger:hover .bar {
+      transform: scaleX(1.1);
+    }
+
+    .hamburger:hover .bar:nth-child(2) {
+      transform: scaleX(0.9);
+    }
+  }
+
+  /* Active State 개선 */
+  .hamburger.active {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(calc(var(--bar-height) * 4)) rotate(45deg);
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(calc(var(--bar-height) * -4)) rotate(-45deg);
+  }
+
+  /* 다크 모드 대응 */
+  @media (prefers-color-scheme: dark) {
+    .hamburger {
+      background: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .hamburger.active {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
