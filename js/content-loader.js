@@ -8,10 +8,10 @@ export class ContentLoader {
         link: "games/game1.html",
       },
       {
-        title: "Gravity Puzzle(TEST)",
-        excerpt: "중력 조작 퍼즐 게임(게임 변경 예정)",
-        tags: ["Puzzle", "Physics", "Brain Teaser"],
-        link: "games/game2.html",
+        title: "개발중",
+        excerpt: "개발중",
+        tags: ["개발단계"],
+        link: "#", //games/game2.html
       },
       {
         title: "AVOID! (BETA)",
