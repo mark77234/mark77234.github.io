@@ -10,7 +10,7 @@
   box-sizing: border-box;
 }
 
-.game-card {
+.nav-card {
   position: relative;
   background: var(--card);
   border-radius: var(--border-radius);
@@ -27,40 +27,40 @@
   flex-direction: column;
 }
 
-.game-card .tags {
+.nav-card .tags {
   margin-top: auto;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.game-card p,
-.game-card span {
+.nav-card p,
+.nav-card span {
   margin: 0.2rem;
   transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-.game-card .tags span {
+.nav-card .tags span {
   padding: 0.3rem 0.6rem;
   border-radius: 1rem;
   font-size: 0.8rem;
   display: inline-block;
 }
 
-.game-card span:hover {
+.nav-card span:hover {
   background-color: gray;
   color: black;
   text-shadow: var(--shadow);
 }
 
-.game-card:hover {
+.nav-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow);
   background: var(--selected);
 }
 
-.game-card::after {
+.nav-card::after {
   content: "한판 때리기";
   position: absolute;
   bottom: 15px;
@@ -71,11 +71,11 @@
   transition: opacity 0.3s ease;
 }
 
-.game-card:hover::after {
+.nav-card:hover::after {
   opacity: 1;
 }
 
-.game-card::before {
+.nav-card::before {
   content: "";
   position: absolute;
   top: 0;
@@ -87,7 +87,7 @@
   transition: var(--transition);
 }
 
-.game-card:hover::before {
+.nav-card:hover::before {
   transform: scaleX(0.9);
 }
 
@@ -106,7 +106,7 @@
     padding: 0.5rem;
   }
 
-  .game-card {
+  .nav-card {
     min-height: auto;
     padding: 1rem;
   }

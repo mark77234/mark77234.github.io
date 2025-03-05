@@ -26,3 +26,15 @@
   background: var(--primary);
   height: 100%;
 }
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(300px, 1fr)
+  ); /* Fixed minimum width */
+  gap: 2rem;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}

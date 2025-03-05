@@ -20,21 +20,29 @@ export class ContentLoader {
         link: "games/game3.html",
       },
     ];
+    this.posts = [
+      {
+        title: "테스트 블로그",
+        excerpt: "TEST",
+        tags: ["test"],
+        link: "posts/post1.html",
+      },
+    ];
     this.init();
   }
 
   init() {
     this.renderSubs();
     this.setupContentLinks();
-    this.setupGameLinks();
+    this.setupNavLinks();
     this.loadContent({
       preventDefault: () => {},
       target: { dataset: { page: "home" } },
     });
   }
 
-  setupGameLinks() {
-    document.querySelectorAll(".game-card").forEach((card) => {
+  setupNavLinks() {
+    document.querySelectorAll(".nav-card").forEach((card) => {
       card.addEventListener("click", (e) => {
         const link = card.dataset.link;
         if (link) {
@@ -53,7 +61,7 @@ export class ContentLoader {
 
   createSubHTML(sub) {
     return `
-        <article class="game-card" data-link="${sub.link}">
+        <article class="nav-card" data-link="${sub.link}">
           <h3>${sub.title}</h3>
           <br>
           <p>${sub.excerpt}</p>
@@ -161,15 +169,19 @@ export class ContentLoader {
               <p>⚠️ 블로그 개발이 아직 "대기중"입니다. ⚠️</p>
               <div class="skills">
                 <div class="skill-item">
-                  <h3>진행률 <span class="progress">1%</span></h3>
+                  <h3>진행률 <span class="progress">10%</span></h3>
                   <div class="progress-bar">
-                    <div class="progress-fill" style="width: 1%;"></div>
+                    <div class="progress-fill" style="width: 10%;"></div>
                   </div>
                   <p>다른 페이지 작업 중입니다. . . </p>
                 </div>
               </div>
             </section>
+            <div class="posts-grid">
+              ${this.posts.map((post) => this.createSubHTML(post)).join("")}
+            </div>
           `;
+        this.setupNavLinks();
         break;
 
       case "games":
@@ -178,7 +190,7 @@ export class ContentLoader {
               ${this.games.map((game) => this.createSubHTML(game)).join("")}
             </div>
           `;
-        this.setupGameLinks();
+        this.setupNavLinks();
         break;
       default:
         mainContent.innerHTML = `<p>페이지를 찾을 수 없습니다.</p>`;
