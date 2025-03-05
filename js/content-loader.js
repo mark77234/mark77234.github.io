@@ -175,7 +175,7 @@ export class ContentLoader {
       case "games":
         mainContent.innerHTML = `
             <div class="subs-grid">
-              ${this.games.map((post) => this.createSubHTML(post)).join("")}
+              ${this.games.map((game) => this.createSubHTML(game)).join("")}
             </div>
           `;
         this.setupGameLinks();
