@@ -10,7 +10,7 @@ export class ContentLoader {
       {
         title: "짭이작(개발중)",
         excerpt: "개발중",
-        tags: ["개발단계"],
+        tags: ["개발단계", "10% 진행중"],
         link: "games/game2.html", //games/game2.html
       },
       {

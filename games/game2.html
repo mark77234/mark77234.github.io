@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Auto-Shoot Isaac-like Game</title>
+    <title>Advanced Isaac-like Game</title>
     <style>
       canvas {
         border: 2px solid black;
@@ -22,183 +22,11 @@
     </style>
   </head>
   <body>
-    <h1>Auto-Shoot Isaac Game</h1>
+    <h1>짭이작</h1>
     <div id="score">Score: 0</div>
     <div id="health">❤❤❤❤❤</div>
     <canvas id="gameCanvas" width="800" height="600"></canvas>
 
-    <script>
-      const canvas = document.getElementById("gameCanvas");
-      const ctx = canvas.getContext("2d");
-      const scoreElement = document.getElementById("score");
-      const healthElement = document.getElementById("health");
-
-      // Player properties
-      const player = {
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        size: 20,
-        speed: 5,
-        tears: [],
-        lastMoveDirection: { x: 0, y: 0 },
-      };
-
-      // Game state
-      let enemies = [];
-      let score = 0;
-      let health = 5;
-      let lastShot = 0;
-      let shootDelay = 300;
-
-      // Key states
-      const keys = {
-        ArrowLeft: false,
-        ArrowRight: false,
-        ArrowUp: false,
-        ArrowDown: false,
-      };
-
-      // Event listeners
-      document.addEventListener("keydown", (e) => (keys[e.key] = true));
-      document.addEventListener("keyup", (e) => (keys[e.key] = false));
-
-      function update() {
-        // Player movement
-        let moveX = 0,
-          moveY = 0;
-        if (keys.ArrowLeft) moveX -= 1;
-        if (keys.ArrowRight) moveX += 1;
-        if (keys.ArrowUp) moveY -= 1;
-        if (keys.ArrowDown) moveY += 1;
-
-        // Update player position
-        player.x = Math.max(
-          player.size,
-          Math.min(canvas.width - player.size, player.x + moveX * player.speed)
-        );
-        player.y = Math.max(
-          player.size,
-          Math.min(canvas.height - player.size, player.y + moveY * player.speed)
-        );
-
-        // Update shooting direction
-        if (moveX !== 0 || moveY !== 0) {
-          player.lastMoveDirection = { x: moveX, y: moveY };
-        }
-
-        // Auto-shoot logic
-        const now = Date.now();
-        if (now - lastShot > shootDelay && (moveX !== 0 || moveY !== 0)) {
-          const angle = Math.atan2(
-            player.lastMoveDirection.y,
-            player.lastMoveDirection.x
-          );
-          player.tears.push({
-            x: player.x,
-            y: player.y,
-            dx: Math.cos(angle) * 7,
-            dy: Math.sin(angle) * 7,
-            size: 5,
-          });
-          lastShot = now;
-        }
-
-        // Update tears
-        for (let i = player.tears.length - 1; i >= 0; i--) {
-          const tear = player.tears[i];
-          tear.x += tear.dx;
-          tear.y += tear.dy;
-
-          if (
-            tear.x < 0 ||
-            tear.x > canvas.width ||
-            tear.y < 0 ||
-            tear.y > canvas.height
-          ) {
-            player.tears.splice(i, 1);
-          }
-        }
-
-        // Spawn enemies
-        if (Math.random() < 0.02) {
-          enemies.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: 15,
-            speed: 2,
-          });
-        }
-
-        // Update enemies
-        enemies.forEach((enemy) => {
-          const angle = Math.atan2(player.y - enemy.y, player.x - enemy.x);
-          enemy.x += Math.cos(angle) * enemy.speed;
-          enemy.y += Math.sin(angle) * enemy.speed;
-        });
-
-        // Collision detection: Tears vs Enemies
-        enemies.forEach((enemy, eIndex) => {
-          player.tears.forEach((tear, tIndex) => {
-            const dx = tear.x - enemy.x;
-            const dy = tear.y - enemy.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < enemy.size + tear.size) {
-              enemies.splice(eIndex, 1);
-              player.tears.splice(tIndex, 1);
-              score += 10;
-              scoreElement.textContent = `Score: ${score}`;
-            }
-          });
-
-          // Collision detection: Player vs Enemies
-          const pdx = player.x - enemy.x;
-          const pdy = player.y - enemy.y;
-          const pdistance = Math.sqrt(pdx * pdx + pdy * pdy);
-          if (pdistance < player.size + enemy.size) {
-            health--;
-            healthElement.textContent = "❤".repeat(health);
-            enemies.splice(eIndex, 1);
-
-            if (health <= 0) {
-              alert(`Game Over! 최종 점수: ${score}`);
-              document.location.reload();
-            }
-          }
-        });
-
-        requestAnimationFrame(update);
-        draw();
-      }
-
-      function draw() {
-        ctx.fillStyle = "#333";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Draw player
-        ctx.fillStyle = "white";
-        ctx.beginPath();
-        ctx.arc(player.x, player.y, player.size, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Draw tears
-        ctx.fillStyle = "lightblue";
-        player.tears.forEach((tear) => {
-          ctx.beginPath();
-          ctx.arc(tear.x, tear.y, tear.size, 0, Math.PI * 2);
-          ctx.fill();
-        });
-
-        // Draw enemies
-        ctx.fillStyle = "red";
-        enemies.forEach((enemy) => {
-          ctx.beginPath();
-          ctx.arc(enemy.x, enemy.y, enemy.size, 0, Math.PI * 2);
-          ctx.fill();
-        });
-      }
-
-      update();
-    </script>
+    <script src="js/game2.js"></script>
   </body>
 </html>
