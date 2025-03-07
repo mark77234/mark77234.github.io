@@ -8,10 +8,10 @@ export class ContentLoader {
         link: "games/game1.html",
       },
       {
-        title: "개발중",
+        title: "짭이작(개발중)",
         excerpt: "개발중",
         tags: ["개발단계"],
-        link: "#", //games/game2.html
+        link: "games/game2.html", //games/game2.html
       },
       {
         title: "AVOID! (BETA)",

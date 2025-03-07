@@ -1,203 +1,204 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gravity Puzzle v2</title>
+    <title>Auto-Shoot Isaac-like Game</title>
     <style>
-      /* 기존 스타일 유지 */
+      canvas {
+        border: 2px solid black;
+        background: #333;
+      }
       body {
-        margin: 0;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
-        min-height: 100vh;
-        background: #2c3e50;
-        touch-action: none;
+        background: #222;
+        color: white;
       }
-      #gameContainer {
-        position: relative;
-        width: 360px;
-        height: 640px;
-        background: #34495e;
-        border-radius: 20px;
-        overflow: hidden;
-      }
-      .ball {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        position: absolute;
-        cursor: pointer;
-        transition: transform 0.1s;
-      }
-      .goal {
-        width: 40px;
-        height: 40px;
-        border: 3px dashed #2ecc71;
-        border-radius: 50%;
-        position: absolute;
+      #health {
+        font-size: 24px;
+        color: red;
+        margin: 10px;
       }
     </style>
   </head>
   <body>
-    <div id="gameContainer"></div>
+    <h1>Auto-Shoot Isaac Game</h1>
+    <div id="score">Score: 0</div>
+    <div id="health">❤❤❤❤❤</div>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+
     <script>
-      class GravityPuzzle {
-        constructor() {
-          this.container = document.getElementById("gameContainer");
-          this.balls = [];
-          this.goals = [];
-          this.currentRotation = 0;
-          this.isDragging = false;
-          this.gravityForce = 0.8; // 중력 가속도 증가
-          this.friction = 0.95; // 마찰 계수 추가
-          this.init();
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+      const scoreElement = document.getElementById("score");
+      const healthElement = document.getElementById("health");
+
+      // Player properties
+      const player = {
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        size: 20,
+        speed: 5,
+        tears: [],
+        lastMoveDirection: { x: 0, y: 0 },
+      };
+
+      // Game state
+      let enemies = [];
+      let score = 0;
+      let health = 5;
+      let lastShot = 0;
+      let shootDelay = 300;
+
+      // Key states
+      const keys = {
+        ArrowLeft: false,
+        ArrowRight: false,
+        ArrowUp: false,
+        ArrowDown: false,
+      };
+
+      // Event listeners
+      document.addEventListener("keydown", (e) => (keys[e.key] = true));
+      document.addEventListener("keyup", (e) => (keys[e.key] = false));
+
+      function update() {
+        // Player movement
+        let moveX = 0,
+          moveY = 0;
+        if (keys.ArrowLeft) moveX -= 1;
+        if (keys.ArrowRight) moveX += 1;
+        if (keys.ArrowUp) moveY -= 1;
+        if (keys.ArrowDown) moveY += 1;
+
+        // Update player position
+        player.x = Math.max(
+          player.size,
+          Math.min(canvas.width - player.size, player.x + moveX * player.speed)
+        );
+        player.y = Math.max(
+          player.size,
+          Math.min(canvas.height - player.size, player.y + moveY * player.speed)
+        );
+
+        // Update shooting direction
+        if (moveX !== 0 || moveY !== 0) {
+          player.lastMoveDirection = { x: moveX, y: moveY };
         }
 
-        init() {
-          this.createLevel(1);
-          this.initControls();
-          this.gameLoop(); // 게임 루프 추가
-        }
-
-        createLevel(level) {
-          this.balls = [this.createBall(100, 100, "#e74c3c")];
-          this.goals = [this.createGoal(260, 500)];
-          this.container.style.transform = `rotate(${this.currentRotation}deg)`;
-        }
-
-        createBall(x, y, color) {
-          const ball = document.createElement("div");
-          ball.className = "ball";
-          ball.style.backgroundColor = color;
-          ball.style.left = x + "px";
-          ball.style.top = y + "px";
-          this.container.appendChild(ball);
-          return ball;
-        }
-
-        createGoal(x, y) {
-          const goal = document.createElement("div");
-          goal.className = "goal";
-          goal.style.left = x + "px";
-          goal.style.top = y + "px";
-          this.container.appendChild(goal);
-          return goal;
-        }
-
-        initControls() {
-          let startY = 0;
-          let startRotation = 0;
-
-          // 터치 이벤트
-          document.addEventListener("touchstart", (e) =>
-            this.handleStart(e.touches[0].clientY)
+        // Auto-shoot logic
+        const now = Date.now();
+        if (now - lastShot > shootDelay && (moveX !== 0 || moveY !== 0)) {
+          const angle = Math.atan2(
+            player.lastMoveDirection.y,
+            player.lastMoveDirection.x
           );
-          document.addEventListener("touchmove", (e) =>
-            this.handleMove(e.touches[0].clientY)
-          );
-          document.addEventListener("touchend", () => this.handleEnd());
-
-          // 마우스 이벤트
-          document.addEventListener("mousedown", (e) =>
-            this.handleStart(e.clientY)
-          );
-          document.addEventListener("mousemove", (e) =>
-            this.handleMove(e.clientY)
-          );
-          document.addEventListener("mouseup", () => this.handleEnd());
+          player.tears.push({
+            x: player.x,
+            y: player.y,
+            dx: Math.cos(angle) * 7,
+            dy: Math.sin(angle) * 7,
+            size: 5,
+          });
+          lastShot = now;
         }
 
-        handleStart(clientY) {
-          this.isDragging = true;
-          this.startY = clientY;
-          this.startRotation = this.currentRotation;
-        }
+        // Update tears
+        for (let i = player.tears.length - 1; i >= 0; i--) {
+          const tear = player.tears[i];
+          tear.x += tear.dx;
+          tear.y += tear.dy;
 
-        handleMove(clientY) {
-          if (!this.isDragging) return;
-          const deltaY = clientY - this.startY;
-          this.currentRotation = this.startRotation + deltaY * 0.5;
-          this.container.style.transform = `rotate(${this.currentRotation}deg)`;
-        }
-
-        handleEnd() {
-          this.isDragging = false;
-          this.checkWinCondition();
-        }
-
-        gameLoop() {
-          if (!this.isDragging) {
-            this.applyPhysics();
+          if (
+            tear.x < 0 ||
+            tear.x > canvas.width ||
+            tear.y < 0 ||
+            tear.y > canvas.height
+          ) {
+            player.tears.splice(i, 1);
           }
-          requestAnimationFrame(() => this.gameLoop());
         }
 
-        applyPhysics() {
-          const radians = this.currentRotation * (Math.PI / 180);
-          const gravityX = Math.sin(radians) * this.gravityForce;
-          const gravityY = Math.cos(radians) * this.gravityForce;
-
-          this.balls.forEach((ball) => {
-            // 현재 속도 가져오기
-            let velX = parseFloat(ball.dataset.velX) || 0;
-            let velY = parseFloat(ball.dataset.velY) || 0;
-
-            // 중력 적용
-            velX += gravityX;
-            velY += gravityY;
-
-            // 마찰 적용
-            velX *= this.friction;
-            velY *= this.friction;
-
-            // 위치 업데이트
-            const currentX = parseFloat(ball.style.left) || 0;
-            const currentY = parseFloat(ball.style.top) || 0;
-
-            // 충돌 검사 및 반응
-            let newX = currentX + velX;
-            let newY = currentY + velY;
-
-            // 컨테이너 경계 검사
-            newX = Math.max(0, Math.min(newX, this.container.offsetWidth - 30));
-            newY = Math.max(
-              0,
-              Math.min(newY, this.container.offsetHeight - 30)
-            );
-
-            // 위치 적용
-            ball.style.left = newX + "px";
-            ball.style.top = newY + "px";
-
-            // 속도 저장
-            ball.dataset.velX = velX;
-            ball.dataset.velY = velY;
+        // Spawn enemies
+        if (Math.random() < 0.02) {
+          enemies.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: 15,
+            speed: 2,
           });
         }
 
-        checkWinCondition() {
-          const ball = this.balls[0];
-          const goal = this.goals[0];
+        // Update enemies
+        enemies.forEach((enemy) => {
+          const angle = Math.atan2(player.y - enemy.y, player.x - enemy.x);
+          enemy.x += Math.cos(angle) * enemy.speed;
+          enemy.y += Math.sin(angle) * enemy.speed;
+        });
 
-          const ballRect = ball.getBoundingClientRect();
-          const goalRect = goal.getBoundingClientRect();
+        // Collision detection: Tears vs Enemies
+        enemies.forEach((enemy, eIndex) => {
+          player.tears.forEach((tear, tIndex) => {
+            const dx = tear.x - enemy.x;
+            const dy = tear.y - enemy.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
 
-          const distance = Math.sqrt(
-            Math.pow(ballRect.left - goalRect.left, 2) +
-              Math.pow(ballRect.top - goalRect.top, 2)
-          );
+            if (distance < enemy.size + tear.size) {
+              enemies.splice(eIndex, 1);
+              player.tears.splice(tIndex, 1);
+              score += 10;
+              scoreElement.textContent = `Score: ${score}`;
+            }
+          });
 
-          if (distance < 30) {
-            alert("Level Clear!");
-            ball.dataset.velX = 0;
-            ball.dataset.velY = 0;
+          // Collision detection: Player vs Enemies
+          const pdx = player.x - enemy.x;
+          const pdy = player.y - enemy.y;
+          const pdistance = Math.sqrt(pdx * pdx + pdy * pdy);
+          if (pdistance < player.size + enemy.size) {
+            health--;
+            healthElement.textContent = "❤".repeat(health);
+            enemies.splice(eIndex, 1);
+
+            if (health <= 0) {
+              alert(`Game Over! 최종 점수: ${score}`);
+              document.location.reload();
+            }
           }
-        }
+        });
+
+        requestAnimationFrame(update);
+        draw();
       }
 
-      new GravityPuzzle();
+      function draw() {
+        ctx.fillStyle = "#333";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw player
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(player.x, player.y, player.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw tears
+        ctx.fillStyle = "lightblue";
+        player.tears.forEach((tear) => {
+          ctx.beginPath();
+          ctx.arc(tear.x, tear.y, tear.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        // Draw enemies
+        ctx.fillStyle = "red";
+        enemies.forEach((enemy) => {
+          ctx.beginPath();
+          ctx.arc(enemy.x, enemy.y, enemy.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+
+      update();
     </script>
   </body>
 </html>
