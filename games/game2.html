@@ -19,6 +19,12 @@
         color: red;
         margin: 10px;
       }
+      #instructions {
+        margin-top: 10px;
+        padding: 10px;
+        background: #444;
+        border-radius: 5px;
+      }
     </style>
   </head>
   <body>
@@ -26,6 +32,12 @@
     <div id="score">Score: 0</div>
     <div id="health">❤❤❤❤❤</div>
     <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+    <div id="instructions">
+      <h2>게임 방법</h2>
+      <p><strong>이동:</strong> W A S D</p>
+      <p><strong>공격:</strong> 방향키 (↑ ↓ ← →) 눈물 발사</p>
+    </div>
 
     <script src="js/game2.js"></script>
   </body>
