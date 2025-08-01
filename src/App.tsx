@@ -9,7 +9,7 @@ const App = () => {
       </header>
       <main className="main-content">
         <section className="intro-section">
-          <h2>안녕하세요! 👋</h2>
+          <h2>안녕하시봉! 👋</h2>
           <p>
             앱 개발과 최신 기술, 그리고 개발자의 성장 이야기를 공유하는
             공간입니다.
