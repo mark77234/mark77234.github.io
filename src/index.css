@@ -2,45 +2,52 @@
 
 :root {
   --color-bg: #111827;
-  --color-bg-light: #1f2937;
-  --color-primary: #fff;
-  --color-text: #f4f4f5;
+  --color-dark: #1f2937;
   --color-subtext: #a1a1aa;
   --font-main: "Montserrat", "Pretendard", "Apple SD Gothic Neo", Arial,
     sans-serif;
 }
 
 body {
-  margin: 0;
-  padding: 0;
   background: var(--color-bg);
-  color: var(--color-text);
+  color: var(--color-dark);
   font-family: var(--font-main);
+}
+
+.main-background {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .iphone-container {
   position: relative;
-  max-width: 350px; /* iPhone 16 Pro 예상 가로 px */
-  margin: 40px auto 0 auto; /* 상단 status bar 공간 확보 */
-  padding: 2rem 1rem 3.5rem 1rem; /* 하단 홈 인디케이터 공간 확보 */
-  background: linear-gradient(180deg, #222a36 0%, #1f2937 100%);
-  border-radius: 38px;
-  box-shadow: 0 8px 40px 0 rgba(0, 0, 0, 0.25), 0 1.5px 0 #fff inset;
-  min-height: 600px; /* iPhone 16 Pro 예상 세로 px */
+  width: 48vh;
+  height: 85vh;
+  padding: 1rem; /* 하단 홈 인디케이터 공간 확보 */
+  background: #1f2937;
+  border-radius: 40px;
   display: flex;
   flex-direction: column;
-  border: 1.5px solid #222a36;
   overflow: hidden;
+}
+
+.iphone-screen {
+  background-color: #dbeafe;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
 }
 
 .iphone-home-indicator {
   position: absolute;
   left: 50%;
-  bottom: 12px;
+  bottom: 2rem;
   transform: translateX(-50%);
   width: 120px;
   height: 5px;
-  background: #fff;
+  background: #000;
   border-radius: 3px;
   opacity: 0.25;
   z-index: 2;

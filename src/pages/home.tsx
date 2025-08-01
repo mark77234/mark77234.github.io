@@ -1,12 +1,10 @@
-import MainSreen from "../components/home/MainScreen";
-
 export default function Home() {
   return (
-    <div>
+    <div className="main-background">
       <div className="iphone-container">
-        <MainSreen />
-
-        <div className="iphone-home-indicator" />
+        <div className="iphone-screen">
+          <div className="iphone-home-indicator" />
+        </div>
       </div>
     </div>
   );

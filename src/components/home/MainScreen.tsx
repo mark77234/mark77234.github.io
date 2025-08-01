@@ -1,4 +1,4 @@
-export default function MainSreen() {
+export default function MainScreen() {
   return (
     <section className="intro-section">
       <h2>안녕하시봉! 👋</h2>
