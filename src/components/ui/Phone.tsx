@@ -5,10 +5,7 @@ interface PhoneMockupProps {
   className?: string;
 }
 
-export default function PhoneMockup({
-  children,
-  className = "",
-}: PhoneMockupProps) {
+export default function Phone({ children, className = "" }: PhoneMockupProps) {
   return (
     <div
       className={`relative w-[48vh] h-[85vh] p-4 bg-dark rounded-[40px] flex flex-col overflow-hidden flex-shrink-0 max-md:w-[300px] max-md:h-[600px] ${className}`}
@@ -23,6 +20,6 @@ export default function PhoneMockup({
 
 function HomeIndicator() {
   return (
-    <div className="absolute left-1/2 bottom-8 transform -translate-x-1/2 w-30 h-1 bg-black rounded-sm opacity-25 z-10" />
+    <div className="absolute left-1/2 bottom-4 transform -translate-x-1/2 w-30 h-1 bg-black rounded-sm opacity-25 z-10" />
   );
 }
