@@ -6,7 +6,10 @@ interface AnimatedDeviceProps {
   children: ReactNode;
 }
 
-export default function AnimatedDevice({ deviceType, children }: AnimatedDeviceProps) {
+export default function AnimatedDevice({
+  deviceType,
+  children,
+}: AnimatedDeviceProps) {
   const isIPhone = deviceType === "iphone";
 
   return (

@@ -1,0 +1,30 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="16" fill="#2563eb"/>
+  
+  <!-- Terminal/Log window -->
+  <rect x="6" y="8" width="20" height="16" rx="2" fill="white"/>
+  <rect x="7" y="10" width="18" height="11" rx="1" fill="#1e293b"/>
+  
+  <!-- Terminal header -->
+  <rect x="6" y="8" width="20" height="3" rx="2" fill="#e2e8f0"/>
+  <circle cx="9" cy="9.5" r="0.8" fill="#ef4444"/>
+  <circle cx="11.5" cy="9.5" r="0.8" fill="#f59e0b"/>
+  <circle cx="14" cy="9.5" r="0.8" fill="#10b981"/>
+  
+  <!-- Code/Log lines -->
+  <rect x="8" y="12" width="3" height="1" rx="0.5" fill="#22d3ee"/>
+  <rect x="12" y="12" width="8" height="1" rx="0.5" fill="#a3a3a3"/>
+  
+  <rect x="8" y="14" width="2" height="1" rx="0.5" fill="#f472b6"/>
+  <rect x="11" y="14" width="10" height="1" rx="0.5" fill="#a3a3a3"/>
+  
+  <rect x="8" y="16" width="4" height="1" rx="0.5" fill="#a78bfa"/>
+  <rect x="13" y="16" width="6" height="1" rx="0.5" fill="#a3a3a3"/>
+  
+  <rect x="8" y="18" width="2.5" height="1" rx="0.5" fill="#34d399"/>
+  <rect x="11.5" y="18" width="7" height="1" rx="0.5" fill="#a3a3a3"/>
+  
+  <!-- Cursor -->
+  <rect x="20" y="18" width="1" height="1.2" rx="0.1" fill="#22d3ee"/>
+</svg>
