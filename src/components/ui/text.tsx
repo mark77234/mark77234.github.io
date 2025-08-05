@@ -166,8 +166,8 @@ export const Text: React.FC<TextProps> = ({
           finalFontWeight === "bold"
             ? 700
             : finalFontWeight === "medium"
-            ? 500
-            : 400,
+              ? 500
+              : 400,
         fontSize: finalFontSize,
         lineHeight: typeConfig?.lineHeight || "1.5",
         color,
