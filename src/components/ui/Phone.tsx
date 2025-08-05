@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 
-interface PhoneMockupProps {
+interface PhoneProps {
   children: ReactNode;
   className?: string;
 }
 
-export default function Phone({ children, className = "" }: PhoneMockupProps) {
+export default function Phone({ children, className = "" }: PhoneProps) {
   return (
     <div
       className={`relative w-[48vh] h-[85vh] p-4 bg-dark rounded-[40px] flex flex-col overflow-hidden flex-shrink-0 max-md:w-[300px] max-md:h-[600px] ${className}`}
