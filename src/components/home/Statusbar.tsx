@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { Text } from "../ui/text";
-import { colors } from "../../styles/colors";
 
 export default function StatusBar() {
   const [time, setTime] = useState("");
@@ -22,56 +20,12 @@ export default function StatusBar() {
   }, []);
 
   return (
-    <div
-      style={{
-        width: "100%",
-        position: "relative",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginTop: 10,
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 14,
-          fontWeight: 600,
-          color: colors.dark[100],
-          marginLeft: 40,
-        }}
-      >
-        {time}
-      </Text>
-      <div
-        style={{
-          position: "absolute",
-          left: "50%",
-          top: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "20%",
-          height: "25px",
-          backgroundColor: "#111827",
-          zIndex: 10,
-          paddingLeft: "30px",
-          borderRadius: "50px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      ></div>
+    <div className="w-full relative flex flex-row items-center justify-between mt-2.5">
+      <span className="text-sm font-semibold text-gray-800 ml-10">{time}</span>
 
-      {/* 5G 텍스트 */}
-      <Text
-        style={{
-          fontSize: 14,
-          fontWeight: 600,
-          color: colors.dark[100],
-          marginRight: 40,
-        }}
-      >
-        5G
-      </Text>
+      <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/5 h-6 bg-bg z-10 pl-7 rounded-full flex justify-center items-center" />
+
+      <span className="text-sm font-semibold text-gray-800 mr-10">5G</span>
     </div>
   );
 }
