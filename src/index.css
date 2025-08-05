@@ -1,95 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 
-:root {
-  --color-bg: #111827;
-  --color-dark: #1f2937;
-  --color-subtext: #a1a1aa;
-  --font-main: "Montserrat", "Pretendard", "Apple SD Gothic Neo", Arial,
-    sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
-  background: var(--color-bg);
-  color: var(--color-dark);
-  font-family: var(--font-main);
-}
-
-.main-background {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.iphone-container {
-  position: relative;
-  width: 48vh;
-  height: 85vh;
-  padding: 1rem; /* 하단 홈 인디케이터 공간 확보 */
-  background: #1f2937;
-  border-radius: 40px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.iphone-screen {
-  background-color: #dbeafe;
-  width: 100%;
-  height: 100%;
-  border-radius: 40px;
-  overflow: hidden;
-}
-
-.iphone-home-indicator {
-  position: absolute;
-  left: 50%;
-  bottom: 2rem;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 5px;
-  background: #000;
-  border-radius: 3px;
-  opacity: 0.25;
-  z-index: 2;
-}
-
-.iphone-status-bar {
-  width: 100%;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #fff;
-  background-color: #111827;
-  z-index: 10;
-  padding-left: 30px;
-}
-
-.iphone-status-icons {
-  display: flex;
-  gap: 7px;
-  padding-right: 4rem;
-}
-
-.iphone-status-signal {
-  width: 8px;
-  height: 8px;
-  background: #fff;
-  border-radius: 2px;
-  opacity: 0.7;
-}
-.iphone-status-wifi {
-  width: 12px;
-  height: 8px;
-  background: #fff;
-  border-radius: 2px;
-  opacity: 0.7;
-}
-.iphone-status-battery {
-  width: 18px;
-  height: 8px;
-  background: #fff;
-  border-radius: 2px;
-  opacity: 0.7;
+@layer base {
+  body {
+    @apply bg-bg text-dark font-pretendard;
+  }
 }
