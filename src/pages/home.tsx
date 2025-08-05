@@ -1,7 +1,6 @@
 import StatusBar from "../components/home/Statusbar";
 import Profile from "../components/home/Profile";
-import Phone from "../components/ui/Phone";
-import IPad from "../components/ui/IPad";
+import AnimatedDevice from "../components/ui/AnimatedDevice";
 import DeviceToggle from "../components/ui/DeviceToggle";
 import MainLayout from "../layouts/MainLayout";
 import { PROFILE_DATA } from "../constants/profile";
@@ -20,15 +19,9 @@ export default function Home() {
         technologies={PROFILE_DATA.technologies}
       />
 
-      {deviceType === "iphone" ? (
-        <Phone>
-          <StatusBar deviceType={deviceType} />
-        </Phone>
-      ) : (
-        <IPad>
-          <StatusBar deviceType={deviceType} />
-        </IPad>
-      )}
+      <AnimatedDevice deviceType={deviceType}>
+        <StatusBar deviceType={deviceType} />
+      </AnimatedDevice>
     </MainLayout>
   );
 }
