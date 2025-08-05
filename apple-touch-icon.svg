@@ -1,0 +1,30 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with rounded corners for iOS -->
+  <rect width="180" height="180" rx="40" fill="#2563eb"/>
+  
+  <!-- Terminal/Log window -->
+  <rect x="30" y="45" width="120" height="90" rx="8" fill="white"/>
+  <rect x="36" y="60" width="108" height="66" rx="4" fill="#1e293b"/>
+  
+  <!-- Terminal header -->
+  <rect x="30" y="45" width="120" height="18" rx="8" fill="#e2e8f0"/>
+  <circle cx="48" cy="54" r="4" fill="#ef4444"/>
+  <circle cx="66" cy="54" r="4" fill="#f59e0b"/>
+  <circle cx="84" cy="54" r="4" fill="#10b981"/>
+  
+  <!-- Code/Log lines -->
+  <rect x="42" y="72" width="18" height="6" rx="3" fill="#22d3ee"/>
+  <rect x="66" y="72" width="48" height="6" rx="3" fill="#a3a3a3"/>
+  
+  <rect x="42" y="84" width="12" height="6" rx="3" fill="#f472b6"/>
+  <rect x="60" y="84" width="60" height="6" rx="3" fill="#a3a3a3"/>
+  
+  <rect x="42" y="96" width="24" height="6" rx="3" fill="#a78bfa"/>
+  <rect x="72" y="96" width="36" height="6" rx="3" fill="#a3a3a3"/>
+  
+  <rect x="42" y="108" width="15" height="6" rx="3" fill="#34d399"/>
+  <rect x="63" y="108" width="42" height="6" rx="3" fill="#a3a3a3"/>
+  
+  <!-- Cursor -->
+  <rect x="114" y="108" width="6" height="8" rx="1" fill="#22d3ee"/>
+</svg>
