@@ -1,4 +1,4 @@
-import { Text } from "../ui/text";
+import { Text } from "../ui/Text";
 
 interface TechnologyCategories {
   main: readonly string[];

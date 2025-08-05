@@ -1,4 +1,4 @@
-import { Text } from "./text";
+import { Text } from "./Text";
 import type { DeviceType } from "../../hooks/useDeviceMode";
 
 interface DeviceToggleProps {

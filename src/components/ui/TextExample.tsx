@@ -1,4 +1,4 @@
-import { Text } from "./text";
+import { Text } from "./Text";
 
 // Text 컴포넌트 사용 예시
 export default function TextExample() {
