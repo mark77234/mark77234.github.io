@@ -27,7 +27,7 @@ export default function AnimatedDevice({
         }}
       >
         <div
-          className="bg-blue-100 w-full h-full overflow-hidden relative transition-all duration-700 ease-in-out"
+          className="bg-gradient-to-br from-blue-400 via-blue-300 to-purple-300 w-full h-full overflow-hidden relative transition-all duration-700 ease-in-out"
           style={{
             borderRadius: isIPhone ? "40px" : "25px",
             transition: "border-radius 0.7s ease-in-out",
@@ -35,12 +35,12 @@ export default function AnimatedDevice({
         >
           {children}
 
-          {/* Home Indicator - 크기도 함께 변화 */}
-          <div
+          {/* 홈 인디게이터 */}
+          {/* <div
             className={`absolute left-1/2 bottom-4 transform -translate-x-1/2 h-1 bg-black rounded-sm opacity-25 z-10 transition-all duration-700 ease-in-out ${
               isIPhone ? "w-30" : "w-32"
             }`}
-          />
+          /> */}
         </div>
       </div>
     </div>
