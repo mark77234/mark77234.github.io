@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import type { DeviceType } from "../../hooks/useDeviceMode";
+import BlogIcon from "../../assets/blog-icon.svg";
 
 interface HomeScreenProps {
   deviceType: DeviceType;
@@ -12,15 +13,23 @@ interface AppIconProps {
   color: string;
   onClick?: () => void;
   linkTo?: string;
+  isSvg?: boolean;
 }
 
-function AppIcon({ name, icon, color, onClick, linkTo }: AppIconProps) {
+function AppIcon({
+  name,
+  icon,
+  color,
+  onClick,
+  linkTo,
+  isSvg = false,
+}: AppIconProps) {
   const iconContent = (
     <div className="flex flex-col items-center">
       <div
         className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg mb-1 ${color}`}
       >
-        {icon}
+        {isSvg ? <img src={icon} alt={name} className="w-12 h-12" /> : icon}
       </div>
       <span className="text-xs text-white text-center font-medium max-w-16 drop-shadow-md">
         {name}
@@ -54,12 +63,12 @@ export default function HomeScreen({
   onAppClick,
 }: HomeScreenProps) {
   const apps = [
-    { name: "Blog", icon: "📝", color: "bg-blue-500" },
-    { name: "Photos", icon: "📷", color: "bg-green-500" },
-    { name: "Settings", icon: "⚙️", color: "bg-gray-600" },
-    { name: "Safari", icon: "🧭", color: "bg-blue-400" },
-    { name: "Messages", icon: "💬", color: "bg-green-400" },
-    { name: "Mail", icon: "📧", color: "bg-blue-600" },
+    { name: "Blog", icon: BlogIcon, color: "bg-blue-500", isSvg: true },
+    { name: "Photos", icon: "📷", color: "bg-green-500", isSvg: false },
+    { name: "Settings", icon: "⚙️", color: "bg-gray-600", isSvg: false },
+    { name: "Safari", icon: "🧭", color: "bg-blue-400", isSvg: false },
+    { name: "Messages", icon: "💬", color: "bg-green-400", isSvg: false },
+    { name: "Mail", icon: "📧", color: "bg-blue-600", isSvg: false },
   ];
 
   const gridCols = deviceType === "ipad" ? "grid-cols-4" : "grid-cols-4";
@@ -79,6 +88,7 @@ export default function HomeScreen({
                 icon={app.icon}
                 color={app.color}
                 linkTo="/blog"
+                isSvg={app.isSvg}
               />
             );
           }
@@ -89,6 +99,7 @@ export default function HomeScreen({
               icon={app.icon}
               color={app.color}
               onClick={() => onAppClick(app.name)}
+              isSvg={app.isSvg}
             />
           );
         })}
