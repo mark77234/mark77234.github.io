@@ -16,16 +16,16 @@ interface AppIconProps {
 
 function AppIcon({ name, icon, color, onClick, linkTo }: AppIconProps) {
   const iconContent = (
-    <>
+    <div className="flex flex-col items-center">
       <div
         className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg mb-1 ${color}`}
       >
         {icon}
       </div>
-      <span className="text-xs text-gray-800 text-center font-medium max-w-16 truncate">
+      <span className="text-xs text-white text-center font-medium max-w-16 drop-shadow-md">
         {name}
       </span>
-    </>
+    </div>
   );
 
   if (linkTo) {
@@ -63,13 +63,13 @@ export default function HomeScreen({
   ];
 
   const gridCols = deviceType === "ipad" ? "grid-cols-4" : "grid-cols-4";
-  const gap = deviceType === "ipad" ? "gap-8" : "gap-6";
+  const gap = deviceType === "ipad" ? "gap-12" : "gap-8";
   const padding = deviceType === "ipad" ? "p-12" : "p-8";
 
   return (
     <div className={`w-full h-full ${padding} flex flex-col`}>
       {/* 앱 그리드 */}
-      <div className={`grid ${gridCols} ${gap} flex-1`}>
+      <div className={`grid ${gridCols} ${gap} `}>
         {apps.map((app, index) => {
           if (app.name === "Blog") {
             return (
@@ -95,7 +95,7 @@ export default function HomeScreen({
       </div>
 
       {/* 독 영역 */}
-      <div className="flex justify-center mb-2">
+      <div className="flex justify-center mt-auto mb-2">
         <div className="bg-white/20 backdrop-blur-md rounded-full px-4 py-3 flex gap-3">
           <AppIcon
             icon="📞"
