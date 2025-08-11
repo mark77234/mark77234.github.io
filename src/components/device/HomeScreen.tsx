@@ -9,6 +9,7 @@ import CallIcon from "../../assets/call.svg";
 import MessageIcon from "../../assets/message.svg";
 import SafariIcon from "../../assets/safari.svg";
 import SettingsIcon from "../../assets/settings.svg";
+import SkillsIcon from "../../assets/skills-icon.svg";
 
 interface HomeScreenProps {
   deviceType: DeviceType;
@@ -18,30 +19,15 @@ interface HomeScreenProps {
 interface AppIconProps {
   name?: string;
   icon: string;
-  color?: string;
   onClick?: () => void;
   linkTo?: string;
-  isSvg?: boolean;
 }
 
-function AppIcon({
-  name,
-  icon,
-  color,
-  onClick,
-  linkTo,
-  isSvg = false,
-}: AppIconProps) {
+function AppIcon({ name, icon, onClick, linkTo }: AppIconProps) {
   const iconContent = (
     <div className="flex flex-col items-center">
-      <div
-        className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg mb-1 ${color}`}
-      >
-        {isSvg ? (
-          <img src={icon} alt={name} className="w-full h-full object-cover" />
-        ) : (
-          icon
-        )}
+      <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg mb-1">
+        <img src={icon} alt={name} className="w-full h-full object-cover" />
       </div>
       <span className="text-xs text-white text-center font-medium max-w-16 drop-shadow-md">
         {name}
@@ -75,16 +61,12 @@ export default function HomeScreen({
   onAppClick,
 }: HomeScreenProps) {
   const apps = [
-    { name: "Blog", icon: BlogIcon, color: "bg-purple-500", isSvg: true },
-    { name: "경력", icon: CareerIcon, color: "bg-orange-500", isSvg: true },
-    {
-      name: "대외활동",
-      icon: ActivityIcon,
-      color: "bg-yellow-500",
-      isSvg: true,
-    },
-    { name: "프로젝트", icon: ProjectIcon, color: "bg-green-500", isSvg: true },
-    { name: "연명부", icon: ContactIcon, color: "bg-red-500", isSvg: true },
+    { name: "블로그", icon: BlogIcon },
+    { name: "경력", icon: CareerIcon },
+    { name: "대외활동", icon: ActivityIcon },
+    { name: "프로젝트", icon: ProjectIcon },
+    { name: "연명부", icon: ContactIcon },
+    { name: "기술", icon: SkillsIcon },
   ];
 
   const gridCols = deviceType === "ipad" ? "grid-cols-4" : "grid-cols-4";
@@ -102,9 +84,7 @@ export default function HomeScreen({
                 key={index}
                 name={app.name}
                 icon={app.icon}
-                color={app.color}
                 linkTo="/blog"
-                isSvg={app.isSvg}
               />
             );
           }
@@ -113,9 +93,7 @@ export default function HomeScreen({
               key={index}
               name={app.name}
               icon={app.icon}
-              color={app.color}
               onClick={() => onAppClick(app.name)}
-              isSvg={app.isSvg}
             />
           );
         })}
@@ -124,28 +102,11 @@ export default function HomeScreen({
       {/* 독 영역 */}
       <div className="flex justify-center mt-auto mb-2">
         <div className="bg-white/20 backdrop-blur-md rounded-full px-4 py-3 flex gap-3">
-          <AppIcon
-            icon={CallIcon}
-            onClick={() => onAppClick("Phone")}
-            isSvg={true}
-          />
+          <AppIcon icon={CallIcon} onClick={() => onAppClick("Phone")} />
 
-          <AppIcon
-            icon={MessageIcon}
-            onClick={() => onAppClick("Camera")}
-            isSvg={true}
-          />
-          <AppIcon
-            icon={SafariIcon}
-            color="bg-white"
-            onClick={() => onAppClick("Safari")}
-            isSvg={true}
-          />
-          <AppIcon
-            icon={SettingsIcon}
-            onClick={() => onAppClick("Settings")}
-            isSvg={true}
-          />
+          <AppIcon icon={MessageIcon} onClick={() => onAppClick("Camera")} />
+          <AppIcon icon={SafariIcon} onClick={() => onAppClick("Safari")} />
+          <AppIcon icon={SettingsIcon} onClick={() => onAppClick("Settings")} />
         </div>
       </div>
     </div>
