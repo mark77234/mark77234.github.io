@@ -1,6 +1,11 @@
 import type { RouteObject } from "react-router-dom";
 import Home from "../pages/home";
 import Blog from "../pages/blog";
+import Career from "../pages/career";
+import Activity from "../pages/activity";
+import Project from "../pages/project";
+import Contact from "../pages/contact";
+import Skills from "../pages/skills";
 
 export const routes: RouteObject[] = [
   {
@@ -11,13 +16,24 @@ export const routes: RouteObject[] = [
     path: "/blog",
     element: <Blog />,
   },
-  // 추후 다른 페이지들도 여기에 추가할 수 있습니다
-  // {
-  //   path: "/about",
-  //   element: <About />,
-  // },
-  // {
-  //   path: "/projects",
-  //   element: <Projects />,
-  // },
+  {
+    path: "/career",
+    element: <Career />,
+  },
+  {
+    path: "/activity",
+    element: <Activity />,
+  },
+  {
+    path: "/project",
+    element: <Project />,
+  },
+  {
+    path: "/contact",
+    element: <Contact />,
+  },
+  {
+    path: "/skills",
+    element: <Skills />,
+  },
 ];

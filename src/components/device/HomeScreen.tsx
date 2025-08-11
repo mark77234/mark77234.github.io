@@ -78,22 +78,36 @@ export default function HomeScreen({
       {/* 앱 그리드 */}
       <div className={`grid ${gridCols} ${gap} `}>
         {apps.map((app, index) => {
-          if (app.name === "Blog") {
-            return (
-              <AppIcon
-                key={index}
-                name={app.name}
-                icon={app.icon}
-                linkTo="/blog"
-              />
-            );
+          let linkTo = "";
+          switch (app.name) {
+            case "블로그":
+              linkTo = "/blog";
+              break;
+            case "경력":
+              linkTo = "/career";
+              break;
+            case "대외활동":
+              linkTo = "/activity";
+              break;
+            case "프로젝트":
+              linkTo = "/project";
+              break;
+            case "연명부":
+              linkTo = "/contact";
+              break;
+            case "기술":
+              linkTo = "/skills";
+              break;
+            default:
+              linkTo = "";
           }
+
           return (
             <AppIcon
               key={index}
               name={app.name}
               icon={app.icon}
-              onClick={() => onAppClick(app.name)}
+              linkTo={linkTo}
             />
           );
         })}
