@@ -5,6 +5,10 @@ import CareerIcon from "../../assets/career-icon.svg";
 import ActivityIcon from "../../assets/activity-icon.svg";
 import ProjectIcon from "../../assets/project-icon.svg";
 import ContactIcon from "../../assets/contact-icon.svg";
+import CallIcon from "../../assets/call.svg";
+import MessageIcon from "../../assets/message.svg";
+import SafariIcon from "../../assets/safari.svg";
+import SettingsIcon from "../../assets/settings.svg";
 
 interface HomeScreenProps {
   deviceType: DeviceType;
@@ -14,7 +18,7 @@ interface HomeScreenProps {
 interface AppIconProps {
   name?: string;
   icon: string;
-  color: string;
+  color?: string;
   onClick?: () => void;
   linkTo?: string;
   isSvg?: boolean;
@@ -33,7 +37,11 @@ function AppIcon({
       <div
         className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg mb-1 ${color}`}
       >
-        {isSvg ? <img src={icon} alt={name} className="w-12 h-12" /> : icon}
+        {isSvg ? (
+          <img src={icon} alt={name} className="w-full h-full object-cover" />
+        ) : (
+          icon
+        )}
       </div>
       <span className="text-xs text-white text-center font-medium max-w-16 drop-shadow-md">
         {name}
@@ -117,25 +125,26 @@ export default function HomeScreen({
       <div className="flex justify-center mt-auto mb-2">
         <div className="bg-white/20 backdrop-blur-md rounded-full px-4 py-3 flex gap-3">
           <AppIcon
-            icon="📞"
-            color="bg-green-500"
+            icon={CallIcon}
             onClick={() => onAppClick("Phone")}
+            isSvg={true}
           />
 
           <AppIcon
-            icon="💬"
-            color="bg-green-500"
+            icon={MessageIcon}
             onClick={() => onAppClick("Camera")}
+            isSvg={true}
           />
           <AppIcon
-            icon="🧭"
-            color="bg-gray-200"
+            icon={SafariIcon}
+            color="bg-white"
             onClick={() => onAppClick("Safari")}
+            isSvg={true}
           />
           <AppIcon
-            icon="⚙️"
-            color="bg-gray-200"
+            icon={SettingsIcon}
             onClick={() => onAppClick("Settings")}
+            isSvg={true}
           />
         </div>
       </div>
