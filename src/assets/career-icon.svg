@@ -1,0 +1,16 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 사각형 -->
+  <rect width="48" height="48" rx="8" fill="white"/>
+  
+  <!-- 서류가방 아이콘 -->
+  <rect x="8" y="18" width="32" height="20" rx="2" fill="#f97316" stroke="#ea580c" stroke-width="1"/>
+  
+  <!-- 서류가방 손잡이 -->
+  <rect x="18" y="14" width="12" height="6" rx="1" fill="none" stroke="#f97316" stroke-width="2"/>
+  
+  <!-- 서류가방 잠금장치 -->
+  <rect x="22" y="26" width="4" height="2" rx="1" fill="#ea580c"/>
+  
+  <!-- 서류가방 모서리 라인 -->
+  <path d="M8 22 L40 22" stroke="#ea580c" stroke-width="1"/>
+</svg>

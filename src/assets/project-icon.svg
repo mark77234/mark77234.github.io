@@ -1,0 +1,20 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 사각형 -->
+  <rect width="48" height="48" rx="8" fill="white"/>
+  
+  <!-- 폴더 탭 -->
+  <path d="M8 14 L8 12 C8 10.8954 8.89543 10 10 10 L18 10 L22 14 L36 14 C37.1046 14 38 14.8954 38 16 L38 18 L8 18 L8 14 Z" fill="#22c55e"/>
+  
+  <!-- 폴더 몸체 -->
+  <rect x="8" y="18" width="30" height="18" rx="2" fill="#16a34a"/>
+  
+  <!-- 폴더 내용물 (문서들) -->
+  <rect x="12" y="22" width="8" height="1" rx="0.5" fill="#dcfce7"/>
+  <rect x="12" y="25" width="12" height="1" rx="0.5" fill="#dcfce7"/>
+  <rect x="12" y="28" width="10" height="1" rx="0.5" fill="#dcfce7"/>
+  <rect x="12" y="31" width="6" height="1" rx="0.5" fill="#dcfce7"/>
+  
+  <!-- 폴더 아이콘 -->
+  <circle cx="30" cy="28" r="3" fill="#22c55e"/>
+  <rect x="28.5" y="26.5" width="3" height="3" rx="0.5" fill="white"/>
+</svg>

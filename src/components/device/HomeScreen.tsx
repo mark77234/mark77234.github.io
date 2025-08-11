@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import type { DeviceType } from "../../hooks/useDeviceMode";
 import BlogIcon from "../../assets/blog-icon.svg";
+import CareerIcon from "../../assets/career-icon.svg";
+import ActivityIcon from "../../assets/activity-icon.svg";
+import ProjectIcon from "../../assets/project-icon.svg";
+import ContactIcon from "../../assets/contact-icon.svg";
 
 interface HomeScreenProps {
   deviceType: DeviceType;
@@ -63,12 +67,16 @@ export default function HomeScreen({
   onAppClick,
 }: HomeScreenProps) {
   const apps = [
-    { name: "Blog", icon: BlogIcon, color: "bg-blue-500", isSvg: true },
-    { name: "Photos", icon: "📷", color: "bg-green-500", isSvg: false },
-    { name: "Settings", icon: "⚙️", color: "bg-gray-600", isSvg: false },
-    { name: "Safari", icon: "🧭", color: "bg-blue-400", isSvg: false },
-    { name: "Messages", icon: "💬", color: "bg-green-400", isSvg: false },
-    { name: "Mail", icon: "📧", color: "bg-blue-600", isSvg: false },
+    { name: "Blog", icon: BlogIcon, color: "bg-purple-500", isSvg: true },
+    { name: "경력", icon: CareerIcon, color: "bg-orange-500", isSvg: true },
+    {
+      name: "대외활동",
+      icon: ActivityIcon,
+      color: "bg-yellow-500",
+      isSvg: true,
+    },
+    { name: "프로젝트", icon: ProjectIcon, color: "bg-green-500", isSvg: true },
+    { name: "연명부", icon: ContactIcon, color: "bg-red-500", isSvg: true },
   ];
 
   const gridCols = deviceType === "ipad" ? "grid-cols-4" : "grid-cols-4";

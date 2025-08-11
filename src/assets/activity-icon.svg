@@ -1,0 +1,20 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 사각형 -->
+  <rect width="48" height="48" rx="8" fill="white"/>
+  
+  <!-- 트로피 컵 -->
+  <path d="M14 16 L14 26 C14 28.2091 15.7909 30 18 30 L30 30 C32.2091 30 34 28.2091 34 26 L34 16 Z" fill="#eab308" stroke="#ca8a04" stroke-width="1"/>
+  
+  <!-- 트로피 손잡이 왼쪽 -->
+  <path d="M10 20 C10 18.8954 10.8954 18 12 18 L14 18 L14 24 L12 24 C10.8954 24 10 23.1046 10 22 L10 20 Z" fill="#eab308" stroke="#ca8a04" stroke-width="1"/>
+  
+  <!-- 트로피 손잡이 오른쪽 -->
+  <path d="M34 18 L36 18 C37.1046 18 38 18.8954 38 20 L38 22 C38 23.1046 37.1046 24 36 24 L34 24 L34 18 Z" fill="#eab308" stroke="#ca8a04" stroke-width="1"/>
+  
+  <!-- 트로피 받침대 -->
+  <rect x="20" y="30" width="8" height="4" fill="#ca8a04"/>
+  <rect x="16" y="34" width="16" height="3" rx="1" fill="#ca8a04"/>
+  
+  <!-- 트로피 장식 -->
+  <circle cx="24" cy="22" r="2" fill="#fbbf24"/>
+</svg>
