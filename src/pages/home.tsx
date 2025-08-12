@@ -1,4 +1,3 @@
-import Profile from "../components/home/Profile";
 import StatusBar from "../components/home/Statusbar";
 import ProfileHeader from "../components/home/ProfileHeader";
 import AnimatedDevice from "../components/ui/AnimatedDevice";

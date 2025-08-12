@@ -1,12 +1,12 @@
 export default function F1CarAnimation() {
   return (
-    <div className="flex items-center justify-center mb-4">
+    <div className="flex items-center justify-center mb-6">
       <div className="relative animate-bounce-slow">
         <svg
-          width="140"
-          height="70"
+          width="200"
+          height="100"
           viewBox="0 0 140 70"
-          className="drop-shadow-xl"
+          className="drop-shadow-xl w-48 h-24 sm:w-56 sm:h-28 md:w-64 md:h-32 lg:w-72 lg:h-36"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
