@@ -26,10 +26,10 @@ interface AppIconProps {
 function AppIcon({ name, icon, onClick, linkTo }: AppIconProps) {
   const iconContent = (
     <div className="flex flex-col items-center">
-      <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg mb-1">
+      <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-lg sm:rounded-xl md:rounded-xl lg:rounded-2xl flex items-center justify-center text-lg sm:text-xl md:text-2xl shadow-lg mb-1">
         <img src={icon} alt={name} className="w-full h-full object-cover" />
       </div>
-      <span className="text-xs text-white text-center font-medium max-w-16 drop-shadow-md">
+      <span className="text-[10px] sm:text-xs md:text-xs text-white text-center font-medium max-w-12 sm:max-w-14 md:max-w-16 drop-shadow-md leading-tight">
         {name}
       </span>
     </div>
@@ -56,10 +56,7 @@ function AppIcon({ name, icon, onClick, linkTo }: AppIconProps) {
   );
 }
 
-export default function HomeScreen({
-  deviceType,
-  onAppClick,
-}: HomeScreenProps) {
+export default function Apps({ deviceType, onAppClick }: HomeScreenProps) {
   const apps = [
     { name: "블로그", icon: BlogIcon },
     { name: "경력", icon: CareerIcon },
@@ -69,9 +66,24 @@ export default function HomeScreen({
     { name: "기술", icon: SkillsIcon },
   ];
 
-  const gridCols = deviceType === "ipad" ? "grid-cols-4" : "grid-cols-4";
-  const gap = deviceType === "ipad" ? "gap-12" : "gap-8";
-  const padding = deviceType === "ipad" ? "p-12" : "p-8";
+  // 디바이스 타입과 화면 크기에 따른 반응형 그리드 설정
+  const getGridConfig = () => {
+    if (deviceType === "ipad") {
+      return {
+        gridCols: "grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5",
+        gap: "gap-4 sm:gap-6 md:gap-8 lg:gap-10",
+        padding: "p-4 sm:p-6 md:p-8 lg:p-10",
+      };
+    } else {
+      return {
+        gridCols: "grid-cols-4",
+        gap: "gap-3 sm:gap-4 md:gap-6",
+        padding: "p-3 sm:p-4 md:p-6 lg:p-8",
+      };
+    }
+  };
+
+  const { gridCols, gap, padding } = getGridConfig();
 
   return (
     <div className={`w-full h-full ${padding} flex flex-col`}>
@@ -114,8 +126,8 @@ export default function HomeScreen({
       </div>
 
       {/* 독 영역 */}
-      <div className="flex justify-center mt-auto mb-2">
-        <div className="bg-white/20 backdrop-blur-md rounded-full px-4 py-3 flex gap-3">
+      <div className="flex justify-center mt-auto mb-1 sm:mb-2 md:mb-3">
+        <div className="bg-white/20 backdrop-blur-md rounded-full px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-3 flex gap-1.5 sm:gap-2 md:gap-3">
           <AppIcon icon={CallIcon} onClick={() => onAppClick("Phone")} />
 
           <AppIcon icon={MessageIcon} onClick={() => onAppClick("Camera")} />

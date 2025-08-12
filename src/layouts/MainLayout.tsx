@@ -11,7 +11,7 @@ export default function MainLayout({
 }: MainLayoutProps) {
   return (
     <main
-      className={`h-screen flex justify-between items-center px-16 gap-16 max-lg:flex-col max-lg:px-8 max-lg:gap-8 max-md:px-4 ${className}`}
+      className={`min-h-screen h-screen flex justify-center items-center px-4 sm:px-8 md:px-12 lg:px-16 gap-4 sm:gap-8 md:gap-12 lg:gap-16 max-lg:flex-col ${className}`}
     >
       {children}
     </main>

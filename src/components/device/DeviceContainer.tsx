@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { DeviceType } from "../../hooks/useDeviceMode";
-import HomeScreen from "./HomeScreen";
+import Apps from "./HomeScreen";
 
 interface DeviceContainerProps {
   deviceType: DeviceType;
@@ -30,9 +30,7 @@ export default function DeviceContainer({ deviceType }: DeviceContainerProps) {
     switch (currentApp) {
       case "home":
       default:
-        return (
-          <HomeScreen deviceType={deviceType} onAppClick={handleAppClick} />
-        );
+        return <Apps deviceType={deviceType} onAppClick={handleAppClick} />;
     }
   };
 
