@@ -7,6 +7,150 @@
   overflow-x: hidden;
 }
 
+/* F1 Car 애니메이션들 */
+@keyframes carVibration {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-0.5px) translateX(0.2px);
+  }
+  50% {
+    transform: translateY(0px) translateX(-0.1px);
+  }
+  75% {
+    transform: translateY(0.3px) translateX(0.1px);
+  }
+}
+
+@keyframes carFloating {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes trackLines {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes trackLinesFast {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes roadMoving {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 50px 0px;
+  }
+}
+
+@keyframes dust1 {
+  0% {
+    transform: translateX(0px) translateY(0px);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(-10px) translateY(-5px);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateX(-20px) translateY(-8px);
+    opacity: 0;
+  }
+}
+
+@keyframes dust2 {
+  0% {
+    transform: translateX(0px) translateY(0px);
+    opacity: 0.3;
+  }
+  60% {
+    transform: translateX(-15px) translateY(-3px);
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateX(-25px) translateY(-6px);
+    opacity: 0;
+  }
+}
+
+@keyframes dust3 {
+  0% {
+    transform: translateX(0px) translateY(0px);
+    opacity: 0.35;
+  }
+  40% {
+    transform: translateX(-8px) translateY(-4px);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translateX(-18px) translateY(-7px);
+    opacity: 0;
+  }
+}
+
+.animate-track-lines {
+  animation: trackLines 2s linear infinite;
+}
+
+.animate-track-lines-fast {
+  animation: trackLinesFast 1.5s linear infinite;
+}
+
+.animate-road-moving {
+  animation: roadMoving 1s linear infinite;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 10px,
+    rgba(255, 255, 255, 0.1) 10px,
+    rgba(255, 255, 255, 0.1) 12px
+  );
+}
+
+.animate-dust-1 {
+  animation: dust1 3s ease-out infinite;
+  animation-delay: 0s;
+}
+
+.animate-dust-2 {
+  animation: dust2 2.5s ease-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-dust-3 {
+  animation: dust3 3.5s ease-out infinite;
+  animation-delay: 1s;
+}
+
+.speed-lines {
+  width: 200%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    rgba(255, 255, 255, 0.3) 2px,
+    transparent 4px
+  );
+  animation: trackLines 0.8s linear infinite;
+}
+
 /* 반응형 컨테이너 스타일 */
 .responsive-container {
   width: 100%;

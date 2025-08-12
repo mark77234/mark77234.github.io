@@ -1,14 +1,25 @@
 export default function F1CarAnimation() {
   return (
-    <div className="flex items-center justify-center mb-6 relative">
+    <div className="flex items-center justify-center mb-6 relative overflow-hidden">
       {/* 배경 트랙 라인 */}
       <div className="absolute inset-0 flex items-center justify-center opacity-20">
-        <div className="w-full h-1 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
-        <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-white to-transparent top-1/2 transform -translate-y-1/2"></div>
+        <div className="w-full h-1 bg-gradient-to-r from-transparent via-gray-400 to-transparent animate-track-lines"></div>
+        <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-white to-transparent top-1/2 transform -translate-y-1/2 animate-track-lines-fast"></div>
+      </div>
+
+      {/* 움직이는 도로 효과 */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="w-full h-full bg-road-stripes animate-road-moving"></div>
       </div>
 
       {/* 메인 F1 카 */}
-      <div className="relative animate-bounce-slow hover:animate-pulse transition-all duration-300 hover:scale-110 cursor-pointer">
+      <div
+        className="relative hover:scale-110 transition-all duration-300 cursor-pointer"
+        style={{
+          animation:
+            "carVibration 0.1s infinite, carFloating 2s ease-in-out infinite alternate",
+        }}
+      >
         <svg
           width="200"
           height="100"
@@ -313,18 +324,21 @@ export default function F1CarAnimation() {
         </svg>
 
         {/* 추가 시각 효과 */}
-        <div className="absolute -top-2 -right-2 w-4 h-4 bg-red-500 rounded-full animate-ping opacity-50"></div>
-        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent animate-pulse"></div>
+        <div className="absolute -top-2 -right-2 w-3 h-3 bg-red-500 rounded-full animate-pulse opacity-60"></div>
+        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-50"></div>
       </div>
 
-      {/* 배경 파티클 효과 */}
+      {/* 속도감을 위한 배경 효과 */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 left-1/4 w-1 h-1 bg-red-400 rounded-full animate-ping opacity-60"></div>
-        <div
-          className="absolute bottom-1/3 right-1/4 w-1 h-1 bg-orange-400 rounded-full animate-ping opacity-60"
-          style={{ animationDelay: "0.5s" }}
-        ></div>
-        <div className="absolute top-1/2 left-1/3 w-0.5 h-0.5 bg-yellow-400 rounded-full animate-pulse opacity-80"></div>
+        {/* 지면 스피드 라인들 */}
+        <div className="absolute bottom-0 w-full h-8 overflow-hidden">
+          <div className="speed-lines"></div>
+        </div>
+
+        {/* 자연스러운 먼지 효과 */}
+        <div className="absolute bottom-4 left-8 w-2 h-2 bg-gray-400 rounded-full opacity-40 animate-dust-1"></div>
+        <div className="absolute bottom-6 left-12 w-1 h-1 bg-gray-300 rounded-full opacity-30 animate-dust-2"></div>
+        <div className="absolute bottom-5 right-16 w-1.5 h-1.5 bg-gray-500 rounded-full opacity-35 animate-dust-3"></div>
       </div>
     </div>
   );
