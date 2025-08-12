@@ -1,5 +1,4 @@
 import { Text } from "../ui/Text";
-import F1CarAnimation from "../ui/F1CarAnimation";
 
 export default function ProfileHeader() {
   return (
