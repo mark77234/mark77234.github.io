@@ -79,14 +79,6 @@ export default function F1CarAnimation() {
             className="drop-shadow-lg"
           />
 
-          {/* Car Body Highlights with animation */}
-          <path
-            d="M25 30 L105 30 L110 35 L30 35 Z"
-            fill="#EF4444"
-            opacity="0.9"
-            className="animate-pulse"
-          />
-
           {/* Racing Stripes */}
           <rect
             x="30"
@@ -153,192 +145,22 @@ export default function F1CarAnimation() {
             opacity="0.5"
           />
 
-          {/* Enhanced Wheels with more details */}
-          <circle
-            cx="35"
-            cy="47"
-            r="10"
-            fill="url(#wheelGradient)"
-            className="animate-spin"
-          />
           <circle cx="35" cy="47" r="7" fill="#374151" />
           <circle cx="35" cy="47" r="4" fill="#6B7280" />
           <circle cx="35" cy="47" r="2" fill="#9CA3AF" />
 
-          {/* Wheel spokes */}
-          <g
-            stroke="#9CA3AF"
-            strokeWidth="1"
-            opacity="0.7"
-            className="animate-spin"
-          >
-            <line x1="35" y1="39" x2="35" y2="55" />
-            <line x1="27" y1="47" x2="43" y2="47" />
-            <line x1="29.5" y1="41.5" x2="40.5" y2="52.5" />
-            <line x1="40.5" y1="41.5" x2="29.5" y2="52.5" />
-          </g>
-
-          <circle
-            cx="105"
-            cy="47"
-            r="10"
-            fill="url(#wheelGradient)"
-            className="animate-spin"
-          />
           <circle cx="105" cy="47" r="7" fill="#374151" />
           <circle cx="105" cy="47" r="4" fill="#6B7280" />
           <circle cx="105" cy="47" r="2" fill="#9CA3AF" />
-
-          {/* Wheel spokes */}
-          <g
-            stroke="#9CA3AF"
-            strokeWidth="1"
-            opacity="0.7"
-            className="animate-spin"
-          >
-            <line x1="105" y1="39" x2="105" y2="55" />
-            <line x1="97" y1="47" x2="113" y2="47" />
-            <line x1="99.5" y1="41.5" x2="110.5" y2="52.5" />
-            <line x1="110.5" y1="41.5" x2="99.5" y2="52.5" />
-          </g>
-
-          {/* Enhanced Speed Lines */}
-          <g className="animate-pulse" opacity="0.9">
-            <line
-              x1="125"
-              y1="30"
-              x2="140"
-              y2="30"
-              stroke="#EF4444"
-              strokeWidth="3"
-            />
-            <line
-              x1="128"
-              y1="34"
-              x2="142"
-              y2="34"
-              stroke="#F87171"
-              strokeWidth="2"
-            />
-            <line
-              x1="130"
-              y1="38"
-              x2="144"
-              y2="38"
-              stroke="#FCA5A5"
-              strokeWidth="1"
-            />
-            <line
-              x1="132"
-              y1="42"
-              x2="146"
-              y2="42"
-              stroke="#FECACA"
-              strokeWidth="1"
-            />
-          </g>
-
-          {/* Enhanced Exhaust Effects */}
-          <ellipse
-            cx="118"
-            cy="42"
-            rx="5"
-            ry="4"
-            fill="#FCD34D"
-            opacity="0.8"
-            className="animate-ping"
-          />
-          <ellipse
-            cx="120"
-            cy="42"
-            rx="4"
-            ry="3"
-            fill="#F59E0B"
-            opacity="0.9"
-            className="animate-ping"
-          />
-          <ellipse
-            cx="122"
-            cy="42"
-            rx="3"
-            ry="2"
-            fill="#D97706"
-            className="animate-pulse"
-          />
-          <ellipse
-            cx="124"
-            cy="42"
-            rx="2"
-            ry="1"
-            fill="#B45309"
-            className="animate-pulse"
-          />
-
-          {/* Side Details Enhanced */}
-          <rect x="40" y="36" width="60" height="2" fill="#B91C1C" />
-          <rect x="45" y="39" width="50" height="1" fill="#7F1D1D" />
-          <rect
-            x="42"
-            y="37"
-            width="56"
-            height="0.5"
-            fill="#FFFFFF"
-            opacity="0.3"
-          />
-
-          {/* Enhanced Front Lights */}
-          <circle
-            cx="12"
-            cy="38"
-            r="2.5"
-            fill="#FBBF24"
-            className="animate-pulse"
-          />
-          <circle cx="12" cy="38" r="1.5" fill="#FCD34D" />
-          <circle cx="11" cy="37" r="0.5" fill="#FFFFFF" opacity="0.9" />
-
-          {/* Additional Details */}
-          {/* Brake discs */}
-          <circle
-            cx="35"
-            cy="47"
-            r="6"
-            stroke="#DC2626"
-            strokeWidth="1"
-            fill="none"
-            opacity="0.6"
-          />
-          <circle
-            cx="105"
-            cy="47"
-            r="6"
-            stroke="#DC2626"
-            strokeWidth="1"
-            fill="none"
-            opacity="0.6"
-          />
-
-          {/* Air intakes */}
-          <rect x="50" y="29" width="8" height="2" fill="#1F2937" />
-          <rect x="82" y="29" width="8" height="2" fill="#1F2937" />
         </svg>
-
-        {/* 추가 시각 효과 */}
-        <div className="absolute -top-2 -right-2 w-3 h-3 bg-red-500 rounded-full animate-pulse opacity-60"></div>
-        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-50"></div>
       </div>
 
       {/* 속도감을 위한 배경 효과 */}
       <div className="absolute inset-0 pointer-events-none">
         {/* 지면 스피드 라인들 */}
-        <div className="absolute bottom-0 w-full h-8 overflow-hidden">
+        <div className="absolute bottom-0 w-full h-8">
           <div className="speed-lines"></div>
         </div>
-
-        {/* 자연스러운 먼지 효과 */}
-        <div className="absolute bottom-4 left-8 w-2 h-2 bg-gray-400 rounded-full opacity-40 animate-dust-1"></div>
-        <div className="absolute bottom-6 left-12 w-1 h-1 bg-gray-300 rounded-full opacity-30 animate-dust-2"></div>
-        <div className="absolute bottom-5 right-16 w-1.5 h-1.5 bg-gray-500 rounded-full opacity-35 animate-dust-3"></div>
       </div>
     </div>
   );

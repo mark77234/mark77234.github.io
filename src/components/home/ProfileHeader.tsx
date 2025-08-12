@@ -18,9 +18,6 @@ export default function ProfileHeader() {
         App developer
       </Text>
 
-      <F1CarAnimation />
-
-      {/* Speed Quote */}
       <div className="text-center animate-fade-in-up mt-6">
         <Text
           type="body1"
