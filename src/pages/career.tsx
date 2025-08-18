@@ -71,15 +71,6 @@ export default function CareerPage() {
         {/* TIMELINE SECTION */}
         <section className="relative bg-gradient-to-b from-gray-800/50 to-gray-900/50 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-gray-700/50">
           <div className="flex items-center gap-3 mb-8">
-            <svg
-              className="text-sky-400"
-              width="24"
-              height="24"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-            </svg>
             <h2 className="text-xl md:text-2xl font-semibold">
               연혁 (Timeline)
             </h2>
