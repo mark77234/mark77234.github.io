@@ -58,13 +58,6 @@ export default function MusicToggle({
             />
           </svg>
         )}
-
-        {/* 재생 상태 인디케이터 */}
-        <div
-          className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full ${
-            isPlaying ? "bg-green-400 animate-pulse" : "bg-red-400"
-          }`}
-        />
       </button>
 
       {/* 사용자 상호작용 안내 */}
