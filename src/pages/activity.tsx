@@ -157,9 +157,7 @@ export default function ActivityPage() {
                     />
                   </svg>
                 </div>
-                <span className="text-blue-300 font-medium">
-                  데모 서비스 배포
-                </span>
+                <span className="text-blue-300 font-medium">심사중</span>
               </div>
             </div>
           </div>
