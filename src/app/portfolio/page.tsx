@@ -4,10 +4,13 @@ import ProjectLinks from "@/components/ProjectLinks";
 import SectionHeading from "@/components/SectionHeading";
 import { Metrics, ProjectCover, ProjectHeader } from "@/components/CaseStudy";
 import { caseStudies, caseStudySummary } from "@/data/caseStudies";
-import { profile } from "@/data/profile";
+import { ogBase, profile } from "@/data/profile";
 
 export const metadata: Metadata = {
   title: "Portfolio",
+  alternates: { canonical: "/portfolio/" },
+  openGraph: { ...ogBase, url: "/portfolio/" },
+  twitter: { card: "summary" },
   description: `${profile.nameEn}의 포트폴리오 — DailyOPIc, KillingPart, DIVE 2026, PNUSA, 카공어디?, 축제어디?의 문제 정의와 기술적 해결 과정.`,
 };
 

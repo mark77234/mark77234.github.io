@@ -5,6 +5,7 @@ import CaseStudy from "@/components/CaseStudy";
 import PrintButton from "@/components/PrintButton";
 import ProjectLinks from "@/components/ProjectLinks";
 import { caseStudies, findCaseStudy } from "@/data/caseStudies";
+import { ogBase } from "@/data/profile";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -18,9 +19,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const study = findCaseStudy(slug);
   if (!study) return {};
 
+  const path = `/portfolio/${study.slug}/`;
+
   return {
     title: `${study.name} Case Study`,
     description: study.subtitle,
+    alternates: { canonical: path },
+    openGraph: { ...ogBase, url: path },
+    twitter: { card: "summary" },
   };
 }
 

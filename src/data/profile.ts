@@ -1,4 +1,6 @@
 export const SITE_URL = "https://mark77234.github.io";
+export const GITHUB_URL = "https://github.com/mark77234";
+export const LINKEDIN_URL = "https://www.linkedin.com/in/byeongchanlee/";
 
 export const profile = {
   name: "이병찬",
@@ -9,11 +11,11 @@ export const profile = {
     "모바일을 시작점으로 Backend·Cloud·AI까지 확장하며 실제 서비스를 출시하고 운영하는 Software Engineer입니다.",
   contacts: [
     { label: "Email", text: "mark77234@naver.com", href: "mailto:mark77234@naver.com" },
-    { label: "GitHub", text: "github.com/mark77234", href: "https://github.com/mark77234" },
+    { label: "GitHub", text: "github.com/mark77234", href: GITHUB_URL },
     {
       label: "LinkedIn",
       text: "linkedin.com/in/byeongchanlee",
-      href: "https://linkedin.com/in/byeongchanlee",
+      href: LINKEDIN_URL,
     },
     {
       label: "Portfolio",
@@ -28,4 +30,10 @@ export const profile = {
   ],
 } as const;
 
-export const GITHUB_URL = "https://github.com/mark77234";
+
+/** 페이지가 openGraph를 지정하면 layout 값이 통째로 대체되므로 공통 필드는 여기서 재사용한다. */
+export const ogBase = {
+  type: "website",
+  locale: "ko_KR",
+  siteName: `${profile.name} | ${profile.role}`,
+} as const;

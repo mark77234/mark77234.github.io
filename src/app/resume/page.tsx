@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PrintButton from "@/components/PrintButton";
 import ProjectLinks from "@/components/ProjectLinks";
 import SectionHeading from "@/components/SectionHeading";
-import { profile } from "@/data/profile";
+import { ogBase, profile } from "@/data/profile";
 import { skills } from "@/data/skills";
 import { experiences } from "@/data/experience";
 import { resumeProjects } from "@/data/projects";
@@ -11,6 +11,9 @@ import { awards, education, languages } from "@/data/awards";
 export const metadata: Metadata = {
   title: "Resume",
   description: `${profile.nameEn}의 이력서 — 경력, 기술 스택, 대표 프로젝트와 수상 내역.`,
+  alternates: { canonical: "/resume/" },
+  openGraph: { ...ogBase, url: "/resume/" },
+  twitter: { card: "summary" },
 };
 
 function StackLine({ items }: { items: readonly string[] }) {
@@ -152,7 +155,10 @@ export default function ResumePage() {
                 </h3>
                 <span className="text-[13px] text-faint">{project.period}</span>
               </div>
-              <p className="mt-0.5 text-[14px] text-muted">{project.role}</p>
+              <div className="mt-0.5 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                <p className="text-[14px] text-muted">{project.role}</p>
+                {project.links && <ProjectLinks links={project.links} compact />}
+              </div>
 
               <ul className="mt-3 space-y-1.5">
                 {project.bullets.map((bullet) => (
@@ -183,9 +189,12 @@ export default function ResumePage() {
                 </h3>
                 {award.date && <span className="text-[13px] text-faint">{award.date}</span>}
               </div>
-              {award.note && (
-                <p className="mt-0.5 text-[13px] leading-[1.6] text-muted">{award.note}</p>
-              )}
+              <div className="mt-0.5 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                {award.note && (
+                  <p className="text-[13px] leading-[1.6] text-muted">{award.note}</p>
+                )}
+                {award.links && <ProjectLinks links={award.links} compact />}
+              </div>
             </li>
           ))}
         </ul>

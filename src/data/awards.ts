@@ -1,8 +1,11 @@
+import type { ProjectLinks } from "@/data/caseStudies";
+
 export type Award = {
   title: string;
   prize: string;
   date?: string;
   note?: string;
+  links?: ProjectLinks;
 };
 
 export const awards: Award[] = [
@@ -11,6 +14,7 @@ export const awards: Award[] = [
     prize: "부산도시공사 발제사 3위",
     date: "2026.07",
     note: "AI/데이터 기반 부산 공공임대주택 추천 서비스 · 서비스 개발 단독 담당",
+    links: { caseStudy: "/portfolio/dive/" },
   },
   {
     title: "2026 PNUPC",

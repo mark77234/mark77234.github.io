@@ -1,4 +1,4 @@
-import { GITHUB_URL, profile } from "@/data/profile";
+import { GITHUB_URL, LINKEDIN_URL, profile } from "@/data/profile";
 
 export default function SiteFooter() {
   return (
@@ -25,7 +25,7 @@ export default function SiteFooter() {
           </li>
           <li>
             <a
-              href="https://linkedin.com/in/byeongchanlee"
+              href={LINKEDIN_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-ink"

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import { SITE_URL, profile } from "@/data/profile";
+import { ogBase, SITE_URL, profile } from "@/data/profile";
 
 const description =
   "모바일을 시작으로 Backend, Cloud, AI 서비스를 개발하고 출시·운영하는 Software Engineer 이병찬의 포트폴리오입니다.";
@@ -14,11 +14,10 @@ export const metadata: Metadata = {
     template: `${profile.name} | %s`,
   },
   description,
+  alternates: { canonical: "/" },
   openGraph: {
-    type: "website",
-    locale: "ko_KR",
-    url: SITE_URL,
-    siteName: `${profile.name} | ${profile.role}`,
+    ...ogBase,
+    url: "/",
     title: `${profile.name} | ${profile.role}`,
     description,
   },
