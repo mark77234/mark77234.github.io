@@ -44,8 +44,6 @@ export type ProjectLinks = {
 export type CaseStudy = {
   slug: string;
   index: string;
-  /** featured = Overview에서 크게 다루는 대표 프로젝트, selected = 짧게 소개하는 프로젝트 */
-  tier: "featured" | "selected";
   name: string;
   subtitle: string;
   period?: string;
@@ -62,7 +60,6 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "dailyopic",
     index: "01",
-    tier: "featured",
     name: "DailyOPIc",
     subtitle: "AI 기반 OPIc 학습 iOS 서비스",
     period: "2025.11 – Present",
@@ -354,7 +351,6 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "killingpart",
     index: "02",
-    tier: "featured",
     name: "KillingPart",
     subtitle: "음악 취향을 구간으로 기록하고 공유하는 소셜 플랫폼",
     period: "2026.01 – Present",
@@ -580,7 +576,6 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "dive",
     index: "03",
-    tier: "featured",
     name: "DIVE 2026 · 부가가치",
     subtitle: "부산 공공임대주택 맞춤 추천 서비스",
     period: "2026.07.25 – 2026.07.26",
@@ -805,7 +800,6 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "pnusa",
     index: "04",
-    tier: "selected",
     name: "PNUSA",
     subtitle: "부산대 도서관 좌석 알리미",
     period: "2026.04 · 약 1개월 운영",
@@ -1025,7 +1019,6 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "kagong",
     index: "05",
-    tier: "selected",
     name: "카공어디?",
     subtitle: "가격 먼저 보는 카공 지도",
     role: "1인 개발 · iOS",
@@ -1210,7 +1203,6 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "festival",
     index: "06",
-    tier: "selected",
     name: "축제어디?",
     subtitle: "전국 축제를 지도에서 한눈에",
     period: "2026 · 공모전 심사 중",

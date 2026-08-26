@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import PrintButton from "@/components/PrintButton";
 import ProjectLinks from "@/components/ProjectLinks";
 import SectionHeading from "@/components/SectionHeading";
@@ -26,93 +25,37 @@ export default function PortfolioPage() {
         </p>
       </header>
 
-      {/* ----------------------------------------------------- project index */}
+      {/* ---------------------------------------------------------- projects */}
       <section className="mt-14">
-        <SectionHeading>Featured Case Studies</SectionHeading>
+        <SectionHeading>Projects</SectionHeading>
         <div className="space-y-16 print:space-y-10">
-          {caseStudies
-            .filter((study) => study.tier === "featured")
-            .map((study) => {
-              const { overview, results } = caseStudySummary(study);
+          {caseStudies.map((study) => {
+            const { overview, results } = caseStudySummary(study);
 
-              return (
-                <article key={study.slug} className="print-keep border-t border-ink pt-8">
-                  <ProjectHeader study={study} />
+            return (
+              <article key={study.slug} className="print-keep border-t border-ink pt-8">
+                <ProjectHeader study={study} />
 
-                  {study.cover && <ProjectCover cover={study.cover} />}
+                {study.cover && <ProjectCover cover={study.cover} />}
 
-                  <p className="mt-8 text-[15px] leading-[1.8] print:mt-5 print:text-[10pt]">
-                    {overview}
-                  </p>
+                <p className="mt-8 text-[15px] leading-[1.8] print:mt-5 print:text-[10pt]">
+                  {overview}
+                </p>
 
-                  {results.length > 0 && (
-                    <div className="mt-6">
-                      <Metrics items={results} />
-                    </div>
-                  )}
-
-                  {study.links && (
-                    <div className="mt-6">
-                      <ProjectLinks links={study.links} />
-                    </div>
-                  )}
-                </article>
-              );
-            })}
-        </div>
-      </section>
-
-      {/* ----------------------------------------------- selected projects */}
-      <section className="print-break-before mt-20 print:mt-0">
-        <SectionHeading>Selected Projects</SectionHeading>
-        <div className="space-y-12 print:space-y-8">
-          {caseStudies
-            .filter((study) => study.tier === "selected")
-            .map((study) => {
-              const { overview, results } = caseStudySummary(study);
-
-              return (
-                <article key={study.slug} className="print-keep border-t border-rule pt-6">
-                  <ProjectHeader study={study} />
-
-                  {/* 대표 이미지를 먼저, 다만 메인 프로젝트보다는 작게 두어 위계를 유지한다. */}
-                  <div className="mt-5 grid gap-x-6 gap-y-4 sm:grid-cols-[minmax(0,300px)_1fr]">
-                    {study.cover && (
-                      <figure className="print-shot-wide">
-                        <Image
-                          src={study.cover.src}
-                          alt={study.cover.alt}
-                          width={study.cover.width}
-                          height={study.cover.height}
-                          sizes="(max-width: 640px) 100vw, 300px"
-                          className="h-auto w-full border border-rule object-contain"
-                        />
-                      </figure>
-                    )}
-
-                    <div>
-                      <p className="text-[14.5px] leading-[1.75] print:text-[10pt]">{overview}</p>
-
-                      {results.length > 0 && (
-                        <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] font-medium text-accent">
-                          {results.map((result) => (
-                            <li key={result.label}>
-                              {result.value} · {result.label}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
+                {results.length > 0 && (
+                  <div className="mt-6">
+                    <Metrics items={results} />
                   </div>
+                )}
 
-                  {study.links && (
-                    <div className="mt-5">
-                      <ProjectLinks links={study.links} />
-                    </div>
-                  )}
-                </article>
-              );
-            })}
+                {study.links && (
+                  <div className="mt-6">
+                    <ProjectLinks links={study.links} />
+                  </div>
+                )}
+              </article>
+            );
+          })}
         </div>
       </section>
     </div>
