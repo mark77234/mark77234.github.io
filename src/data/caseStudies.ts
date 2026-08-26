@@ -33,6 +33,14 @@ export type CaseSection = {
   blocks: Block[];
 };
 
+/** 프로젝트에 연결할 링크. 없는 필드는 생략한다. */
+export type ProjectLinks = {
+  caseStudy?: string;
+  appStore?: string;
+  playStore?: string;
+  live?: string;
+};
+
 export type CaseStudy = {
   slug: string;
   index: string;
@@ -44,6 +52,7 @@ export type CaseStudy = {
   stack: string[];
   /** 서비스 공식 대표 이미지. Intro 바로 다음에 가장 먼저 노출한다. */
   cover?: Screenshot;
+  links?: ProjectLinks;
   sections: CaseSection[];
 };
 
@@ -75,6 +84,10 @@ export const caseStudies: CaseStudy[] = [
       width: 1672,
       height: 941,
       title: "DailyOPIc",
+    },
+    links: {
+      caseStudy: "/portfolio/dailyopic/",
+      appStore: "https://apps.apple.com/us/app/daily-opic/id6756842982",
     },
     sections: [
       {
@@ -361,6 +374,11 @@ export const caseStudies: CaseStudy[] = [
       height: 3000,
       title: "KillingPart",
     },
+    links: {
+      caseStudy: "/portfolio/killingpart/",
+      appStore:
+        "https://apps.apple.com/us/app/%ED%82%AC%EB%A7%81%ED%8C%8C%ED%8A%B8-killingpart/id6758883638",
+    },
     sections: [
       {
         heading: "Overview",
@@ -579,6 +597,10 @@ export const caseStudies: CaseStudy[] = [
       width: 2003,
       height: 1137,
       title: "부가가치",
+    },
+    links: {
+      caseStudy: "/portfolio/dive/",
+      live: "https://bugagachi.vercel.app/",
     },
     sections: [
       {

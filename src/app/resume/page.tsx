@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PrintButton from "@/components/PrintButton";
+import ProjectLinks from "@/components/ProjectLinks";
 import SectionHeading from "@/components/SectionHeading";
 import { profile } from "@/data/profile";
 import { skills } from "@/data/skills";
@@ -99,7 +100,16 @@ export default function ResumePage() {
                 <h3 className="text-[17px] font-semibold">{exp.company}</h3>
                 <span className="text-[13px] text-faint">{exp.period}</span>
               </div>
-              <p className="mt-0.5 text-[14px] text-muted">{exp.role}</p>
+              <div className="mt-0.5 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                <p className="text-[14px] text-muted">{exp.role}</p>
+                {/* 출시한 서비스 스토어 링크. 줄을 늘리지 않도록 role 옆에 붙인다. */}
+                {exp.service && (
+                  <span className="flex flex-wrap items-baseline gap-x-2">
+                    <span className="text-[12.5px] font-semibold">{exp.service.name}</span>
+                    <ProjectLinks links={exp.service.links} compact />
+                  </span>
+                )}
+              </div>
 
               {exp.terms && (
                 <ul className="mt-2 space-y-0.5 text-[12.5px] text-faint">

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import CaseStudy from "@/components/CaseStudy";
 import PrintButton from "@/components/PrintButton";
+import ProjectLinks from "@/components/ProjectLinks";
 import { caseStudies, findCaseStudy } from "@/data/caseStudies";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -42,14 +43,17 @@ export default async function CaseStudyPage({ params }: Props) {
 
       <CaseStudy study={study} />
 
-      <p className="no-print mt-16 border-t border-rule pt-6">
-        <Link
-          href="/portfolio/"
-          className="text-[14px] text-muted underline-offset-4 hover:text-ink hover:underline"
-        >
-          ← Back to Portfolio
-        </Link>
-      </p>
+      <div className="mt-16 border-t border-rule pt-6">
+        {study.links && <ProjectLinks links={{ ...study.links, caseStudy: undefined }} />}
+        <p className="no-print mt-3">
+          <Link
+            href="/portfolio/"
+            className="text-[14px] text-muted underline-offset-4 hover:text-ink hover:underline"
+          >
+            ← Back to Portfolio
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import type { ProjectLinks } from "@/data/caseStudies";
+
 export type Experience = {
   company: string;
   role: string;
@@ -6,6 +8,8 @@ export type Experience = {
   terms?: { period: string; title: string }[];
   stack: string[];
   bullets: string[];
+  /** 재직 중 출시한 서비스의 공개 스토어 링크 */
+  service?: { name: string; links: ProjectLinks };
 };
 
 export const experiences: Experience[] = [
@@ -23,6 +27,14 @@ export const experiences: Experience[] = [
       "사용자 역할별 마이페이지, Google Maps 기반 250+ 장소 표시와 clustering·zoom level 처리, TMAP 도보·대중교통·자동차 길찾기 등 웹 서비스의 핵심 기능을 모바일 환경에 맞게 구현했습니다.",
       "출시 이후 실서비스를 운영하며, 검증 주기를 늦추던 수동 빌드·배포를 GitHub Actions 기반 iOS·Android CI/CD로 전환해 TestFlight·Android 내부 테스트 배포를 자동화했습니다.",
     ],
+    service: {
+      name: "TRIT",
+      links: {
+        appStore: "https://apps.apple.com/kr/app/trit-korea-travel-platform/id6754618596",
+        playStore:
+          "https://play.google.com/store/apps/details?id=com.todaysquare.trit&hl=ko",
+      },
+    },
   },
   {
     company: "(주)태성환경연구소",

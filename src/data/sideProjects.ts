@@ -1,4 +1,4 @@
-import type { Screenshot } from "@/data/caseStudies";
+import type { ProjectLinks, Screenshot } from "@/data/caseStudies";
 
 /**
  * 메인 Case Study보다 짧게 소개하는 프로젝트.
@@ -11,6 +11,8 @@ export type SideProject = {
   role: string;
   stack: string[];
   cover: Screenshot;
+  /** 공개된 링크가 있는 프로젝트만 채운다. */
+  links?: ProjectLinks;
   description: string;
   highlights: string[];
   results?: string[];
@@ -52,6 +54,10 @@ export const sideProjects: SideProject[] = [
       height: 941,
       title: "카공어디?",
     },
+    links: {
+      appStore:
+        "https://apps.apple.com/us/app/%EC%B9%B4%EA%B3%B5%EC%96%B4%EB%94%94/id6763051416",
+    },
     description:
       "지도 앱은 카페 위치는 알려주지만 공부하기 좋은지, 가격은 얼마인지는 직접 가보기 전까지 알기 어려웠습니다. 카페를 찾는 서비스가 아니라 어디로 갈지 결정하는 것을 돕는 iOS 서비스로 만들었습니다.",
     highlights: [
@@ -74,6 +80,10 @@ export const sideProjects: SideProject[] = [
       width: 1672,
       height: 941,
       title: "축제어디?",
+    },
+    links: {
+      appStore:
+        "https://apps.apple.com/us/app/%EC%B6%95%EC%A0%9C%EC%96%B4%EB%94%94/id6762603640",
     },
     description:
       "축제에 가고 싶을 때 가장 먼저 열어보는 앱을 목표로, 전국 축제를 지도 위에서 탐색하는 서비스입니다. 2026 관광데이터 활용 공모전을 준비하며 iPhone과 Apple Watch 앱을 출시했습니다.",

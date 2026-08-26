@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ProjectLinks from "@/components/ProjectLinks";
 import type {
   Block,
   CaseStudy as CaseStudyType,
@@ -277,6 +278,13 @@ export default function CaseStudy({ study }: { study: CaseStudyType }) {
       <ProjectHeader study={study} as="h1" />
 
       {study.cover && <ProjectCover cover={study.cover} />}
+
+      {/* 상세 페이지에서는 이미 Case Study 안이므로 실제 서비스 링크만 노출한다. */}
+      {study.links && (
+        <div className="mt-6">
+          <ProjectLinks links={{ ...study.links, caseStudy: undefined }} />
+        </div>
+      )}
 
       <div className="mt-10 space-y-10 print:mt-6 print:space-y-6">
         {study.sections.map((section) => (
