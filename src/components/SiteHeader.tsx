@@ -10,7 +10,8 @@ const navItems = [
 ];
 
 export default function SiteHeader() {
-  const pathname = usePathname();
+  // trailingSlash: true 이므로 pathname은 "/resume/" 형태로 들어온다.
+  const pathname = usePathname().replace(/\/?$/, "/");
 
   return (
     <header className="no-print border-b border-rule">
@@ -27,8 +28,8 @@ export default function SiteHeader() {
 
         <ul className="flex items-center gap-5 text-[14px] sm:gap-7">
           {navItems.map((item) => {
-            // trailingSlash: true 이므로 pathname은 "/resume/" 형태로 들어온다.
-            const isActive = pathname.replace(/\/?$/, "/") === item.href;
+            // /portfolio/dailyopic/ 같은 하위 페이지에서도 Portfolio를 현재 위치로 표시한다.
+            const isActive = pathname.startsWith(item.href);
             return (
               <li key={item.href}>
                 <Link

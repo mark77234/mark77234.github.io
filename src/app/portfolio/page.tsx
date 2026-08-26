@@ -1,15 +1,36 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PrintButton from "@/components/PrintButton";
 import SectionHeading from "@/components/SectionHeading";
-import CaseStudy from "@/components/CaseStudy";
-import { caseStudies } from "@/data/caseStudies";
+import { Metrics, ProjectCover, ProjectHeader } from "@/components/CaseStudy";
+import { caseStudies, caseStudySummary } from "@/data/caseStudies";
 import { sideProjects } from "@/data/sideProjects";
 import { profile } from "@/data/profile";
 
 export const metadata: Metadata = {
   title: "Portfolio",
-  description: `${profile.nameEn}의 포트폴리오 — DailyOPIc, KillingPart, TRIT의 문제 정의와 기술적 해결 과정.`,
+  description: `${profile.nameEn}의 포트폴리오 — DailyOPIc, KillingPart, DIVE 2026의 문제 정의와 기술적 해결 과정.`,
 };
+
+/**
+ * 화면에서는 "View Case Study →", 인쇄에서는 실제 주소를 읽을 수 있게 노출한다.
+ * PDF만 받아본 사람도 상세 페이지 URL을 그대로 입력할 수 있어야 한다.
+ */
+function CaseStudyLink({ slug }: { slug: string }) {
+  return (
+    <p className="mt-6">
+      <Link
+        href={`/portfolio/${slug}/`}
+        className="inline-block text-[14px] font-medium text-accent underline-offset-4 hover:underline print:text-[9.5pt]"
+      >
+        <span className="print:hidden">View Case Study →</span>
+        <span className="hidden print:inline">
+          Case Study · mark77234.github.io/portfolio/{slug}/
+        </span>
+      </Link>
+    </p>
+  );
+}
 
 export default function PortfolioPage() {
   return (
@@ -25,13 +46,33 @@ export default function PortfolioPage() {
         </p>
       </header>
 
-      {/* ------------------------------------------- featured case studies */}
+      {/* ----------------------------------------------------- project index */}
       <section className="mt-14">
         <SectionHeading>Featured Case Studies</SectionHeading>
         <div className="space-y-16 print:space-y-10">
-          {caseStudies.map((study) => (
-            <CaseStudy key={study.slug} study={study} />
-          ))}
+          {caseStudies.map((study) => {
+            const { overview, results } = caseStudySummary(study);
+
+            return (
+              <article key={study.slug} className="print-keep border-t border-ink pt-8">
+                <ProjectHeader study={study} />
+
+                {study.cover && <ProjectCover cover={study.cover} />}
+
+                <p className="mt-8 text-[15px] leading-[1.8] print:mt-5 print:text-[10pt]">
+                  {overview}
+                </p>
+
+                {results.length > 0 && (
+                  <div className="mt-6">
+                    <Metrics items={results} />
+                  </div>
+                )}
+
+                <CaseStudyLink slug={study.slug} />
+              </article>
+            );
+          })}
         </div>
       </section>
 

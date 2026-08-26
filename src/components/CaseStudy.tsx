@@ -8,7 +8,7 @@ import type {
 } from "@/data/caseStudies";
 
 /** 서비스 공식 대표 이미지. 원본 비율 그대로, crop·mockup 없이 크게 보여준다. */
-function ProjectCover({ cover }: { cover: Screenshot }) {
+export function ProjectCover({ cover }: { cover: Screenshot }) {
   return (
     <figure className="print-keep print-cover mt-8 print:mt-5">
       <Image
@@ -145,12 +145,29 @@ function Diagram({ caption, stages }: { caption?: string; stages: DiagramStage[]
   );
 }
 
+/** 성과 지표. 상세 페이지와 Portfolio Overview 카드에서 함께 쓴다. */
+export function Metrics({ items }: { items: { value: string; label: string }[] }) {
+  return (
+    <dl className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+      {items.map((item) => (
+        <div key={item.label}>
+          <dt className="sr-only">{item.label}</dt>
+          <dd>
+            <span className="block text-[22px] font-semibold tracking-tight">{item.value}</span>
+            <span className="mt-0.5 block text-[13px] text-muted">{item.label}</span>
+          </dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 function EngineeringCards({ items }: { items: { title: string; text: string }[] }) {
   return (
     <ul className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
       {items.map((item) => (
         <li key={item.title} className="print-keep border-t border-ink pt-3">
-          <h5 className="text-[13.5px] font-semibold">{item.title}</h5>
+          <h3 className="text-[13.5px] font-semibold">{item.title}</h3>
           <p className="mt-1.5 text-[13.5px] leading-[1.65] text-muted print:text-[9.5pt]">
             {item.text}
           </p>
@@ -212,21 +229,7 @@ function BlockView({ block }: { block: Block }) {
       );
 
     case "metrics":
-      return (
-        <dl className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-          {block.items.map((item) => (
-            <div key={item.label}>
-              <dt className="sr-only">{item.label}</dt>
-              <dd>
-                <span className="block text-[22px] font-semibold tracking-tight">
-                  {item.value}
-                </span>
-                <span className="mt-0.5 block text-[13px] text-muted">{item.label}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
-      );
+      return <Metrics items={block.items} />;
 
     case "cards":
       return <EngineeringCards items={block.items} />;
@@ -239,34 +242,48 @@ function BlockView({ block }: { block: Block }) {
   }
 }
 
+/** 프로젝트 제목 · 기간 · Role · Stack. 상세 페이지와 Overview 카드가 공유한다. */
+export function ProjectHeader({
+  study,
+  as: Heading = "h3",
+}: {
+  study: CaseStudyType;
+  /** 상세 페이지에서는 h1, Overview 카드에서는 h3로 쓴다. */
+  as?: "h1" | "h3";
+}) {
+  return (
+    <header className="print-keep">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <Heading className="text-[24px] font-semibold tracking-tight sm:text-[28px]">
+          <span className="mr-3 align-middle text-[14px] font-normal text-faint">
+            {study.index}
+          </span>
+          {study.name}
+        </Heading>
+        <span className="text-[13px] text-faint">{study.period}</span>
+      </div>
+      <p className="mt-1.5 text-[16px] text-muted">{study.subtitle}</p>
+      <p className="mt-3 text-[13px] text-faint">
+        {study.context} · {study.role}
+      </p>
+      <p className="mt-3 text-[12.5px] leading-[1.7] text-faint">{study.stack.join(" · ")}</p>
+    </header>
+  );
+}
+
 export default function CaseStudy({ study }: { study: CaseStudyType }) {
   return (
     <article className="print-section border-t border-ink pt-8">
-      <header className="print-keep">
-        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-          <h3 className="text-[24px] font-semibold tracking-tight sm:text-[28px]">
-            <span className="mr-3 align-middle text-[14px] font-normal text-faint">
-              {study.index}
-            </span>
-            {study.name}
-          </h3>
-          <span className="text-[13px] text-faint">{study.period}</span>
-        </div>
-        <p className="mt-1.5 text-[16px] text-muted">{study.subtitle}</p>
-        <p className="mt-3 text-[13px] text-faint">
-          {study.context} · {study.role}
-        </p>
-        <p className="mt-3 text-[12.5px] leading-[1.7] text-faint">{study.stack.join(" · ")}</p>
-      </header>
+      <ProjectHeader study={study} as="h1" />
 
       {study.cover && <ProjectCover cover={study.cover} />}
 
       <div className="mt-10 space-y-10 print:mt-6 print:space-y-6">
         {study.sections.map((section) => (
           <section key={section.heading} className="print-keep">
-            <h4 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-faint">
+            <h2 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-faint">
               {section.heading}
-            </h4>
+            </h2>
             <div className="space-y-4">
               {section.blocks.map((block, i) => (
                 <BlockView key={i} block={block} />

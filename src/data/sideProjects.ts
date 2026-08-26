@@ -31,17 +31,4 @@ export const sideProjects: SideProject[] = [
     ],
     results: ["App Store 음식 카테고리 113위"],
   },
-  {
-    name: "태성환경연구소",
-    subtitle: "악취 분석 모바일 MVP",
-    period: "2024.12 – 2025.02",
-    role: "Flutter Developer · 현장실습",
-    stack: ["Flutter", "Dart", "BLE", "Serial", "REST API"],
-    description:
-      "측정 장비에서 올라오는 악취 센서 데이터를 모바일에서 확인하는 MVP를 개발했습니다.",
-    highlights: [
-      "BLE·Serial로 센서와 연결해 측정값을 수신·처리하고 서버 API와 연동",
-      "실제 하드웨어와 앱 사이의 통신 문제를 재현·분석해 해결",
-    ],
-  },
 ];

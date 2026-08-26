@@ -753,80 +753,26 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
   },
-  {
-    slug: "trit",
-    index: "04",
-    name: "TRIT",
-    subtitle: "React Native · Expo 기반 iOS / Android 여행 서비스",
-    period: "2025.06 – 2026.02",
-    role: "Mobile Developer",
-    context: "(주)오늘의이야기",
-    stack: [
-      "React Native",
-      "Expo",
-      "TypeScript",
-      "Google Maps",
-      "TMAP",
-      "GitHub Actions",
-    ],
-    sections: [
-      {
-        heading: "Overview",
-        blocks: [
-          {
-            kind: "text",
-            text: "이미 운영 중이던 웹 서비스의 모바일 앱을 담당했습니다. 합류 시점의 모바일 코드베이스에는 routing, session, 폴더 구조 같은 기본 환경만 잡혀 있었고, 실제 서비스 기능은 이후 모바일 환경에 맞게 구현해 나갔습니다.",
-          },
-        ],
-      },
-      {
-        heading: "Implementation",
-        blocks: [
-          {
-            kind: "list",
-            items: [
-              "사용자 역할에 따라 다르게 동작하는 마이페이지 분기 구현",
-              "Google Maps에 250+ 장소를 표시하고 marker interaction, clustering, zoom level별 표시 정책 처리",
-              "TMAP 기반 도보 · 대중교통 · 자동차 길찾기 연동",
-            ],
-          },
-          {
-            kind: "text",
-            text: "지도는 장소 수가 늘어날수록 마커가 겹쳐 판단이 어려워지는 화면이라, zoom level에 따라 무엇을 묶고 무엇을 개별로 보여줄지를 기준으로 clustering 동작을 맞췄습니다.",
-          },
-        ],
-      },
-      {
-        heading: "Release",
-        blocks: [
-          {
-            kind: "text",
-            text: "App Store와 Google Play 출시를 진행했고, 심사 과정에서 발생한 반려 이슈는 기획·개발 Lead와 함께 원인을 정리해 대응했습니다.",
-          },
-        ],
-      },
-      {
-        heading: "CI/CD",
-        blocks: [
-          {
-            kind: "text",
-            text: "출시 이후 주간 단위로 기획 변경과 피드백이 반영되면서, 웹과 달리 모바일은 build → store/test → 배포 과정 때문에 변경사항 검증이 늦어진다는 점이 병목으로 드러났습니다.",
-          },
-          {
-            kind: "flow",
-            steps: [
-              "GitHub Actions",
-              "Expo build",
-              "Android 내부 테스트",
-              "TestFlight",
-            ],
-          },
-          {
-            kind: "text",
-            text: "GitHub Actions 기반으로 iOS·Android 빌드와 배포를 자동화해, 반복적으로 수행하던 배포 절차를 단순화하고 테스트 빌드 전달까지의 시간을 줄였습니다.",
-          },
-        ],
-      },
-    ],
-  },
 ];
+
+/**
+ * 메인 Portfolio Overview 카드용 요약.
+ * 별도 필드로 중복 관리하지 않고 상세 본문의 Overview / Results를 그대로 재사용한다.
+ */
+export function caseStudySummary(study: CaseStudy) {
+  const overview = study.sections
+    .find((section) => section.heading === "Overview")
+    ?.blocks.find((block) => block.kind === "text");
+  const results = study.sections
+    .find((section) => section.heading === "Results")
+    ?.blocks.find((block) => block.kind === "metrics");
+
+  return {
+    overview: overview?.kind === "text" ? overview.text : "",
+    results: results?.kind === "metrics" ? results.items.slice(0, 3) : [],
+  };
+}
+
+export function findCaseStudy(slug: string) {
+  return caseStudies.find((study) => study.slug === slug);
+}
