@@ -44,9 +44,11 @@ export type ProjectLinks = {
 export type CaseStudy = {
   slug: string;
   index: string;
+  /** featured = Overview에서 크게 다루는 대표 프로젝트, selected = 짧게 소개하는 프로젝트 */
+  tier: "featured" | "selected";
   name: string;
   subtitle: string;
-  period: string;
+  period?: string;
   role: string;
   context: string;
   stack: string[];
@@ -60,6 +62,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "dailyopic",
     index: "01",
+    tier: "featured",
     name: "DailyOPIc",
     subtitle: "AI 기반 OPIc 학습 iOS 서비스",
     period: "2025.11 – Present",
@@ -351,6 +354,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "killingpart",
     index: "02",
+    tier: "featured",
     name: "KillingPart",
     subtitle: "음악 취향을 구간으로 기록하고 공유하는 소셜 플랫폼",
     period: "2026.01 – Present",
@@ -576,6 +580,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "dive",
     index: "03",
+    tier: "featured",
     name: "DIVE 2026 · 부가가치",
     subtitle: "부산 공공임대주택 맞춤 추천 서비스",
     period: "2026.07.25 – 2026.07.26",
@@ -792,6 +797,586 @@ export const caseStudies: CaseStudy[] = [
           {
             kind: "text",
             text: "수상 이후 부산도시공사로부터 청약센터 게시 및 시민 설문 기반 시범 운영을 제안받았습니다.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "pnusa",
+    index: "04",
+    tier: "selected",
+    name: "PNUSA",
+    subtitle: "부산대 도서관 좌석 알리미",
+    period: "2026.04 · 약 1개월 운영",
+    role: "1인 개발 · Web · iOS",
+    context: "개인 프로덕트 · 운영 종료",
+    stack: ["React", "TypeScript", "SwiftUI", "Node.js", "Vercel"],
+    cover: {
+      src: "/images/pnusa/title.png",
+      alt: "PNUSA 대표 이미지 — 부산대 도서관 좌석 알리미",
+      width: 1672,
+      height: 941,
+      title: "PNUSA",
+    },
+    links: {
+      caseStudy: "/portfolio/pnusa/",
+    },
+    sections: [
+      {
+        heading: "Overview",
+        blocks: [
+          {
+            kind: "text",
+            text: "부산대학교 도서관 서비스가 리뉴얼된 뒤, 빈자리가 있는지 확인하려면 열람실을 하나씩 열어봤다 나오기를 반복해야 했습니다. PNUSA는 여러 열람실의 좌석 현황을 한 화면에 모아 보여주고, 빈 좌석이 생기면 좌석 위치와 함께 알려주는 개인 서비스입니다. Web으로 시작해 iOS 앱까지 확장했고, 운영 중 도서관 측 요청을 받아들여 약 한 달 만에 서비스를 종료했습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Product",
+        blocks: [
+          {
+            kind: "screens",
+            layout: "wide",
+            items: [
+              {
+                src: "/images/pnusa/rooms.PNG",
+                alt: "PNUSA 웹 화면 — 열람실별 빈자리 수와 좌석 배치도, 실시간 로그",
+                width: 2474,
+                height: 1518,
+                title: "Web · 열람실 현황",
+                caption:
+                  "열람실별 빈자리 수 · 좌석 배치도 · 예약 가능한 좌석 번호를 한 화면에 모으고, 빈자리 발견 로그를 함께 표시",
+              },
+            ],
+          },
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/pnusa/web_feat_1.jpeg",
+                alt: "PNUSA 웹 자리 찾기 화면 — 감시 대상 열람실 선택",
+                width: 1179,
+                height: 2264,
+                title: "Web · 자리 찾기",
+                caption: "확인할 열람실을 직접 고르고 조회 간격을 설정",
+              },
+              {
+                src: "/images/pnusa/web_reservation_dialog.jpeg",
+                alt: "PNUSA 웹 좌석 예약 확인 다이얼로그 — 052 좌석을 예약할까요",
+                width: 1179,
+                height: 1581,
+                title: "Web · 예약 확인",
+                caption: "좌석 번호와 상세 배치도를 보여주고 예약 여부는 사용자가 결정",
+              },
+              {
+                src: "/images/pnusa/ios_home.png",
+                alt: "PNUSA iOS 좌석 찾기 화면 — 열람실 선택 토글과 지금 자리 확인",
+                width: 1260,
+                height: 2736,
+                title: "iOS · 좌석 찾기",
+                caption: "열람실별 토글 · 지금 자리 확인 · 자동 자리 찾기",
+              },
+              {
+                src: "/images/pnusa/ios_dialog.jpeg",
+                alt: "PNUSA iOS 빈 좌석 발견 알림과 좌석 배치도 다이얼로그",
+                width: 1179,
+                height: 2033,
+                title: "iOS · 빈 좌석 알림",
+                caption: "빈 좌석이 감지되면 열람실 · 좌석 번호와 배치도를 함께 안내",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Problem",
+        blocks: [
+          {
+            kind: "text",
+            text: "시험기간에는 열람실 페이지를 하나씩 들어갔다 나오기를 반복하며 자리가 나기를 기다리는 사용자가 많았습니다. 직접 같은 방식으로 자리를 찾다가, 좌석 현황이 열람실 단위로 흩어져 있어 한 번에 비교할 수 없다는 점이 문제라고 봤습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Solution",
+        blocks: [
+          {
+            kind: "flow",
+            steps: [
+              "열람실 현황 확인",
+              "빈 좌석 감지",
+              "열람실 · 좌석 안내",
+              "사용자 확인",
+              "직접 예약",
+            ],
+          },
+          {
+            kind: "text",
+            text: "좌석을 대신 잡아주는 매크로가 아니라, 빈자리를 먼저 찾아 알려주고 예약은 사용자가 확인한 뒤 직접 진행하는 흐름으로 설계했습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Engineering · Vacancy Detection",
+        blocks: [
+          {
+            kind: "diagram",
+            stages: [
+              { title: "User" },
+              { title: "PNUSA Web / iOS" },
+              { title: "Polling", note: "5~30초 간격" },
+              { title: "Proxy" },
+              { title: "PNU Library API" },
+              { title: "Vacancy Detection" },
+              { title: "Seat Alert" },
+              { title: "User Confirmation" },
+            ],
+          },
+          {
+            kind: "list",
+            items: [
+              "조회 간격을 5~30초 범위에서 설정하도록 두어, 필요 이상으로 잦은 요청이 발생하지 않게 구성",
+              "감시 대상 열람실을 사용자가 직접 선택하게 해, 사용자가 늘어도 요청 수가 무제한으로 늘지 않도록 요청 빈도와 대상 범위를 함께 제어",
+              "빈자리가 감지되면 열람실 · 좌석 번호와 배치도를 함께 안내",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Engineering · Authentication",
+        blocks: [
+          {
+            kind: "cards",
+            items: [
+              {
+                title: "Web",
+                text: "도서관에 로그인한 뒤 발급된 인증 토큰을 사용자가 직접 입력하고, 로컬 프록시가 이를 그대로 중계",
+              },
+              {
+                title: "iOS",
+                text: "토큰을 보관하는 별도 서버를 두지 않고, 인증 토큰을 사용자 기기에만 저장",
+              },
+            ],
+          },
+          {
+            kind: "text",
+            text: "계정 ID · 비밀번호를 서비스 서버가 직접 수집하거나 보관하지 않는 방향으로 인증 구조를 설계했습니다.",
+          },
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/pnusa/ios_login.png",
+                alt: "PNUSA iOS 로그인 화면 — 부산대학교 도서관 공식 페이지",
+                width: 1260,
+                height: 2736,
+                title: "iOS · 로그인",
+                caption: "앱이 자체 로그인 폼을 두지 않고 부산대 공식 페이지에서 직접 로그인",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Results",
+        blocks: [
+          {
+            kind: "metrics",
+            items: [
+              { value: "6,700+", label: "Views" },
+              { value: "3,400+", label: "Visitors" },
+              { value: "146위", label: "App Store 교육 카테고리" },
+              { value: "Web → iOS", label: "서비스 확장" },
+            ],
+          },
+          {
+            kind: "text",
+            text: "개인 SNS에 공유한 뒤 짧은 기간에 사용자가 늘었고, Web 서비스에서 iOS 앱까지 확장했습니다. 운영 중 부산대학교 도서관으로부터 공식 앱 서비스 활용에 대한 협조 요청과 함께 서비스 중지 요청을 받아, 이를 받아들여 운영을 종료했습니다.",
+          },
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/pnusa/ranked_1.png",
+                alt: "PNUSA App Store 페이지 — Education 차트 No.147",
+                width: 1179,
+                height: 2556,
+                title: "App Store",
+                caption: "Education 차트 진입 · 캡처 시점 No.147",
+              },
+              {
+                src: "/images/pnusa/ranked_2.png",
+                alt: "App Store Top Downloaded Education 목록의 PNUSA 147위",
+                width: 1179,
+                height: 2556,
+                title: "Top Downloaded",
+                caption: "Education 무료 앱 다운로드 순위",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "kagong",
+    index: "05",
+    tier: "selected",
+    name: "카공어디?",
+    subtitle: "가격 먼저 보는 카공 지도",
+    role: "1인 개발 · iOS",
+    context: "개인 프로덕트 · 운영 중",
+    stack: ["Swift", "SwiftUI", "Firestore", "Node.js"],
+    cover: {
+      src: "/images/kagong/title.png",
+      alt: "카공어디? 대표 이미지 — 가격 먼저 보는 카공 지도",
+      width: 1672,
+      height: 941,
+      title: "카공어디?",
+    },
+    links: {
+      caseStudy: "/portfolio/kagong/",
+      appStore:
+        "https://apps.apple.com/us/app/%EC%B9%B4%EA%B3%B5%EC%96%B4%EB%94%94/id6763051416",
+    },
+    sections: [
+      {
+        heading: "Overview",
+        blocks: [
+          {
+            kind: "text",
+            text: "지도 앱은 카페 위치는 알려주지만, 공부하기 좋은 곳인지 가격은 얼마인지는 직접 가보기 전까지 알기 어려웠습니다. 카공어디?는 카페를 검색하는 서비스가 아니라 어디로 갈지 결정하는 것을 돕는 iOS 서비스입니다. 지도 마커에서 대표 음료 최저가를 바로 비교할 수 있게 하고, 콘센트 · 소음 같은 카공 편의 요소를 함께 정리했습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Product",
+        blocks: [
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/kagong/map.PNG",
+                alt: "카공어디? 지도 화면 — 가격이 표시된 카페 마커와 지역별 클러스터",
+                width: 1179,
+                height: 2556,
+                title: "Map",
+                caption: "지도 마커에 대표 음료 최저가를 그대로 노출 · 지역 단위 클러스터",
+              },
+              {
+                src: "/images/kagong/zoomed_in_map.PNG",
+                alt: "카공어디? 확대한 지도 화면 — 카페별 가격 마커 비교",
+                width: 1179,
+                height: 2556,
+                title: "Map · Zoom",
+                caption: "지역을 좁히면 카페별 가격이 나란히 보여 이동 전에 비교 가능",
+              },
+              {
+                src: "/images/kagong/detail.PNG",
+                alt: "카공어디? 카페 상세 화면 — 대표 음료 가격, 리뷰, 카공 편의 요소",
+                width: 1179,
+                height: 2556,
+                title: "Detail",
+                caption:
+                  "대표 음료 최저가 · 리뷰 · 조용함 · 콘센트 · 와이파이 · 오래앉기, 길찾기는 네이버지도 · 카카오맵으로 연결",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Problem",
+        blocks: [
+          {
+            kind: "text",
+            text: "카페를 고를 때 실제로 필요한 정보는 위치가 아니라 그 카페가 공부할 만한 곳인지, 가격이 얼마인지였습니다. 이 정보는 지도 · 블로그 · 리뷰에 흩어져 있어서, 결정을 내리기 전에 여러 서비스를 오가야 했습니다.",
+          },
+          {
+            kind: "list",
+            items: [
+              "대표 음료 가격",
+              "콘센트 유무",
+              "소음 정도",
+              "영업시간",
+              "실제 사용자 리뷰",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Solution",
+        blocks: [
+          {
+            kind: "flow",
+            steps: [
+              "지도에서 가격 비교",
+              "상세 정보 확인",
+              "카페 선택",
+              "네이버지도 · 카카오맵",
+            ],
+          },
+          {
+            kind: "text",
+            text: "길찾기는 직접 구현하지 않고, 카페를 고른 뒤 장소명을 네이버지도 · 카카오맵으로 넘기는 구조로 두었습니다. 이미 잘 만들어진 기능을 다시 만들기보다 카페를 결정하는 구간에 집중했습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Data",
+        blocks: [
+          {
+            kind: "text",
+            text: "카페 데이터베이스는 외부 상용 지도 데이터를 복제하지 않고 직접 구축했습니다. 설문조사와 지인의 도움, 직접 조사한 내용을 모아 공부하기 좋은 카페 정보를 정리했고, 앱 안에서 사용자가 정보 수정을 제안할 수 있게 했습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Engineering · Firestore Read",
+        blocks: [
+          {
+            kind: "diagram",
+            caption: "Before",
+            stages: [
+              { title: "Map Move / Zoom" },
+              { title: "Firestore Query" },
+              { title: "Repeated Reads" },
+              { title: "Free Plan Read Limit Exceeded" },
+            ],
+          },
+          {
+            kind: "diagram",
+            caption: "After",
+            stages: [
+              { title: "App Launch / Data Refresh" },
+              { title: "Fetch Cafe Dataset" },
+              { title: "Local Map Rendering" },
+              { title: "Pan / Zoom", note: "카메라가 움직여도 다시 조회하지 않음" },
+            ],
+          },
+          {
+            kind: "text",
+            text: "초기 구조는 지도를 움직이거나 확대할 때마다 Firestore를 조회했습니다. 실제 운영 중 무료 플랜의 읽기 한도를 넘겨 서비스가 멈췄고, 유료 플랜으로 전환하는 동시에 Query 구조를 함께 고쳤습니다. 마커 데이터를 한 번 받아 지도에서 재사용하고, 앱에 다시 들어왔을 때 데이터가 바뀐 경우에만 새로 조회합니다.",
+          },
+        ],
+      },
+      {
+        heading: "Results",
+        blocks: [
+          {
+            kind: "metrics",
+            items: [
+              { value: "113위", label: "App Store 음식 및 음료" },
+              { value: "7위", label: "iPad 음식 및 음료" },
+              { value: "Solo", label: "개발 · 데이터 직접 구축" },
+            ],
+          },
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/kagong/ranked_1.jpeg",
+                alt: "카공어디? App Store 페이지 — Food & Drink 차트 No.113, 평점 5.0",
+                width: 1179,
+                height: 2480,
+                title: "App Store",
+                caption: "Food & Drink 차트 No.113 · 평점 5.0",
+              },
+            ],
+          },
+          {
+            kind: "screens",
+            layout: "wide",
+            items: [
+              {
+                src: "/images/kagong/ipad_ranked.png",
+                alt: "카공어디? iPad App Store 페이지 — 음식 및 음료 차트 7위",
+                width: 1898,
+                height: 822,
+                title: "iPad App Store",
+                caption: "음식 및 음료 차트 7위",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "festival",
+    index: "06",
+    tier: "selected",
+    name: "축제어디?",
+    subtitle: "전국 축제를 지도에서 한눈에",
+    period: "2026 · 공모전 심사 중",
+    role: "1인 개발 · iOS · watchOS",
+    context: "개인 프로덕트 · 출시",
+    stack: ["Swift", "SwiftUI", "watchOS", "TourAPI"],
+    cover: {
+      src: "/images/festival/title.png",
+      alt: "축제어디? 대표 이미지 — 전국 축제를 지도에서 한눈에",
+      width: 1672,
+      height: 941,
+      title: "축제어디?",
+    },
+    links: {
+      caseStudy: "/portfolio/festival/",
+      appStore:
+        "https://apps.apple.com/us/app/%EC%B6%95%EC%A0%9C%EC%96%B4%EB%94%94/id6762603640",
+    },
+    sections: [
+      {
+        heading: "Overview",
+        blocks: [
+          {
+            kind: "text",
+            text: "축제어디?는 전국 축제를 지도에서 발견하고, 지금 갈 수 있는 축제를 빠르게 확인할 수 있게 만든 iOS 서비스입니다. 축제 이름을 미리 알고 검색하는 대신 지도에서 축제를 발견하는 흐름을 중심에 두었고, 2026 관광데이터 활용 공모전을 준비하며 iPhone과 Apple Watch 앱을 함께 만들었습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Product",
+        blocks: [
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/festival/map.png",
+                alt: "축제어디? 지도 화면 — 가로로 긴 축제 포스터 마커와 오늘 필터",
+                width: 941,
+                height: 2048,
+                title: "Map",
+                caption: "축제 포스터를 그대로 담은 가로형 마커 · 오늘 46개처럼 조건별 개수 표시",
+              },
+              {
+                src: "/images/festival/bottom_sheet.png",
+                alt: "축제어디? 축제 선택 후 하단 시트 — 포스터, 거리, 기간, 장소",
+                width: 941,
+                height: 2048,
+                title: "Bottom Sheet",
+                caption: "마커를 고르면 포스터 · 내 위치에서의 거리 · 기간 · 장소를 먼저 요약",
+              },
+              {
+                src: "/images/festival/detail.png",
+                alt: "축제어디? 축제 상세 화면 — 지금 볼 이유와 날짜, 행사장, 행사 시간",
+                width: 941,
+                height: 2048,
+                title: "Detail",
+                caption: "현재 위치에서의 직선거리를 지금 볼 이유로 먼저 보여주고 일정 · 장소 · 시간 정리",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Problem",
+        blocks: [
+          {
+            kind: "text",
+            text: "축제 정보는 기관별로 흩어져 있고, 대부분의 서비스는 축제 이름을 이미 알고 있어야 검색할 수 있습니다. 가고 싶은 마음이 먼저인 사용자는 무엇이 열리는지부터 찾아야 하는데, 그 시작점이 마땅치 않았습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Discovery",
+        blocks: [
+          {
+            kind: "flow",
+            steps: ["Map", "Festival Discovery", "Bottom Sheet", "Detail"],
+          },
+          {
+            kind: "list",
+            items: [
+              "둘러보기 — 지도에 올라온 축제를 그대로 탐색",
+              "오늘 · 이번 주말 — 지금 갈 수 있는 축제부터 노출",
+              "종료 임박 — 곧 끝나는 축제를 따로 확인",
+              "내 주변 — 현재 위치를 기준으로 가까운 축제 탐색",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Festival Marker",
+        blocks: [
+          {
+            kind: "text",
+            text: "지도 UI에서 가장 크게 바꾼 부분은 마커입니다. 일반적인 원형 핀 대신 가로로 긴 마커를 써서 축제 포스터를 그대로 노출했고, 사용자가 지도를 훑는 것만으로 어떤 축제인지 읽을 수 있게 했습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Engineering · Data Pipeline",
+        blocks: [
+          {
+            kind: "diagram",
+            stages: [
+              { title: "TourAPI", note: "한국관광공사 공공데이터" },
+              { title: "Festival Fetch" },
+              { title: "Pagination" },
+              { title: "Content ID Deduplication" },
+              { title: "Festival Snapshot" },
+              { title: "Discovery Context" },
+              { title: "Search / Map" },
+            ],
+          },
+          {
+            kind: "list",
+            items: [
+              "pagination을 따라가며 축제 목록 전체를 불러온 뒤 하나의 Snapshot으로 정리",
+              "content ID 기준으로 중복 축제를 제거",
+              "오늘 · 이번 주말 · 종료 임박 · 내 주변 결과를 모두 같은 Snapshot에서 파생",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Engineering · Map State",
+        blocks: [
+          {
+            kind: "diagram",
+            stages: [
+              { title: "Festival Source" },
+              { title: "Discovery Context" },
+              { title: "Search" },
+              { title: "Displayed Festivals" },
+              { title: "Map Marker / Bottom Sheet / Detail" },
+            ],
+          },
+          {
+            kind: "text",
+            text: "필터 결과, 검색 결과, 지도에 찍히는 축제가 서로 다른 상태를 보면 화면마다 다른 목록이 나옵니다. 표시할 축제를 하나의 흐름으로 계산하고, 지도 마커와 하단 시트, 상세 화면이 모두 같은 결과를 사용하도록 했습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Apple Watch",
+        blocks: [
+          {
+            kind: "flow",
+            steps: ["iPhone", "Selected Festival", "Watch Sync", "Festival Location on Watch"],
+          },
+          {
+            kind: "text",
+            text: "iPhone에서 고른 축제를 Apple Watch로 넘겨, 손목에서 축제 위치를 이어서 확인할 수 있습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Results",
+        blocks: [
+          {
+            kind: "metrics",
+            items: [
+              { value: "iPhone + Watch", label: "앱 출시" },
+              { value: "심사 중", label: "2026 관광데이터 활용 공모전" },
+              { value: "TourAPI", label: "공공데이터 기반" },
+            ],
           },
         ],
       },

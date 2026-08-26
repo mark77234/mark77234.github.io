@@ -5,12 +5,11 @@ import ProjectLinks from "@/components/ProjectLinks";
 import SectionHeading from "@/components/SectionHeading";
 import { Metrics, ProjectCover, ProjectHeader } from "@/components/CaseStudy";
 import { caseStudies, caseStudySummary } from "@/data/caseStudies";
-import { sideProjects } from "@/data/sideProjects";
 import { profile } from "@/data/profile";
 
 export const metadata: Metadata = {
   title: "Portfolio",
-  description: `${profile.nameEn}의 포트폴리오 — DailyOPIc, KillingPart, DIVE 2026의 문제 정의와 기술적 해결 과정.`,
+  description: `${profile.nameEn}의 포트폴리오 — DailyOPIc, KillingPart, DIVE 2026, PNUSA, 카공어디?, 축제어디?의 문제 정의와 기술적 해결 과정.`,
 };
 
 export default function PortfolioPage() {
@@ -31,33 +30,35 @@ export default function PortfolioPage() {
       <section className="mt-14">
         <SectionHeading>Featured Case Studies</SectionHeading>
         <div className="space-y-16 print:space-y-10">
-          {caseStudies.map((study) => {
-            const { overview, results } = caseStudySummary(study);
+          {caseStudies
+            .filter((study) => study.tier === "featured")
+            .map((study) => {
+              const { overview, results } = caseStudySummary(study);
 
-            return (
-              <article key={study.slug} className="print-keep border-t border-ink pt-8">
-                <ProjectHeader study={study} />
+              return (
+                <article key={study.slug} className="print-keep border-t border-ink pt-8">
+                  <ProjectHeader study={study} />
 
-                {study.cover && <ProjectCover cover={study.cover} />}
+                  {study.cover && <ProjectCover cover={study.cover} />}
 
-                <p className="mt-8 text-[15px] leading-[1.8] print:mt-5 print:text-[10pt]">
-                  {overview}
-                </p>
+                  <p className="mt-8 text-[15px] leading-[1.8] print:mt-5 print:text-[10pt]">
+                    {overview}
+                  </p>
 
-                {results.length > 0 && (
-                  <div className="mt-6">
-                    <Metrics items={results} />
-                  </div>
-                )}
+                  {results.length > 0 && (
+                    <div className="mt-6">
+                      <Metrics items={results} />
+                    </div>
+                  )}
 
-                {study.links && (
-                  <div className="mt-6">
-                    <ProjectLinks links={study.links} />
-                  </div>
-                )}
-              </article>
-            );
-          })}
+                  {study.links && (
+                    <div className="mt-6">
+                      <ProjectLinks links={study.links} />
+                    </div>
+                  )}
+                </article>
+              );
+            })}
         </div>
       </section>
 
@@ -65,67 +66,53 @@ export default function PortfolioPage() {
       <section className="print-break-before mt-20 print:mt-0">
         <SectionHeading>Selected Projects</SectionHeading>
         <div className="space-y-12 print:space-y-8">
-          {sideProjects.map((project) => (
-            <article key={project.name} className="print-keep border-t border-rule pt-6">
-              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                <h3 className="text-[19px] font-semibold tracking-tight">{project.name}</h3>
-                {project.period && (
-                  <span className="text-[13px] text-faint">{project.period}</span>
-                )}
-              </div>
-              <p className="mt-1 text-[15px] text-muted">{project.subtitle}</p>
-              <p className="mt-2 text-[13px] text-faint">{project.role}</p>
+          {caseStudies
+            .filter((study) => study.tier === "selected")
+            .map((study) => {
+              const { overview, results } = caseStudySummary(study);
 
-              {/* 대표 이미지를 먼저, 다만 메인 프로젝트보다는 작게 두어 위계를 유지한다. */}
-              <div className="mt-5 grid gap-x-6 gap-y-4 sm:grid-cols-[minmax(0,300px)_1fr]">
-                <figure className="print-shot-wide">
-                  <Image
-                    src={project.cover.src}
-                    alt={project.cover.alt}
-                    width={project.cover.width}
-                    height={project.cover.height}
-                    sizes="(max-width: 640px) 100vw, 300px"
-                    className="h-auto w-full border border-rule object-contain"
-                  />
-                </figure>
+              return (
+                <article key={study.slug} className="print-keep border-t border-rule pt-6">
+                  <ProjectHeader study={study} />
 
-                <div>
-                  <p className="text-[14.5px] leading-[1.75] print:text-[10pt]">
-                    {project.description}
-                  </p>
+                  {/* 대표 이미지를 먼저, 다만 메인 프로젝트보다는 작게 두어 위계를 유지한다. */}
+                  <div className="mt-5 grid gap-x-6 gap-y-4 sm:grid-cols-[minmax(0,300px)_1fr]">
+                    {study.cover && (
+                      <figure className="print-shot-wide">
+                        <Image
+                          src={study.cover.src}
+                          alt={study.cover.alt}
+                          width={study.cover.width}
+                          height={study.cover.height}
+                          sizes="(max-width: 640px) 100vw, 300px"
+                          className="h-auto w-full border border-rule object-contain"
+                        />
+                      </figure>
+                    )}
 
-                  {project.results && (
-                    <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] font-medium text-accent">
-                      {project.results.map((result) => (
-                        <li key={result}>{result}</li>
-                      ))}
-                    </ul>
+                    <div>
+                      <p className="text-[14.5px] leading-[1.75] print:text-[10pt]">{overview}</p>
+
+                      {results.length > 0 && (
+                        <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] font-medium text-accent">
+                          {results.map((result) => (
+                            <li key={result.label}>
+                              {result.value} · {result.label}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+
+                  {study.links && (
+                    <div className="mt-5">
+                      <ProjectLinks links={study.links} />
+                    </div>
                   )}
-                </div>
-              </div>
-
-              <ul className="mt-5 space-y-2">
-                {project.highlights.map((highlight) => (
-                  <li
-                    key={highlight}
-                    className="relative pl-4 text-[14px] leading-[1.75] text-muted before:absolute before:left-0 before:text-faint before:content-['–'] print:text-[9.5pt]"
-                  >
-                    {highlight}
-                  </li>
-                ))}
-              </ul>
-
-              {project.links && (
-                <div className="mt-4">
-                  <ProjectLinks links={project.links} />
-                </div>
-              )}
-
-              <p className="mt-4 text-[12.5px] leading-[1.7] text-faint">
-                {project.stack.join(" · ")}
-              </p>
-            </article>
-          ))}
+                </article>
+              );
+            })}
         </div>
       </section>
     </div>

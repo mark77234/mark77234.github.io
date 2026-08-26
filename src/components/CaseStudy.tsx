@@ -26,7 +26,7 @@ export function ProjectCover({ cover }: { cover: Screenshot }) {
 
 const phoneCols: Record<number, string> = {
   2: "grid-cols-2",
-  3: "grid-cols-3",
+  3: "grid-cols-2 sm:grid-cols-3",
   4: "grid-cols-2 md:grid-cols-4",
   5: "grid-cols-2 md:grid-cols-5",
 };
@@ -41,7 +41,9 @@ function ScreenshotGrid({
   const isPhone = layout === "phone";
   const cols = isPhone
     ? (phoneCols[items.length] ?? "grid-cols-2 md:grid-cols-4")
-    : "grid-cols-1 sm:grid-cols-2";
+    : items.length === 1
+      ? "grid-cols-1"
+      : "grid-cols-1 sm:grid-cols-2";
 
   return (
     <ul className={`grid gap-x-4 gap-y-6 ${cols}`}>
@@ -261,7 +263,7 @@ export function ProjectHeader({
           </span>
           {study.name}
         </Heading>
-        <span className="text-[13px] text-faint">{study.period}</span>
+        {study.period && <span className="text-[13px] text-faint">{study.period}</span>}
       </div>
       <p className="mt-1.5 text-[16px] text-muted">{study.subtitle}</p>
       <p className="mt-3 text-[13px] text-faint">
