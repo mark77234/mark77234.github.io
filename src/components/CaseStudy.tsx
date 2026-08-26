@@ -281,7 +281,7 @@ export default function CaseStudy({ study }: { study: CaseStudyType }) {
 
       {study.cover && <ProjectCover cover={study.cover} />}
 
-      {/* 상세 페이지에서는 이미 Case Study 안이므로 실제 서비스 링크만 노출한다. */}
+      {/* 상세 페이지에서는 이미 상세 안이므로 실제 서비스 링크만 노출한다. */}
       {study.links && (
         <div className="mt-6">
           <ProjectLinks links={{ ...study.links, caseStudy: undefined }} />

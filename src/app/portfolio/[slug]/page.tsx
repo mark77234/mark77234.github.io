@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const path = `/portfolio/${study.slug}/`;
 
   return {
-    title: `${study.name} Case Study`,
+    title: study.name,
     description: study.subtitle,
     alternates: { canonical: path },
     openGraph: { ...ogBase, url: path },

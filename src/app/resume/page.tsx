@@ -16,10 +16,33 @@ export const metadata: Metadata = {
   twitter: { card: "summary" },
 };
 
-function StackLine({ items }: { items: readonly string[] }) {
+/** 이름/기간처럼 좌우로 갈라지는 한 줄. 좁은 화면에서는 자연스럽게 쌓인다. */
+function ItemHead({ title, period }: { title: string; period: string }) {
   return (
-    <p className="mt-1.5 text-[12.5px] text-faint">{items.join(" · ")}</p>
+    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <h3 className="text-[17px] font-semibold tracking-tight">{title}</h3>
+      <span className="text-[13px] text-faint">{period}</span>
+    </div>
   );
+}
+
+function Bullets({ items }: { items: readonly string[] }) {
+  return (
+    <ul className="mt-3 space-y-2 print:mt-2.5">
+      {items.map((item) => (
+        <li
+          key={item}
+          className="relative pl-4 text-[14px] leading-[1.75] before:absolute before:left-0 before:text-faint before:content-['–'] print:text-[10pt]"
+        >
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function StackLine({ items }: { items: readonly string[] }) {
+  return <p className="mt-2.5 text-[12.5px] text-faint">{items.join(" · ")}</p>;
 }
 
 export default function ResumePage() {
@@ -62,17 +85,6 @@ export default function ResumePage() {
       <section className="print-section mt-10 print:mt-7">
         <SectionHeading index="01">Profile</SectionHeading>
         <p className="text-[15px] leading-[1.75] print:text-[10.5pt]">{profile.summary}</p>
-        <dl className="mt-5 flex flex-wrap gap-x-10 gap-y-3">
-          {profile.stats.map((stat) => (
-            <div key={stat.label} className="print-keep">
-              <dt className="sr-only">{stat.label}</dt>
-              <dd>
-                <span className="text-[20px] font-semibold tracking-tight">{stat.value}</span>
-                <span className="ml-2 text-[13px] text-muted">{stat.label}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
       </section>
 
       {/* ---------------------------------------------------------- skills */}
@@ -96,45 +108,28 @@ export default function ResumePage() {
       {/* ------------------------------------------------------ experience */}
       <section className="print-section mt-10 print:mt-7">
         <SectionHeading index="03">Experience</SectionHeading>
-        <div className="space-y-8 print:space-y-6">
+        <div className="space-y-9 print:space-y-6">
           {experiences.map((exp) => (
             <article key={exp.company} className="print-keep">
-              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 className="text-[17px] font-semibold">{exp.company}</h3>
-                <span className="text-[13px] text-faint">{exp.period}</span>
-              </div>
-              <div className="mt-0.5 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                <p className="text-[14px] text-muted">{exp.role}</p>
-                {/* 출시한 서비스 스토어 링크. 줄을 늘리지 않도록 role 옆에 붙인다. */}
-                {exp.service && (
-                  <span className="flex flex-wrap items-baseline gap-x-2">
-                    <span className="text-[12.5px] font-semibold">{exp.service.name}</span>
-                    <ProjectLinks links={exp.service.links} compact />
-                  </span>
-                )}
-              </div>
-
+              <ItemHead title={exp.company} period={exp.period} />
+              <p className="mt-1 text-[14px] text-muted">{exp.role}</p>
+              {/* 한 경력 안의 계약 형태 변화는 한 줄로 이어 쓴다. */}
               {exp.terms && (
-                <ul className="mt-2 space-y-0.5 text-[12.5px] text-faint">
-                  {exp.terms.map((term) => (
-                    <li key={term.period}>
-                      {term.period} · {term.title}
-                    </li>
-                  ))}
-                </ul>
+                <p className="mt-0.5 text-[12.5px] text-faint">
+                  {exp.terms.map((term) => `${term.period} ${term.title}`).join(" · ")}
+                </p>
               )}
 
-              <ul className="mt-3 space-y-1.5">
-                {exp.bullets.map((bullet) => (
-                  <li
-                    key={bullet}
-                    className="relative pl-4 text-[14px] leading-[1.7] before:absolute before:left-0 before:text-faint before:content-['–'] print:text-[10pt]"
-                  >
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-3 text-[14.5px] leading-[1.7] print:text-[10pt]">{exp.summary}</p>
+              <Bullets items={exp.bullets} />
               <StackLine items={exp.stack} />
+
+              {exp.service && (
+                <div className="mt-2.5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <span className="text-[12.5px] font-semibold">{exp.service.name}</span>
+                  <ProjectLinks links={exp.service.links} compact />
+                </div>
+              )}
             </article>
           ))}
         </div>
@@ -143,34 +138,23 @@ export default function ResumePage() {
       {/* -------------------------------------------------------- projects */}
       <section className="print-section mt-10 print:mt-7">
         <SectionHeading index="04">Selected Projects</SectionHeading>
-        <div className="space-y-8 print:space-y-6">
+        <div className="space-y-9 print:space-y-6">
           {resumeProjects.map((project) => (
             <article key={project.name} className="print-keep">
-              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 className="text-[17px] font-semibold">
-                  {project.name}
-                  <span className="ml-2 text-[13px] font-normal text-muted">
-                    {project.summary}
-                  </span>
-                </h3>
-                <span className="text-[13px] text-faint">{project.period}</span>
-              </div>
-              <div className="mt-0.5 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                <p className="text-[14px] text-muted">{project.role}</p>
-                {project.links && <ProjectLinks links={project.links} compact />}
-              </div>
+              <ItemHead title={project.name} period={project.period} />
+              <p className="mt-1 text-[14px] text-muted">{project.role}</p>
 
-              <ul className="mt-3 space-y-1.5">
-                {project.bullets.map((bullet) => (
-                  <li
-                    key={bullet}
-                    className="relative pl-4 text-[14px] leading-[1.7] before:absolute before:left-0 before:text-faint before:content-['–'] print:text-[10pt]"
-                  >
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-3 text-[14.5px] leading-[1.7] print:text-[10pt]">
+                {project.summary}
+              </p>
+              <Bullets items={project.bullets} />
               <StackLine items={project.stack} />
+
+              {project.links && (
+                <div className="mt-2.5">
+                  <ProjectLinks links={project.links} compact />
+                </div>
+              )}
             </article>
           ))}
         </div>

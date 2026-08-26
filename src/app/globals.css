@@ -48,9 +48,15 @@ body {
     display: none !important;
   }
 
-  a {
-    color: #000 !important;
-    text-decoration: none !important;
+  /*
+   * PDF에서도 클릭 가능한 링크임이 보이도록 색과 밑줄을 남긴다.
+   * 사이트 nav·footer와 페이지 내 이동 링크는 .no-print이라 인쇄본에 남는 a는
+   * 연락처·스토어·상세 링크뿐이다.
+   */
+  a[href] {
+    color: var(--color-accent) !important;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   /* Keep an item's heading with its body, and never split an item across pages. */

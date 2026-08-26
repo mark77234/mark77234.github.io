@@ -1,23 +1,16 @@
 import Link from "next/link";
-import { SITE_URL } from "@/data/profile";
 import type { ProjectLinks as Links } from "@/data/caseStudies";
 
 /**
- * 실제 서비스 링크가 먼저, 내부 Case Study가 나중.
- * 외부 서비스는 Primary External Action, Case Study는 Secondary Navigation으로 구분한다.
+ * 실제 서비스 링크가 먼저, 내부 상세 페이지가 나중.
+ * 외부 서비스는 Primary External Action, 상세는 Secondary Navigation으로 구분한다.
  */
-const cta: { key: keyof Links; label: string; printLabel: string }[] = [
-  { key: "appStore", label: "App Store ↗", printLabel: "App Store" },
-  { key: "playStore", label: "Google Play ↗", printLabel: "Google Play" },
-  { key: "live", label: "Live Demo ↗", printLabel: "Live Demo" },
-  { key: "caseStudy", label: "View Case Study →", printLabel: "Case Study" },
+const cta: { key: keyof Links; label: string; compactLabel?: string }[] = [
+  { key: "appStore", label: "App Store ↗" },
+  { key: "playStore", label: "Google Play ↗" },
+  { key: "live", label: "Live Demo ↗" },
+  { key: "caseStudy", label: "View Details →", compactLabel: "Details →" },
 ];
-
-/** 인쇄본에서 읽을 수 있도록 href를 그대로 풀어 쓴다. percent-encoding만 되돌린다. */
-function readableUrl(href: string) {
-  const absolute = href.startsWith("http") ? href : `${SITE_URL}${href}`;
-  return decodeURI(absolute).replace(/^https?:\/\//, "");
-}
 
 export default function ProjectLinks({
   links,
@@ -33,40 +26,27 @@ export default function ProjectLinks({
   return (
     <ul
       className={`flex flex-wrap items-baseline gap-x-6 gap-y-2 ${
-        compact ? "text-[12.5px]" : "text-[14px] print:block"
+        compact ? "text-[12.5px]" : "text-[14px]"
       }`}
     >
       {items.map((item) => {
         const href = links[item.key] as string;
-        const isCaseStudy = item.key === "caseStudy";
-        const className = isCaseStudy
+        const isDetails = item.key === "caseStudy";
+        // 화살표는 인쇄본에서도 유지한다. PDF에서 클릭 가능한 링크임을 알리는 신호다.
+        const label = compact ? (item.compactLabel ?? item.label) : item.label;
+        const className = isDetails
           ? "text-muted underline-offset-4 hover:text-ink hover:underline"
           : "font-medium text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent";
 
-        const content = (
-          <>
-            <span className="print:hidden">{item.label}</span>
-            {/* compact은 지면이 좁아 URL을 펼치지 않고 hyperlink만 유지한다. */}
-            <span className="hidden print:inline">
-              {compact ? item.printLabel : `${item.printLabel} · ${readableUrl(href)}`}
-            </span>
-          </>
-        );
-
         return (
-          <li key={item.key} className="print:mt-0.5">
-            {isCaseStudy ? (
+          <li key={item.key}>
+            {isDetails ? (
               <Link href={href} className={className}>
-                {content}
+                {label}
               </Link>
             ) : (
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={className}
-              >
-                {content}
+              <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+                {label}
               </a>
             )}
           </li>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import PrintButton from "@/components/PrintButton";
 import ProjectLinks from "@/components/ProjectLinks";
-import SectionHeading from "@/components/SectionHeading";
 import { Metrics, ProjectCover, ProjectHeader } from "@/components/CaseStudy";
 import { caseStudies, caseStudySummary } from "@/data/caseStudies";
 import { ogBase, profile } from "@/data/profile";
@@ -21,16 +20,15 @@ export default function PortfolioPage() {
         <PrintButton />
       </div>
 
-      <header className="print-keep border-b-2 border-ink pb-8">
-        <h1 className="text-[32px] font-semibold tracking-tight sm:text-[40px]">Selected Work</h1>
+      <header className="print-keep">
+        <h1 className="text-[32px] font-semibold tracking-tight sm:text-[40px]">Portfolio</h1>
         <p className="mt-5 max-w-xl whitespace-pre-line text-[16px] leading-[1.75] text-muted sm:text-[17px]">
           {"제품의 문제를 발견하고,\n기술적인 해결책을 설계하고,\n출시 이후까지 운영한 경험을 기록합니다."}
         </p>
       </header>
 
       {/* ---------------------------------------------------------- projects */}
-      <section className="mt-14">
-        <SectionHeading>Projects</SectionHeading>
+      <section className="mt-12">
         <div className="space-y-16 print:space-y-10">
           {caseStudies.map((study) => {
             const { overview, results } = caseStudySummary(study);
