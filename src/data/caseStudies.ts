@@ -529,6 +529,28 @@ export const caseStudies: CaseStudy[] = [
               { value: "Live", label: "App Store 출시 및 운영" },
             ],
           },
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/killingpart/ranked_1.PNG",
+                alt: "App Store의 KillingPart 제품 페이지 — 라이프스타일 차트 141위",
+                width: 1179,
+                height: 2556,
+                title: "App Store",
+                caption: "라이프스타일 차트 No.141 · 평점 5.0",
+              },
+              {
+                src: "/images/killingpart/ranked_2.PNG",
+                alt: "App Store 라이프스타일 Top Downloaded 목록에 노출된 KillingPart",
+                width: 1179,
+                height: 2556,
+                title: "Top Downloaded",
+                caption: "라이프스타일 무료 앱 다운로드 순위 141위",
+              },
+            ],
+          },
         ],
       },
     ],

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PrintButton from "@/components/PrintButton";
 import SectionHeading from "@/components/SectionHeading";
@@ -91,28 +92,44 @@ export default function PortfolioPage() {
               <p className="mt-1 text-[15px] text-muted">{project.subtitle}</p>
               <p className="mt-2 text-[13px] text-faint">{project.role}</p>
 
-              <p className="mt-4 text-[15px] leading-[1.8] print:text-[10pt]">
-                {project.description}
-              </p>
+              {/* 대표 이미지를 먼저, 다만 메인 프로젝트보다는 작게 두어 위계를 유지한다. */}
+              <div className="mt-5 grid gap-x-6 gap-y-4 sm:grid-cols-[minmax(0,300px)_1fr]">
+                <figure className="print-shot-wide">
+                  <Image
+                    src={project.cover.src}
+                    alt={project.cover.alt}
+                    width={project.cover.width}
+                    height={project.cover.height}
+                    sizes="(max-width: 640px) 100vw, 300px"
+                    className="h-auto w-full border border-rule object-contain"
+                  />
+                </figure>
 
-              <ul className="mt-4 space-y-2">
+                <div>
+                  <p className="text-[14.5px] leading-[1.75] print:text-[10pt]">
+                    {project.description}
+                  </p>
+
+                  {project.results && (
+                    <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] font-medium text-accent">
+                      {project.results.map((result) => (
+                        <li key={result}>{result}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+
+              <ul className="mt-5 space-y-2">
                 {project.highlights.map((highlight) => (
                   <li
                     key={highlight}
-                    className="relative pl-4 text-[14.5px] leading-[1.75] before:absolute before:left-0 before:text-faint before:content-['–'] print:text-[10pt]"
+                    className="relative pl-4 text-[14px] leading-[1.75] text-muted before:absolute before:left-0 before:text-faint before:content-['–'] print:text-[9.5pt]"
                   >
                     {highlight}
                   </li>
                 ))}
               </ul>
-
-              {project.results && (
-                <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-[13px] font-medium text-accent">
-                  {project.results.map((result) => (
-                    <li key={result}>{result}</li>
-                  ))}
-                </ul>
-              )}
 
               <p className="mt-4 text-[12.5px] leading-[1.7] text-faint">
                 {project.stack.join(" · ")}
