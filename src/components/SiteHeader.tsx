@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GITHUB_URL, profile } from "@/data/profile";
@@ -21,8 +22,10 @@ export default function SiteHeader() {
       >
         <Link
           href="/"
-          className="text-[15px] font-semibold tracking-tight hover:text-accent"
+          className="flex items-center gap-2 text-[15px] font-semibold tracking-tight hover:text-accent"
         >
+          {/* 이름을 바로 옆에 두므로 로고는 장식으로 처리한다. */}
+          <Image src="/images/logo.png" alt="" width={512} height={512} priority className="h-6 w-6" />
           {profile.name}
         </Link>
 
