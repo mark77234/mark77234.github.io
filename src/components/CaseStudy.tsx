@@ -1,5 +1,164 @@
 import Image from "next/image";
-import type { Block, CaseStudy as CaseStudyType } from "@/data/caseStudies";
+import type {
+  Block,
+  CaseStudy as CaseStudyType,
+  DiagramStage,
+  ScreenLayout,
+  Screenshot,
+} from "@/data/caseStudies";
+
+/** 서비스 공식 대표 이미지. 원본 비율 그대로, crop·mockup 없이 크게 보여준다. */
+function ProjectCover({ cover }: { cover: Screenshot }) {
+  return (
+    <figure className="print-keep print-cover mt-8 print:mt-5">
+      <Image
+        src={cover.src}
+        alt={cover.alt}
+        width={cover.width}
+        height={cover.height}
+        sizes="(max-width: 860px) 100vw, 860px"
+        className="h-auto w-full border border-rule object-contain"
+      />
+    </figure>
+  );
+}
+
+const phoneCols: Record<number, string> = {
+  2: "grid-cols-2",
+  3: "grid-cols-3",
+  4: "grid-cols-2 md:grid-cols-4",
+  5: "grid-cols-2 md:grid-cols-5",
+};
+
+function ScreenshotGrid({
+  layout,
+  items,
+}: {
+  layout: ScreenLayout;
+  items: Screenshot[];
+}) {
+  const isPhone = layout === "phone";
+  const cols = isPhone
+    ? (phoneCols[items.length] ?? "grid-cols-2 md:grid-cols-4")
+    : "grid-cols-1 sm:grid-cols-2";
+
+  return (
+    <ul className={`grid gap-x-4 gap-y-6 ${cols}`}>
+      {items.map((shot) => (
+        <li
+          key={shot.src}
+          className={`print-keep ${isPhone ? "print-shot" : "print-shot-wide"}`}
+        >
+          <figure>
+            <Image
+              src={shot.src}
+              alt={shot.alt}
+              width={shot.width}
+              height={shot.height}
+              sizes={isPhone ? "(max-width: 768px) 45vw, 200px" : "(max-width: 640px) 100vw, 420px"}
+              className="h-auto w-full rounded-sm border border-rule object-contain"
+            />
+            <figcaption className="mt-2">
+              <span className="block text-[12.5px] font-semibold">{shot.title}</span>
+              {shot.caption && (
+                <span className="mt-0.5 block text-[12px] leading-[1.55] text-muted">
+                  {shot.caption}
+                </span>
+              )}
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Chips({ items }: { items: string[] }) {
+  return (
+    <ul className="mt-2 flex flex-wrap gap-1.5">
+      {items.map((item) => (
+        <li
+          key={item}
+          className="print-keep-color rounded-sm bg-[#f4f4f5] px-2 py-0.5 text-[11.5px] text-muted"
+        >
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function StageBox({ stage }: { stage: DiagramStage }) {
+  return (
+    <div className="rounded-sm border border-rule px-4 py-3">
+      <p className="text-[13.5px] font-semibold">{stage.title}</p>
+      {stage.note && <p className="mt-0.5 text-[12px] text-faint">{stage.note}</p>}
+      {stage.items && <Chips items={stage.items} />}
+    </div>
+  );
+}
+
+function Arrow() {
+  return (
+    <div aria-hidden="true" className="py-1 text-center text-[13px] leading-none text-faint">
+      ↓
+    </div>
+  );
+}
+
+/** 세로 방향 단계도. 모바일에서도 그대로 reflow되므로 축소가 필요 없다. */
+function Diagram({ caption, stages }: { caption?: string; stages: DiagramStage[] }) {
+  return (
+    <figure className="print-keep">
+      {caption && (
+        <figcaption className="mb-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-faint">
+          {caption}
+        </figcaption>
+      )}
+      <ol>
+        {stages.map((stage, i) => (
+          <li key={stage.title}>
+            {i > 0 && <Arrow />}
+            {stage.branches ? (
+              <div>
+                <StageBox stage={{ title: stage.title, note: stage.note, items: stage.items }} />
+                <Arrow />
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {stage.branches.map((branch) => (
+                    <div key={branch.label} className="rounded-sm border border-rule px-4 py-3">
+                      <span className="print-keep-color rounded-sm bg-ink px-1.5 py-0.5 text-[10.5px] font-semibold uppercase tracking-wider text-white">
+                        {branch.label}
+                      </span>
+                      <p className="mt-2 text-[13.5px] font-semibold">{branch.title}</p>
+                      {branch.items && <Chips items={branch.items} />}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <StageBox stage={stage} />
+            )}
+          </li>
+        ))}
+      </ol>
+    </figure>
+  );
+}
+
+function EngineeringCards({ items }: { items: { title: string; text: string }[] }) {
+  return (
+    <ul className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+      {items.map((item) => (
+        <li key={item.title} className="print-keep border-t border-ink pt-3">
+          <h5 className="text-[13.5px] font-semibold">{item.title}</h5>
+          <p className="mt-1.5 text-[13.5px] leading-[1.65] text-muted print:text-[9.5pt]">
+            {item.text}
+          </p>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 function BlockView({ block }: { block: Block }) {
   switch (block.kind) {
@@ -32,9 +191,7 @@ function BlockView({ block }: { block: Block }) {
                   →
                 </span>
               )}
-              <span className="rounded-sm bg-[#f5f5f5] px-2.5 py-1 print:bg-transparent print:px-0 print:underline">
-                {step}
-              </span>
+              <span className="print-keep-color rounded-sm bg-[#f4f4f5] px-2.5 py-1">{step}</span>
             </li>
           ))}
         </ol>
@@ -70,6 +227,15 @@ function BlockView({ block }: { block: Block }) {
           ))}
         </dl>
       );
+
+    case "cards":
+      return <EngineeringCards items={block.items} />;
+
+    case "screens":
+      return <ScreenshotGrid layout={block.layout} items={block.items} />;
+
+    case "diagram":
+      return <Diagram caption={block.caption} stages={block.stages} />;
   }
 }
 
@@ -93,23 +259,9 @@ export default function CaseStudy({ study }: { study: CaseStudyType }) {
         <p className="mt-3 text-[12.5px] leading-[1.7] text-faint">{study.stack.join(" · ")}</p>
       </header>
 
-      {study.images && study.images.length > 0 && (
-        <ul className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {study.images.map((image) => (
-            <li key={image.src} className="print-keep relative aspect-[9/16] overflow-hidden rounded-sm bg-[#f5f5f5]">
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="(max-width: 640px) 50vw, 300px"
-                className="object-cover"
-              />
-            </li>
-          ))}
-        </ul>
-      )}
+      {study.cover && <ProjectCover cover={study.cover} />}
 
-      <div className="mt-8 space-y-8 print:mt-6 print:space-y-6">
+      <div className="mt-10 space-y-10 print:mt-6 print:space-y-6">
         {study.sections.map((section) => (
           <section key={section.heading} className="print-keep">
             <h4 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-faint">

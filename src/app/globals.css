@@ -84,4 +84,31 @@ body {
     padding: 0 !important;
     max-width: none !important;
   }
+
+  /* Diagram/chip 배경은 의미가 있으므로 인쇄에서도 유지한다. */
+  .print-keep-color {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* 이미지 한 장이 페이지를 통째로 먹지 않도록 상한을 둔다. */
+  .print-cover img {
+    max-height: 68mm;
+    object-fit: contain;
+  }
+
+  .print-shot img {
+    max-height: 62mm;
+    object-fit: contain;
+  }
+
+  .print-shot-wide img {
+    max-height: 52mm;
+    object-fit: contain;
+  }
+
+  img {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 }
