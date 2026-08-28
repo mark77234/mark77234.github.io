@@ -4,7 +4,7 @@ export const LINKEDIN_URL = "https://www.linkedin.com/in/byeongchanlee/";
 
 export const profile = {
   name: "이병찬",
-  nameEn: "Byeongchan Lee",
+  nameEn: "Byeongchan Lee (Mark)",
   role: "Software Engineer",
   tagline: "모바일을 시작으로 Backend · Cloud · AI까지\n실제 서비스를 출시하고 운영합니다.",
   summary:
