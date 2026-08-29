@@ -606,6 +606,7 @@ export const caseStudies: CaseStudy[] = [
       height: 500,
       title: "Tomo",
     },
+    systemArchitectureAlt: "Tomo system architecture",
     links: {
       caseStudy: "/portfolio/tomo/",
       playStore:
