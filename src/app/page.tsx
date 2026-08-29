@@ -41,7 +41,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-label="주요 지표" className="mt-20 border-t border-rule pt-10">
+      <section
+        aria-label="주요 지표"
+        className="mt-20 border-t border-rule pt-10"
+      >
         <dl className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           {profile.stats.map((stat) => (
             <div key={stat.label}>
@@ -50,7 +53,9 @@ export default function Home() {
                 <span className="block text-[30px] font-semibold tracking-tight">
                   {stat.value}
                 </span>
-                <span className="mt-1 block text-[14px] text-muted">{stat.label}</span>
+                <span className="mt-1 block text-[14px] text-muted">
+                  {stat.label}
+                </span>
               </dd>
             </div>
           ))}
@@ -59,9 +64,10 @@ export default function Home() {
 
       <section className="mt-16 max-w-2xl">
         <p className="text-[15px] leading-[1.8] text-muted">
-          iOS·Android 앱을 만들면서 시작해, 서비스가 실제로 돌아가는 데 필요한 Backend와
-          Cloud, 그리고 AI 기능까지 직접 구축해 왔습니다. 개인 프로덕트와 회사 서비스 모두
-          출시로 끝내지 않고 운영하면서 생기는 문제를 해결하는 데 관심이 있습니다.
+          iOS·Android 앱을 만들면서 시작해, 서비스가 실제로 돌아가는 데 필요한
+          Backend와 Cloud, 그리고 AI 기능까지 직접 구축해 왔습니다. 개인
+          프로덕트와 회사 서비스 모두 출시로 끝내지 않고 운영하면서 생기는
+          문제를 해결하는 데 관심이 있습니다.
         </p>
       </section>
     </div>

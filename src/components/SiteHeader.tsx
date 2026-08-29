@@ -24,9 +24,7 @@ export default function SiteHeader() {
           href="/"
           className="flex items-center gap-2 text-[15px] font-semibold tracking-tight hover:text-accent"
         >
-          {/* 이름을 바로 옆에 두므로 로고는 장식으로 처리한다. */}
-          <Image src="/images/logo.png" alt="" width={512} height={512} priority className="h-6 w-6" />
-          {profile.name}
+          Home
         </Link>
 
         <ul className="flex items-center gap-5 text-[14px] sm:gap-7">
