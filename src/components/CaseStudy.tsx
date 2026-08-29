@@ -25,6 +25,7 @@ export function ProjectCover({ cover }: { cover: Screenshot }) {
 }
 
 const phoneCols: Record<number, string> = {
+  1: "grid-cols-1 sm:grid-cols-2",
   2: "grid-cols-2",
   3: "grid-cols-2 sm:grid-cols-3",
   4: "grid-cols-2 md:grid-cols-4",

@@ -574,8 +574,337 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
-    slug: "dive",
+    slug: "tomo",
     index: "03",
+    name: "Tomo",
+    subtitle: "친구와의 관계와 모임을 기록하고 관리하는 Android 서비스",
+    period: "2025.09 – 2026.01",
+    role: "Android 클라이언트 단독 개발",
+    context: "팀 프로젝트 (Android 1 · Backend 1) · Google Play 출시",
+    stack: [
+      "Kotlin",
+      "Jetpack Compose",
+      "Firebase Authentication",
+      "Firestore",
+      "Firebase Cloud Messaging",
+      "Retrofit",
+      "OkHttp",
+      "REST API",
+      "Kakao Maps",
+    ],
+    cover: {
+      src: "/images/tomo/title.png",
+      alt: "Tomo 대표 이미지 — 친구와의 순간을 더 가깝게, 더 따뜻하게",
+      width: 1024,
+      height: 500,
+      title: "Tomo",
+    },
+    links: {
+      caseStudy: "/portfolio/tomo/",
+      playStore:
+        "https://play.google.com/store/apps/details?id=com.markoala.tomoandroid&pcampaignid=web_share",
+    },
+    sections: [
+      {
+        heading: "Overview",
+        blocks: [
+          {
+            kind: "text",
+            text: "친구와 모임 자체를 기록하고 관리하는 Android 서비스입니다. Backend 개발자 1명과 2인으로 진행하며 Android 클라이언트 전체를 단독으로 맡았고, 기획부터 Google Play 정식 출시까지 직접 진행한 첫 개인 모바일 서비스입니다.",
+          },
+          {
+            kind: "text",
+            text: "AI 도구 없이 Kotlin과 Jetpack Compose로 화면·상태·데이터 흐름을 직접 설계했고, Backend API 협업과 Firebase 연동, 지도 SDK 선택, 스토어 출시까지 클라이언트 개발의 전 구간을 경험했습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Problem",
+        blocks: [
+          {
+            kind: "text",
+            text: "친구들과 모임을 자주 가지면서, 기존 메신저와 SNS로는 관계 자체를 관리하기 어렵다고 느꼈습니다. 메시지와 콘텐츠 전달이 중심이라 지금 어떤 모임에 속해 있는지, 예정된 약속이 무엇인지, 누구와 자주 만나는지가 한 곳에 남지 않았습니다.",
+          },
+          {
+            kind: "text",
+            text: "그래서 메시지가 아니라 친구와 모임을 중심에 두고, 다음 흐름이 하나의 서비스 안에서 이어지도록 기획했습니다.",
+          },
+          {
+            kind: "flow",
+            steps: [
+              "친구 추가",
+              "모임 생성",
+              "친구 초대",
+              "약속 생성",
+              "달력 확인",
+              "친밀도 확인",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Product",
+        blocks: [
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/tomo/home.png",
+                alt: "Tomo 홈 화면 — 모임 생성과 친구·친밀도·모임·달력 진입점",
+                width: 1080,
+                height: 2068,
+                title: "Home",
+                caption: "친구 · 친밀도 · 모임 · 달력으로 나뉜 진입점",
+              },
+              {
+                src: "/images/tomo/group_timeline.png",
+                alt: "Tomo 모임 타임라인 — 모임장과 팀원 역할이 표시된 모임 목록",
+                width: 1080,
+                height: 2040,
+                title: "Group Timeline",
+                caption: "참여 중인 모임과 모임장 · 팀원 역할을 함께 표시",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Group Creation",
+        blocks: [
+          {
+            kind: "text",
+            text: "모임 생성은 한 화면에서 모든 값을 입력받는 대신, 사용자가 실제로 모임을 만드는 순서를 따라 3단계로 나눴습니다.",
+          },
+          {
+            kind: "flow",
+            steps: ["기본 정보", "친구 초대", "확인"],
+          },
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/tomo/group_create.png",
+                alt: "Tomo 3단계 모임 생성 화면 — 기본 정보, 친구 초대, 확인",
+                width: 1080,
+                height: 2040,
+                title: "3-Step Group Creation",
+                caption: "제목·설명 입력 → 초대할 친구 선택 → 최종 확인 후 생성",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Relationship & Intimacy",
+        blocks: [
+          {
+            kind: "text",
+            text: "모임 멤버는 단순한 참여자 목록이 아닙니다. 모임장이 각자 아는 친구들을 초대하면 멤버끼리는 서로 친구가 아닐 수 있어서, 멤버 하나를 그리는 데에도 여러 상태를 함께 판단해야 했습니다.",
+          },
+          {
+            kind: "list",
+            items: [
+              "본인인지 · 모임장인지 · 일반 멤버인지",
+              "현재 친구인지, 친구가 아니라면 친구 추가를 노출할지",
+              "친밀도 점수를 보여줄 수 있는 관계인지",
+            ],
+          },
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/tomo/group_detail.png",
+                alt: "Tomo 모임 상세 화면 — 모임 정보, 멤버별 역할과 친밀도, 모임 약속 목록",
+                width: 1123,
+                height: 2060,
+                title: "Group Detail",
+                caption: "생성일 · 유지 기간 · 인원과 멤버별 역할 · 친구 여부 · 친밀도",
+              },
+              {
+                src: "/images/tomo/intimacy.png",
+                alt: "Tomo 친밀도 단계 — 어색한 친구부터 최고의 친구까지",
+                width: 1080,
+                height: 2040,
+                title: "Intimacy",
+                caption: "함께한 모임 · 약속 횟수를 서버가 점수로 계산해 단계로 표시",
+              },
+            ],
+          },
+          {
+            kind: "flow",
+            steps: ["어색한 친구", "아는 사이", "친구", "좋은 친구", "절친", "최고의 친구"],
+          },
+        ],
+      },
+      {
+        heading: "Appointment & Calendar",
+        blocks: [
+          {
+            kind: "text",
+            text: "약속은 모임에 속한 일정입니다. 아무나 일정을 만들면 모임 자체가 흔들리기 때문에 모임장만 약속을 생성할 수 있도록 권한을 나눴고, 생성된 약속은 모임 멤버들의 달력에서도 함께 보이도록 데이터 흐름을 연결했습니다.",
+          },
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/tomo/appointment_create.png",
+                alt: "Tomo 약속 생성 화면 — 날짜, 시간, 모임 선택과 지도 기반 장소 선택",
+                width: 1083,
+                height: 2040,
+                title: "Appointment",
+                caption: "날짜 · 시간 · 모임 · 장소를 한 흐름에서 입력",
+              },
+              {
+                src: "/images/tomo/calendar.png",
+                alt: "Tomo 달력 화면 — 모임·약속 뱃지와 날짜별 일정 상세",
+                width: 1080,
+                height: 2040,
+                title: "Calendar",
+                caption: "모임 · 약속 뱃지로 월 단위 확인, 날짜를 눌러 상세 조회",
+              },
+            ],
+          },
+          {
+            kind: "flow",
+            steps: ["모임장", "약속 생성", "모임 연결", "멤버 Calendar"],
+          },
+        ],
+      },
+      {
+        heading: "Engineering · Backend Gap",
+        blocks: [
+          {
+            kind: "text",
+            text: "개발 중 Backend 개발자의 일정 문제로 필요한 API 개발이 한동안 어려워졌습니다. 개발을 멈추고 기다리는 대신, 지금 있는 인프라로 클라이언트에서 먼저 완성할 수 있는 범위를 찾았습니다.",
+          },
+          {
+            kind: "diagram",
+            caption: "Authentication",
+            stages: [
+              { title: "Firebase Authentication", note: "로그인" },
+              { title: "Firebase ID Token" },
+              { title: "Backend", note: "ID Token 검증 후 JWT 발급" },
+            ],
+          },
+          {
+            kind: "text",
+            text: "인증 구조상 Firebase가 이미 붙어 있었고 데이터도 Backend DB와 Firestore를 함께 쓰고 있었습니다. 그래서 API를 기다려야 하는 기능 대신, Firestore로 먼저 만들 수 있는 기능을 골라 개발을 이어갔습니다.",
+          },
+          {
+            kind: "cards",
+            items: [
+              {
+                title: "Friend Push",
+                text: "FCM Token을 발급해 Firestore와 연결하고, 친구 추가 시 상대방에게 Push Notification이 가도록 구현",
+              },
+              {
+                title: "Appointment DTO",
+                text: "API가 없는 상태에서 약속 데이터를 표현할 DTO를 직접 설계하고 Firestore 기반으로 약속 생성을 완성",
+              },
+            ],
+          },
+          {
+            kind: "text",
+            text: "지금 다시 보면 Backend DB와 Firestore를 함께 쓰는 구조에는 개선할 부분이 많습니다. 다만 이 경험에서 남은 것은 Backend가 준비되지 않아 멈춘 게 아니라, 쓸 수 있는 기술과 인프라를 파악해 클라이언트에서 해결 가능한 범위를 찾아 기능을 끝냈다는 점입니다.",
+          },
+        ],
+      },
+      {
+        heading: "Engineering · Map SDK",
+        blocks: [
+          {
+            kind: "text",
+            text: "약속 장소를 등록하기 위해 지도와 장소 검색이 필요했습니다. 처음부터 Kakao Maps를 고른 것이 아니라 세 가지를 실제로 붙여보고 비교했습니다.",
+          },
+          {
+            kind: "cards",
+            items: [
+              {
+                title: "Google Maps",
+                text: "Android 연동은 가장 쉬웠지만 국내 장소 검색에는 적합하지 않다고 판단",
+              },
+              {
+                title: "Naver Maps",
+                text: "지도 연동까지 직접 성공했으나 장소 검색과 당시 운영 조건 · 비용을 고려해 제외",
+              },
+              {
+                title: "Kakao Maps",
+                text: "국내 장소 검색을 제공하고 프로젝트에서 쓸 수 있는 범위가 충분해 최종 선택",
+              },
+            ],
+          },
+          {
+            kind: "screens",
+            layout: "phone",
+            items: [
+              {
+                src: "/images/tomo/map.png",
+                alt: "Tomo 지도 화면 — Kakao Maps 장소 검색 결과와 선택한 장소",
+                width: 1080,
+                height: 2086,
+                title: "Place Search",
+                caption: "검색 결과에서 고른 장소 정보를 약속 DTO에 담아 저장",
+              },
+            ],
+          },
+          {
+            kind: "text",
+            text: "SDK 선택 기준이 연동 난이도만은 아니라는 것을 배운 경험입니다. 필요한 기능과 API 제공 범위, 국내 사용자 환경, 비용과 운영 조건까지 함께 비교해야 했습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Collaboration",
+        blocks: [
+          {
+            kind: "text",
+            text: "Backend 개발자 1명과 Discord로 소통하고 Swagger로 API 명세를 공유했습니다. 클라이언트와 서버가 서로 다른 DTO 구조를 쓰면 불필요한 변환과 오해가 생기기 때문에, DTO 구조를 맞추는 협의를 여러 차례 거쳤습니다.",
+          },
+          {
+            kind: "text",
+            text: "개인 프로젝트로는 처음 해보는 Client-Server 협업이었고, API가 완성되면 호출하는 것이 아니라 어떤 데이터를 어떤 형태로 주고받을지 먼저 함께 정의해야 한다는 것을 배웠습니다.",
+          },
+        ],
+      },
+      {
+        heading: "Results",
+        blocks: [
+          {
+            kind: "metrics",
+            items: [
+              { value: "Google Play", label: "정식 출시" },
+              { value: "Android 전체", label: "클라이언트 단독 개발" },
+              { value: "약 45", label: "Downloads" },
+              { value: "2인", label: "Android · Backend 협업" },
+            ],
+          },
+        ],
+      },
+      {
+        heading: "What I Learned",
+        blocks: [
+          {
+            kind: "list",
+            items: [
+              "단순해 보이던 친구 · 모임 기능도 실제 제품에서는 상태와 권한, 데이터 관계가 훨씬 복잡했습니다.",
+              "모바일 개발이 화면을 그리는 일이 아니라 사용자의 행동과 데이터 흐름을 설계하는 일이라는 것을 체감했습니다.",
+              "Backend가 지연됐을 때 기다리는 대신 Firebase · Firestore로 구현 가능한 범위를 찾아 개발을 이어갔습니다.",
+              "클라이언트와 서버가 협업할 때 API 명세와 DTO 구조에 대한 합의가 먼저라는 것을 배웠습니다.",
+              "SDK 선택에는 개발 편의성뿐 아니라 서비스 요구사항과 비용, 운영 조건까지 함께 봐야 했습니다.",
+              "이후에는 새 기능을 만들 때 화면보다 먼저 사용자의 상태가 어떻게 바뀌고 데이터가 어디까지 전달되는지를 생각하게 됐습니다.",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "dive",
+    index: "04",
     name: "DIVE 2026 · 부가가치",
     subtitle: "부산 공공임대주택 맞춤 추천 서비스",
     period: "2026.07.25 – 2026.07.26",
@@ -799,7 +1128,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "pnusa",
-    index: "04",
+    index: "05",
     name: "PNUSA",
     subtitle: "부산대 도서관 좌석 알리미",
     period: "2026.04 · 약 1개월 운영",
@@ -1018,7 +1347,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "kagong",
-    index: "05",
+    index: "06",
     name: "카공어디?",
     subtitle: "가격 먼저 보는 카공 지도",
     role: "1인 개발 · iOS",
@@ -1202,7 +1531,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "festival",
-    index: "06",
+    index: "07",
     name: "축제어디?",
     subtitle: "전국 축제를 지도에서 한눈에",
     period: "2026 · 공모전 심사 중",

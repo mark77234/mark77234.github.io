@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/portfolio/" },
   openGraph: { ...ogBase, url: "/portfolio/" },
   twitter: { card: "summary" },
-  description: `${profile.nameEn}의 포트폴리오 — DailyOPIc, KillingPart, DIVE 2026, PNUSA, 카공어디?, 축제어디?의 문제 정의와 기술적 해결 과정.`,
+  description: `${profile.nameEn}의 포트폴리오 — DailyOPIc, KillingPart, Tomo, DIVE 2026, PNUSA, 카공어디?, 축제어디?의 문제 정의와 기술적 해결 과정.`,
 };
 
 export default function PortfolioPage() {
