@@ -1,5 +1,7 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import ProjectLinks from "@/components/ProjectLinks";
+import SystemArchitectureSection from "@/components/SystemArchitectureSection";
 import type {
   Block,
   CaseStudy as CaseStudyType,
@@ -290,17 +292,26 @@ export default function CaseStudy({ study }: { study: CaseStudyType }) {
       )}
 
       <div className="mt-10 space-y-10 print:mt-6 print:space-y-6">
-        {study.sections.map((section) => (
-          <section key={section.heading} className="print-keep">
-            <h2 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-faint">
-              {section.heading}
-            </h2>
-            <div className="space-y-4">
-              {section.blocks.map((block, i) => (
-                <BlockView key={i} block={block} />
-              ))}
-            </div>
-          </section>
+        {study.sections.map((section, index) => (
+          <Fragment key={section.heading}>
+            <section className="print-keep">
+              <h2 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-faint">
+                {section.heading}
+              </h2>
+              <div className="space-y-4">
+                {section.blocks.map((block, i) => (
+                  <BlockView key={i} block={block} />
+                ))}
+              </div>
+            </section>
+            {/* 아키텍처 다이어그램은 Overview 바로 다음, 화면·엔지니어링 설명 앞에 둔다. */}
+            {index === 0 && study.systemArchitectureAlt && (
+              <SystemArchitectureSection
+                slug={study.slug}
+                alt={study.systemArchitectureAlt}
+              />
+            )}
+          </Fragment>
         ))}
       </div>
     </article>

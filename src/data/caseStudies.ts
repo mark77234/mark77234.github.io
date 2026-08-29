@@ -52,6 +52,11 @@ export type CaseStudy = {
   stack: string[];
   /** 서비스 공식 대표 이미지. Intro 바로 다음에 가장 먼저 노출한다. */
   cover?: Screenshot;
+  /**
+   * 시스템 아키텍처 이미지의 alt. 값을 넣으면 상세 페이지 Overview 다음에 섹션이 붙는다.
+   * 이미지 경로는 /images/<slug>/system_architecture.png 규칙을 따른다.
+   */
+  systemArchitectureAlt?: string;
   links?: ProjectLinks;
   sections: CaseSection[];
 };
@@ -85,6 +90,7 @@ export const caseStudies: CaseStudy[] = [
       height: 941,
       title: "DailyOPIc",
     },
+    systemArchitectureAlt: "DailyOPIc system architecture",
     links: {
       caseStudy: "/portfolio/dailyopic/",
       appStore: "https://apps.apple.com/us/app/daily-opic/id6756842982",
@@ -374,6 +380,7 @@ export const caseStudies: CaseStudy[] = [
       height: 3000,
       title: "KillingPart",
     },
+    systemArchitectureAlt: "KillingPart system architecture",
     links: {
       caseStudy: "/portfolio/killingpart/",
       appStore:
@@ -927,6 +934,7 @@ export const caseStudies: CaseStudy[] = [
       height: 1137,
       title: "부가가치",
     },
+    systemArchitectureAlt: "DIVE 2026 system architecture",
     links: {
       caseStudy: "/portfolio/dive/",
       live: "https://bugagachi.vercel.app/",
@@ -1142,6 +1150,7 @@ export const caseStudies: CaseStudy[] = [
       height: 941,
       title: "PNUSA",
     },
+    systemArchitectureAlt: "PNUSA system architecture",
     links: {
       caseStudy: "/portfolio/pnusa/",
     },
@@ -1360,6 +1369,7 @@ export const caseStudies: CaseStudy[] = [
       height: 941,
       title: "카공어디?",
     },
+    systemArchitectureAlt: "카공어디 system architecture",
     links: {
       caseStudy: "/portfolio/kagong/",
       appStore:
@@ -1545,6 +1555,7 @@ export const caseStudies: CaseStudy[] = [
       height: 941,
       title: "축제어디?",
     },
+    systemArchitectureAlt: "축제어디 system architecture",
     links: {
       caseStudy: "/portfolio/festival/",
       appStore:

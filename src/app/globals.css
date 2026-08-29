@@ -103,6 +103,12 @@ body {
     object-fit: contain;
   }
 
+  /* 아키텍처 다이어그램은 한눈에 읽혀야 해서 상한을 넉넉히 준다. */
+  .print-architecture img {
+    max-height: 92mm;
+    object-fit: contain;
+  }
+
   .print-shot img {
     max-height: 62mm;
     object-fit: contain;
